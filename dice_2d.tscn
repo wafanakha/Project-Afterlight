@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c14c0u4vh41wv"]
+
+[ext_resource type="Script" uid="uid://dia4xdg2wv8wj" path="res://dice_2d.gd" id="1_8gqmv"]
+
+[sub_resource type="SystemFont" id="SystemFont_p1q1e"]
+font_names = PackedStringArray("Fira Code")
+
+[node name="Dice2D" type="Label" unique_id=1834637620]
+offset_right = 40.0
+offset_bottom = 23.0
+pivot_offset = Vector2(20, 20)
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("SystemFont_p1q1e")
+theme_override_font_sizes/font_size = 32
+text = "20"
+script = ExtResource("1_8gqmv")
