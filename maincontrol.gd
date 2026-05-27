@@ -1,11 +1,42 @@
 extends Node2D
-@onready var input_field = $root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/InputPanel/InputMargin/InputVbox/Input
-@onready var story_log = $root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/StoryPanel/StoryMargin/Story
+@onready var menu_tabs = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer
+@onready var input_field = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/Story/InputPanel/InputMargin/InputVbox/Input
+@onready var story_log = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/Story/StoryPanel/StoryMargin/Story
 @onready var http_request = $HTTPRequest
 @onready var health = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/HealthCont/health
 @onready var Exp = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/ExpCont/Exp
 @onready var Energy = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/ExpCont2/Exp
 @onready var item_hflow_ui = $root/rootMargin/rootVbox/HboxBot/ItemPanel/MarginContainer/VBoxContainer/ItemHflow
+@onready var armor = $root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer/armor
+@onready var weapon = $root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer/weapon
+@onready var accessorys = $root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer/accessory
+
+# ON CHARACTER
+
+@onready var char_health_num = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/HealtLabelCont/HealthNumLabel
+@onready var char_health_bar = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/health
+@onready var char_exp_num = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/ExpLabelCont/ExpNumLabel
+@onready var char_exp_bar = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/Exp
+@onready var char_energy_num = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/EnergyLabelCont/EnergyNumLabel
+@onready var char_energy_bar = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/Energy
+
+@onready var show_Strength = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/StrongCont/strengthNum
+@onready var show_Dexterity = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/DextCont/DexterityNum
+@onready var show_Endurance = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/EnduranceCont/EnduranceNum
+@onready var show_Intelligence = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/IntCont/IntNum
+@onready var show_Awareness = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/AwarenessCont/AwarenessNum
+@onready var show_Charisma = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/CharismaCont/CharismaNum
+@onready var show_Luck = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/LuckCont/LuckNum
+
+@onready var char_weapon_name = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/weaponCont/WeaponName
+@onready var char_weapon_desc = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/weaponCont/WeaponDesc
+@onready var char_armor_name = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/ArmorCont/armorName
+@onready var char_armor_desc = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/ArmorCont/armorDesc
+@onready var char_accessory_name = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont/accessoryName
+@onready var char_accessory_desc = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont/accessoryDesc
+@onready var equipment_list = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/VScrollBar/VBoxContainer
+
+
 
 const SERVER_URL = "http://127.0.0.1:8080/generate"
 
@@ -13,105 +44,89 @@ const SERVER_URL = "http://127.0.0.1:8080/generate"
 # Called when the node enters the scene tree for the first time.
 var world_database = {
 	"locations": {
-		"sunflower_village": "A peaceful and brightly lit village, illuminated by giant glowing sunflowers. The residents are friendly and always ready to offer tea.",
-		"giggle_thicket": "A lush forest with simple round leaves. The trees here often whisper corny jokes to anyone passing by.",
-		"bouncy_caverns": "An underground cave where the floor is covered in super squishy pink mushrooms. It's very hard to walk without bouncing into the air."
+		"oakhaven_village": "A classic starter village where the local tavern is rebuilt weekly due to 'adventurer incidents'. The locals are friendly but heavily insured.",
+		"muttering_woods": "An ancient magical forest. The trees don't whisper dark secrets; they just passively-aggressively judge your fashion choices as you walk by.",
+		"mount_inconvenience": "A jagged peak filled with goblin camps. It's not particularly deadly, but the stairs are incredibly steep and there are no handrails."
 	},
-"bestiary": {
-		"sir_beetle": {
-			"desc": "A very serious rhinoceros beetle, wearing armor made from a used tin can. Fights with a stale baguette sword.",
-			"type": "serious"
+	"bestiary": {
+		"unionized_goblin": {
+			"desc": "A standard green goblin wearing a tiny hardhat. He fights fiercely but will absolutely stop mid-swing if it's his mandated 15-minute union break.",
+			"type": "humanoid"
 		},
-		"grumpy_fluff": {
-			"desc": "A heavily furred, round creature that is always grumbling. Rolls at high speed.",
-			"type": "serious"
+		"insecure_mimic": {
+			"desc": "A terrifying monster that takes the shape of treasure chests. This one, however, disguised itself as a very unconvincing, slightly wobbly bar stool.",
+			"type": "monstrosity"
 		},
-		"sir_quackers": {
-			"desc": "A mallard duck knight who takes his duty way too seriously. Armed with a sharp celery stalk and wearing a pot on his head.",
-			"type": "serious"
+		"overencumbered_skeleton": {
+			"desc": "An undead warrior carrying way too much useless loot. It rattles loudly and moves slowly because it refuses to drop its collection of rusty spoons.",
+			"type": "undead"
 		},
-		"clumsy_mantis": {
-			"desc": "A tall, awkward mantis that keeps tripping over its own scythes.",
-			"type": "silly"
+		"orc_life_coach": {
+			"desc": "A massive, hulking Orc who hits you with a club while shouting motivational quotes like, 'PAIN IS JUST WEAKNESS LEAVING THE BODY!'",
+			"type": "humanoid"
 		},
-		"opera_grub": {
-			"desc": "A chubby grub that sings opera at the top of its lungs.",
-			"type": "silly"
-		},
-		"jelly_cube_intern": {
-			"desc": "A gelatinous cube wearing a tiny necktie. Constantly drops its paperwork and accidentally absorbs items it tries to pick up.",
-			"type": "silly"
+		"dramatic_slime": {
+			"desc": "A basic low-level slime that reacts to every attack like an actor in a tragic soap opera.",
+			"type": "ooze"
 		}
 	},
 	"npcs": {
-		"mayor_bloom": {
-			"desc": "A giant, sentient sunflower wearing a tiny top hat. He is the mayor of Sunflower Village but often forgets where he put his leaves.",
-			"personality": "Forgetful, jolly, and overly optimistic."
+		"mayor_bartholomew": {
+			"desc": "The village mayor who is clearly corrupt but terrible at hiding it. He wears a monocle that keeps falling into his soup.",
+			"personality": "Nervous, overly polite, and constantly sweating."
 		},
-		"chuckles_the_tree": {
-			"desc": "An ancient oak tree in Giggle Thicket with a face carved into his bark. He won't let anyone pass until they hear his 'pun of the day'.",
-			"personality": "Pun-obsessed, stubborn, and dad-joke expert."
+		"archmage_fizzlebang": {
+			"desc": "An incredibly powerful wizard who has retired from saving the world and now uses his cosmic magic strictly to ensure his tea is the perfect temperature.",
+			"personality": "Wise, easily distracted, and obsessed with baked goods."
 		},
-		"pogo_the_rabbit": {
-			"desc": "A hyperactive rabbit in Bouncy Caverns wearing mechanical spring-boots. He speaks incredibly fast and loves jumping.",
-			"personality": "Energetic, helpful, and constantly vibrating with excitement."
+		"iron_thumb_olga": {
+			"desc": "A muscular, intimidating dwarven blacksmith with a booming voice. Secretly, she hates forging swords and just wants to open a knitting shop.",
+			"personality": "Gruff on the outside, surprisingly gentle and motherly on the inside."
 		},
-		"madame_whiskers": {
-			"desc": "A sophisticated aristocratic cat who runs a local tea shop. She wears a monocle and judges everyone's table manners.",
-			"personality": "Snobby, elegant, but secretly loves being pet."
-		},
-		"barney_the_boulder": {
-			"desc": "A literal large rock with googly eyes glued on. For some reason, everyone in town treats him like a wise therapist.",
-			"personality": "Silent, stoic, and an excellent listener (because he is a rock)."
-		},
-		"greg_the_goblin": {
-			"desc": "A former dungeon monster who reformed and now works as an over-enthusiastic insurance salesman.",
-			"personality": "Pushy, corporate-minded, but very friendly."
-		},
-		"chef_sizzle": {
-			"desc": "A small fire elemental who runs a bakery. He loves baking but constantly burns the pastries because his body is too hot.",
-			"personality": "Passionate, easily frustrated, and dramatic."
+		"sir_lancelittle": {
+			"desc": "A paladin in shining armor who is incredibly brave but suffers from a terrible sense of direction. He's been looking for the dragon's lair for three years.",
+			"personality": "Heroic, loud, and confidently incorrect."
 		}
 	},
 	"equipment": {
 		"weapons": {
-			"squeaky_nail": "A toy sword that is somehow quite sharp. Every time it hits an enemy, it makes a loud rubber squeaky toy sound. (Boosts Strength)",
-			"stale_baguette": "A loaf of bread so hard it can be used as a blunt weapon or eaten in an emergency for a tiny health boost. (Boosts Strength)"
+			"slightly_used_broadsword": "A standard iron sword with a 'Return to Olga' tag tied to the hilt. It's reliable, if a bit blunt. (Boosts Strength)",
+			"staff_of_splinters": "A magical wooden staff that crackles with arcane energy. Requires thick gloves to hold properly. (Boosts Intelligence)",
+			"tactical_frying_pan": "Heavy, cast-iron, and surprisingly aerodynamic. Perfect for cooking breakfast or causing concussions. (Boosts Strength)"
 		},
 		"armor": {
-			"cozy_moth_cloak": "A super soft cloak woven by kind-hearted moths. It makes the wearer feel extremely cozy and light on their feet. (Boosts Dexterity)",
-			"heavy_tin_can_armor": "Upcycled armor made from soup cans. It provides great defense but makes you waddle loudly when you walk. (Boosts Endurance, lowers Dexterity)",
-			"cardboard_shield": "A shield drawn with magic markers on a piece of cardboard. Surprisingly effective against pollen bombs."
+			"chafing_chainmail": "Provides excellent defense against goblin arrows, but terrible for your inner thighs. (Boosts Endurance, lowers Dexterity)",
+			"vegan_leather_tunic": "Tough armor made entirely from enchanted avocados. Surprisingly durable, but smells faintly of guacamole. (Boosts Dexterity)",
+			"hand_me_down_robes": "Mage robes that belong to someone taller than you. You have to pull them up when you run. (Boosts Intelligence)"
 		},
 		"accessories": {
-			"glasses_of_hindsight": "A pair of silly glasses with eyes painted on the back. It makes it impossible for enemies to sneak up on you. (Boosts Awareness)",
-			"clown_nose": "A bright red squeaky nose. It makes every NPC take you less seriously but love you much more. (Boosts Charisma)",
-			"lucky_clover_pin": "A somewhat crumpled four-leaf clover pinned to your shirt. It makes you feel like today is your lucky day. (Boosts Luck)"
+			"ring_of_mild_convenience": "A glowing magic ring. It doesn't grant power, but it perfectly regulates your body temperature so you're never too hot or cold. (Boosts Endurance)",
+			"amulet_of_pointless_advice": "A talking necklace that whispers things like 'Don't forget to chew your food' during intense combat. (Boosts Awareness)",
+			"lucky_d20_pendant": "A twenty-sided die worn on a string. Sometimes it lands on 20, sometimes on 1. (Boosts Luck)"
 		}
 	},
 	"items": {
-		"sugar_rush_potion": "A ridiculously sweet fizzy drink that makes the player hyperactive. (Boosts Dexterity, but lowers Endurance temporarily)",
-		"book_of_bad_puns": "Reading this deals psychic damage to serious enemies or makes silly enemies laugh uncontrollably. (Boosts Intelligence)",
-		"golden_cupcake": "The ultimate sweet treat baked by the sun itself. Fully restores HP and Energy, leaving a taste of pure joy.",
-		"pocket_confetti": "A handful of colorful paper. Throwing this in combat confuses enemies and makes the battle instantly festive. (Boosts Charisma)"
+		"questionable_red_potion": "A standard healing potion. It restores your HP but tastes exactly like cherry cough syrup. (Restores HP)",
+		"caffeinated_blue_elixir": "A mana potion packed with so much caffeine it makes your teeth vibrate. (Restores Energy, boosts Dexterity temporarily)",
+		"tactical_pocket_sand": "A handful of coarse sand. Throw it in the enemy's eyes for a quick getaway! (Boosts Dexterity)",
+		"scroll_of_fireball": "A highly destructive magic scroll. The warning label says 'Do not read indoors'. (Deals heavy damage)"
 	},
 	"plot_milestones": {
-		"intro_nap": "The player just woke up from a 100-year nap and feels very hungry. Goal: Survive and find breakfast in Sunflower Village.",
-		"hunt_snacks": "The player must collect Golden Cupcakes dropped by silly monsters to fill their stomach.",
-		"find_invites": "The player is searching for 3 legendary missing Party Invites to host the biggest festival in the entire kingdom.",
-		"final_choice": "The player is at the center of the festival with the Ultimate Giant Cake. Must choose: eat it all alone, or share it with all the monsters and become a Party Legend."
+		"intro_tavern": "You are sitting in the Oakhaven Tavern, minding your own business, when a goblin crashes through the window. Typical Tuesday.",
+		"find_the_macguffin": "The Mayor has hired you for 10 gold pieces to find a glowing orb. He doesn't know what it does, but it looks expensive.",
+		"dungeon_delve": "You must navigate the traps of Mount Inconvenience to confront the Bandit King.",
+		"final_boss": "You face the source of all evil in the region, only to discover it's just a misunderstood necromancer who wanted friends."
 	}
 }
 
 # Current Game State Variables
-var current_location_id = "bouncy_caverns"
-var current_enemy_id = "clumsy_mantis" 
-var current_enemy_type = "silly" 
+var current_location_id = "oakhaven_village"
+var current_enemy_id = "unionized_goblin" 
+var current_enemy_type = "humanoid" 
 var current_time = "Morning"
+
 # Story Tracking Variables
-var current_plot_id = "hunt_snacks" 
-var cupcakes_collected = 1 
-var invites_found = 0
+var current_plot_id = "intro_tavern"
 
 # Character Stats & Leveling
 var player_level: int = 1
@@ -125,7 +140,7 @@ var stat_endurance: int = 5     # Physical defense, stamina, and health points
 var stat_intelligence: int = 5  # Magic, puzzle-solving, and witty remarks
 var stat_awareness: int = 5     # Perception, noticing hidden items, secrets, or traps
 var stat_charisma: int = 5      # Persuasion, bartering, and making friends with NPCs
-var stat_luck: int = 10         # Critical hit chances and rare loot drops
+var stat_luck: int = 9         # Critical hit chances and rare loot drops
 
 # Inventory & Equipment
 var inventory_items: Array = []
@@ -139,14 +154,39 @@ func _ready() -> void:
 	health.max_value = 100
 	health.value = 100
 	
-	# Asumsi Anda punya EnergyBar dan ExpBar di UI
-	if has_node("stat/EnergyBar"):
-		Energy.max_value = 100
-		Energy.value = 100
+	Energy.max_value = 100
+	Energy.value = 50
 		
-	if has_node("stat/ExpBar"):
-		Exp.max_value = exp_to_next_level
-		Exp.value = player_exp
+	Exp.max_value = exp_to_next_level
+	Exp.value = player_exp
+	
+	update_equipment_inventory_ui()
+	
+	
+	# SET UP UI 
+		
+	char_health_bar.value = health.value
+	char_exp_bar.value = Exp.value
+	char_energy_bar.value = Energy.value
+	
+	char_health_num.text = "%s/%s" % [health.value, health.max_value]
+	char_energy_num.text = "%s/%s" % [Energy.value, Energy.max_value]
+	char_exp_num.text = "%s/%s" % [Exp.value, Exp.max_value]
+	
+	weapon.text = equipped_weapon
+	armor.text = equipped_armor
+	accessorys.text = equipped_accessory
+	char_armor_name.text = equipped_armor
+	char_weapon_name.text = equipped_weapon
+	char_accessory_name.text = equipped_accessory
+	
+	show_Strength.text = str(stat_strength) 
+	show_Dexterity.text = str(stat_dexterity)
+	show_Endurance.text = str(stat_endurance)
+	show_Intelligence.text = str(stat_intelligence)
+	show_Awareness.text = str(stat_awareness)
+	show_Charisma.text = str(stat_charisma)
+	show_Luck.text = str(stat_luck)
 
 	input_field.text_submitted.connect(_on_input_submitted)
 	http_request.request_completed.connect(_on_request_completed)
@@ -250,19 +290,21 @@ func _execute_game_logic(data: Dictionary):
 		var health_bar = health
 		health_bar.value += hp_change
 		health_bar.value = clamp(health_bar.value, 0, health_bar.max_value)
-		health_bar.get_node("Label").text = "HP: " + str(health_bar.value) + "/" + str(health_bar.max_value)
+		char_health_bar.value = health_bar.value
+		char_health_num.text = str(health_bar.value) + "/" + str(health_bar.max_value)
 		
 		if hp_change < 0:
 			story_log.text += "\n[color=red]>>> Ouch! You lost " + str(abs(hp_change)) + " HP! <<<[/color]\n"
 		else:
 			story_log.text += "\n[color=green]>>> Yay! You recovered " + str(hp_change) + " HP! <<<[/color]\n"
 			
-	if energy_change != 0 and has_node("stat/EnergyBar"):
+	if energy_change != 0 :
 		var energy_bar = Energy
 		energy_bar.value += energy_change
 		energy_bar.value = clamp(energy_bar.value, 0, energy_bar.max_value)
-		energy_bar.get_node("Label").text = "Energy: " + str(energy_bar.value) + "/" + str(energy_bar.max_value)
-
+		char_energy_bar.value = energy_bar.value
+		char_energy_num.text = str(energy_bar.value) + "/" + str(energy_bar.max_value)
+	
 	var exp_gained = data.get("exp_gained", 0)
 	if exp_gained > 0:
 		_add_exp(exp_gained)
@@ -304,30 +346,21 @@ func _execute_game_logic(data: Dictionary):
 	if target_status != "none" and target_status != "" and target_status != null:
 		story_log.text += "[color=orange]>>> Enemy is now: " + str(target_status) + " <<<[/color]\n"
 
-	# INVENTORY & EQUIPMENT GIVEN
 	if data.has("items_given"):
 		var new_items = data["items_given"]
-		
-		# 1. Sesuaikan path ini dengan letak HFlowContainer Anda yang baru
-		
-		
 		for item in new_items:
 			inventory_items.append(item)
-			if item_hflow_ui:
-				var item_button = Button.new()
-				item_button.text = str(item).replace("_", " ") 
-				item_hflow_ui.add_child(item_button)
-				
-			story_log.text += "[color=aqua]>>> You got a consumable: " + str(item) + " <<<[/color]\n"
+			story_log.text += "[color=aqua]>>> You got a consumable: " + str(item).replace("_", " ").capitalize() + " <<<[/color]\n"
+			
+		update_items_inventory_ui()
 
 	if data.has("equipment_given"):
 		var new_equips = data["equipment_given"]
-		var equip_list_ui = $items/EquipList # Buat UI List baru jika perlu
 		for equip in new_equips:
 			inventory_equipment.append(equip)
-			if equip_list_ui: equip_list_ui.add_item(equip)
-			story_log.text += "[color=magenta]>>> You got NEW EQUIPMENT: " + str(equip) + " <<<[/color]\n"
-
+			story_log.text += "[color=magenta]>>> `You got NEW EQUIPMENT: " + str(equip) + " <<<[/color]\n"
+		update_equipment_inventory_ui()
+		
 	# GAME OVER CHECK
 	if health.value <= 0:
 		story_log.text += "\n[color=red][b]=== YOU FAINTED D. THE FESTIVAL IS CANCELLED ===[/b][/color]\n"
@@ -337,14 +370,14 @@ func _execute_game_logic(data: Dictionary):
 func _add_exp(amount: int):
 	player_exp += amount
 	story_log.text += "[color=gold]>>> Gained " + str(amount) + " EXP! <<<[/color]\n"
-	
+	print_debug(player_exp)
+	Exp.value = player_exp
+	char_exp_bar.value = player_exp
+	char_exp_num.text = str(player_exp) + "/" + str(exp_to_next_level)
 	while player_exp >= exp_to_next_level:
 		_level_up()
 		
-	if has_node("stat/ExpBar"):
-		Exp.max_value = exp_to_next_level
-		Exp.value = player_exp
-		#Exp.get_node("Label").text = "Exp     " + str(player_exp) + "/" + str(exp_to_next_level)
+
 
 func _level_up():
 	player_level += 1
@@ -352,10 +385,276 @@ func _level_up():
 	exp_to_next_level = int(exp_to_next_level * 1.5)
 	
 	health.value = health.max_value
-	#health.get_node("Label").text = "Health" + str(health.value) + "/" + str(health.max_value)
-	
-	story_log.text += "\n[color=yellow][b]*** LEVEL UP! You are now Level " + str(player_level) + "! ***[/b][/color]\n"
+	Exp.value = player_exp
+	char_exp_bar.value = player_exp
+	char_exp_num.text = str(player_exp) + "/" + str(exp_to_next_level)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+		
+	story_log.text += "\n[color=yellow][b]*** LEVEL UP! You are now Level " + str(player_level) + "! ***[/b][/color]\n"
+func update_equipment_inventory_ui():
+	if not equipment_list:
+		return
+		
+	# 1. Bersihkan daftar lama
+	for child in equipment_list.get_children():
+		child.queue_free()
+		
+	var custom_font = load("res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf") 
+
+
+	# --- FITUR BARU: TOMBOL UNEQUIP KHUSUS ---
+	# Memunculkan tombol untuk melepas barang di bagian atas daftar
+	var has_equipped_something = false
+	var equipped_slots = [
+		{"type": "weapon", "id": equipped_weapon},
+		{"type": "armor", "id": equipped_armor},
+		{"type": "accessory", "id": equipped_accessory}
+	]
+	
+	for slot in equipped_slots:
+		if slot["id"] != "":
+			has_equipped_something = true
+			var row_hbox = HBoxContainer.new()
+			row_hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			
+			var item_label = Label.new()
+			item_label.text = "[Wearing] " + str(slot["id"]).replace("_", " ").capitalize()
+			item_label.add_theme_color_override("font_color", Color("#9C4543")) # Warna merah pudar
+			if custom_font != null: item_label.add_theme_font_override("font", custom_font)
+			item_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL 
+			
+			var unequip_btn = Button.new()
+			unequip_btn.text = "Unequip"
+			if custom_font != null: unequip_btn.add_theme_font_override("font", custom_font)
+			
+			var btn_style = StyleBoxFlat.new()
+			btn_style.bg_color = Color("#9C4543") # Tombol merah
+			btn_style.content_margin_left = 10
+			btn_style.content_margin_right = 10
+			unequip_btn.add_theme_stylebox_override("normal", btn_style)
+			unequip_btn.add_theme_color_override("font_color", Color("#F2EBE1"))
+			
+			# Sambungkan ke fungsi lepas barang
+			unequip_btn.pressed.connect(func(): _unequip_slot(slot["type"]))
+			
+			row_hbox.add_child(item_label)
+			row_hbox.add_child(unequip_btn)
+			equipment_list.add_child(row_hbox)
+
+	# Tambahkan garis pembatas jika ada tombol unequip di atas
+	if has_equipped_something:
+		var separator = HSeparator.new()
+		equipment_list.add_child(separator)
+	# -----------------------------------------
+
+	# 2. Cek apakah tas perlengkapan kosong
+	if inventory_equipment.size() == 0:
+		var empty_label = Label.new()
+		empty_label.text = "- Bag is empty -"
+		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		empty_label.add_theme_color_override("font_color", Color("#B0A89D")) 
+		equipment_list.add_child(empty_label)
+		return
+
+	# 3. Masukkan item dari tas (Sama seperti sebelumnya)
+	for equip_id in inventory_equipment:
+		var row_hbox = HBoxContainer.new()
+		row_hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL 
+		
+		var item_label = Label.new()
+		var clean_name = str(equip_id).replace("_", " ").capitalize()
+		item_label.text = clean_name
+		item_label.add_theme_color_override("font_color", Color("#4A443F"))
+		if custom_font != null:
+			item_label.add_theme_font_override("font", custom_font)
+		item_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL 
+		
+		var equip_button = Button.new()
+		equip_button.text = "Equip"
+		if custom_font != null:
+			equip_button.add_theme_font_override("font", custom_font)
+		
+		var btn_style = StyleBoxFlat.new()
+		btn_style.bg_color = Color("#4A443F") 
+		btn_style.content_margin_left = 10
+		btn_style.content_margin_right = 10
+		equip_button.add_theme_stylebox_override("normal", btn_style)
+		equip_button.add_theme_color_override("font_color", Color("#F2EBE1")) 
+		
+		equip_button.pressed.connect(func(): _on_equipment_item_selected(equip_id))
+		
+		row_hbox.add_child(item_label)
+		row_hbox.add_child(equip_button)
+		
+		equipment_list.add_child(row_hbox)
+
+func _on_equipment_item_selected(equip_id: String):
+	var equipment_db = world_database["equipment"]
+	var equip_type = ""
+	var equip_desc = ""
+
+	if equipment_db["weapons"].has(equip_id):
+		equip_type = "weapon"
+		equip_desc = equipment_db["weapons"][equip_id]
+	elif equipment_db["armor"].has(equip_id):
+		equip_type = "armor"
+		equip_desc = equipment_db["armor"][equip_id]
+	elif equipment_db["accessories"].has(equip_id):
+		equip_type = "accessory"
+		equip_desc = equipment_db["accessories"][equip_id]
+
+	if equip_type == "":
+		print("Sistem Error: Item ", equip_id, " tidak ditemukan di world_database!")
+		return
+
+	var old_equip = ""
+	
+	if equip_type == "weapon":
+		old_equip = equipped_weapon
+		equipped_weapon = equip_id
+	elif equip_type == "armor":
+		old_equip = equipped_armor
+		equipped_armor = equip_id
+	elif equip_type == "accessory":
+		old_equip = equipped_accessory
+		equipped_accessory = equip_id
+
+	inventory_equipment.erase(equip_id)
+	
+	if old_equip != "" and old_equip != "None":
+		inventory_equipment.append(old_equip)
+
+	var clean_name = equip_id.replace("_", " ").capitalize()
+
+	if equip_type == "weapon":
+		weapon.text = clean_name
+		char_weapon_name.text = clean_name
+		char_weapon_desc.text = equip_desc
+	elif equip_type == "armor":
+		armor.text = clean_name
+		char_armor_name.text = clean_name
+		char_armor_desc.text = equip_desc
+	elif equip_type == "accessory":
+		accessorys.text = clean_name
+		char_accessory_name.text = clean_name
+		char_accessory_desc.text = equip_desc
+
+	story_log.text += "\n[color=yellow]>>> You equipped: " + clean_name + " <<<[/color]\n"
+	
+	update_equipment_inventory_ui()
+	
+func update_items_inventory_ui():
+	if not item_hflow_ui:
+		return
+		
+	for child in item_hflow_ui.get_children():
+		child.queue_free()
+		
+	var custom_font = load("res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf")
+		
+	for item_id in inventory_items:
+		var item_button = Button.new()
+		
+		item_button.text = str(item_id).replace("_", " ").capitalize()
+		
+		if custom_font != null:
+			item_button.add_theme_font_override("font", custom_font)
+			
+		item_button.add_theme_color_override("font_color", Color("#4A443F"))
+		item_button.add_theme_color_override("font_hover_color", Color("#9C4543"))
+		item_button.add_theme_color_override("font_pressed_color", Color("#9C4543"))
+		
+		item_button.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
+		item_button.add_theme_stylebox_override("hover", StyleBoxEmpty.new())
+		item_button.add_theme_stylebox_override("pressed", StyleBoxEmpty.new())
+		item_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+		
+		item_button.pressed.connect(func(): _on_inventory_item_selected(item_id))
+		
+		item_hflow_ui.add_child(item_button)
+
+func _on_inventory_item_selected(item_id: String):
+	if not world_database["items"].has(item_id):
+		print("Sistem Error: Item tidak dikenali.")
+		return
+
+	inventory_items.erase(item_id)
+	
+	var clean_name = item_id.replace("_", " ").capitalize()
+	story_log.text += "\n[color=yellow]>>> You used: " + clean_name + " <<<[/color]\n"
+	
+	if item_id == "golden_cupcake":
+		health.value = health.max_value
+		Energy.value = Energy.max_value
+		story_log.text += "[color=green]>>> HP and Energy fully restored! You feel pure joy. <<<[/color]\n"
+		
+	elif item_id == "sugar_rush_potion":
+		stat_dexterity += 2
+		stat_endurance -= 1
+		story_log.text += "[color=green]>>> You feel incredibly fast! (DEX +2, END -1) <<<[/color]\n"
+		
+	elif item_id == "book_of_bad_puns":
+		stat_intelligence += 2
+		story_log.text += "[color=green]>>> You learned a terrible joke! (INT +2) <<<[/color]\n"
+		
+	elif item_id == "pocket_confetti":
+		stat_charisma += 1
+		story_log.text += "[color=green]>>> It's a party! (CHA +1) <<<[/color]\n"
+	else:
+		story_log.text += "[color=gray]>>> It doesn't seem to do anything right now. <<<[/color]\n"
+		
+	char_health_bar.value = health.value
+	char_health_num.text = "%s/%s" % [health.value, health.max_value]
+	
+	char_energy_bar.value = Energy.value
+	char_energy_num.text = "%s/%s" % [Energy.value, Energy.max_value]
+	
+	update_items_inventory_ui()
+
+func _unequip_slot(slot_type: String):
+	var item_to_remove = ""
+	
+	# 1. Tentukan apa yang mau dilepas, lalu kosongkan slotnya
+	if slot_type == "weapon" and equipped_weapon != "":
+		item_to_remove = equipped_weapon
+		equipped_weapon = ""
+		weapon.text = "-"
+		char_weapon_name.text = "Bare Hands"
+		char_weapon_desc.text = ""
+	elif slot_type == "armor" and equipped_armor != "":
+		item_to_remove = equipped_armor
+		equipped_armor = ""
+		armor.text = "-"
+		char_armor_name.text = "No Armor"
+		char_armor_desc.text = ""
+	elif slot_type == "accessory" and equipped_accessory != "":
+		item_to_remove = equipped_accessory
+		equipped_accessory = ""
+		accessorys.text = "-"
+		char_accessory_name.text = "No Accessory"
+		char_accessory_desc.text = ""
+		
+	# 2. Jika ada barang yang dilepas, masukkan ke tas dan perbarui UI
+	if item_to_remove != "":
+		inventory_equipment.append(item_to_remove)
+		var clean_name = item_to_remove.replace("_", " ").capitalize()
+		story_log.text += "\n[color=orange]>>> You took off: " + clean_name + " <<<[/color]\n"
+		
+		# Gambar ulang daftarnya
+		update_equipment_inventory_ui()
+
 func _process(delta: float) -> void:
+	
 	pass
+
+
+func _on_button_story_pressed() -> void:
+	menu_tabs.current_tab = 1
+
+
+func _on_button_character_pressed() -> void:
+	menu_tabs.current_tab = 2
+
+
+func _on_button_settings_pressed() -> void:
+	menu_tabs.current_tab = 0

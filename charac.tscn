@@ -1,0 +1,444 @@
+[gd_scene format=3 uid="uid://64fhm53wtqd5"]
+
+[ext_resource type="FontFile" uid="uid://bxc4duq4phkpl" path="res://assets/font/MerriweatherSans-VariableFont_wght.ttf" id="1_5vwbf"]
+[ext_resource type="FontFile" uid="uid://dvp75b0xe8pta" path="res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf" id="2_7xy7w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8eyo4"]
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_mniru"]
+base_font = ExtResource("2_7xy7w")
+spacing_glyph = 1
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7xy7w"]
+color = Color(0.8901961, 0.85882354, 0.79607844, 1)
+thickness = 2
+
+[sub_resource type="FontVariation" id="FontVariation_7xy7w"]
+base_font = ExtResource("1_5vwbf")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_662i7"]
+bg_color = Color(0.789939, 0.7094683, 0.63408387, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mniru"]
+bg_color = Color(0.6117647, 0.27058825, 0.2627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnyvc"]
+bg_color = Color(0.789939, 0.7094683, 0.63408387, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2n0y"]
+bg_color = Color(0.40392157, 0.5254902, 0.6313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tm0w"]
+bg_color = Color(0.789939, 0.7094683, 0.63408387, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a36yf"]
+bg_color = Color(0.6, 0.4509804, 0.3019608, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_662i7"]
+base_font = ExtResource("2_7xy7w")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_64o0o"]
+color = Color(0.8901961, 0.85882354, 0.79607844, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ejj7q"]
+color = Color(0.8901961, 0.85882354, 0.79607844, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7xy7w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xy7w"]
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7490196, 0.6745098, 0.6039216, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_662i7"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1158407153]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8eyo4")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1880656138]
+layout_mode = 2
+theme_override_constants/margin_left = 21
+theme_override_constants/margin_top = 11
+
+[node name="CharacterVbox" type="VBoxContainer" parent="MarginContainer" unique_id=194659062]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CharacterVbox" unique_id=8693550]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_mniru")
+theme_override_font_sizes/font_size = 18
+text = "CHARACTER PROFILE"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/CharacterVbox" unique_id=68550053]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_7xy7w")
+
+[node name="botHbox" type="HBoxContainer" parent="MarginContainer/CharacterVbox" unique_id=1641667741]
+layout_mode = 2
+theme_override_constants/separation = 31
+
+[node name="statVbox" type="VBoxContainer" parent="MarginContainer/CharacterVbox/botHbox" unique_id=752345096]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1856342519]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="VITALS" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/MarginContainer" unique_id=504114376]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 18
+text = "VITALS"
+
+[node name="HealtLabelCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=560059036]
+layout_mode = 2
+theme_override_constants/separation = 180
+alignment = 1
+
+[node name="healthLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/HealtLabelCont" unique_id=1739126329]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 14
+text = "Health"
+
+[node name="HealthNumLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/HealtLabelCont" unique_id=526689215]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 14
+text = "150/250"
+
+[node name="health" type="ProgressBar" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=15097825]
+custom_minimum_size = Vector2(0, 8.605)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_662i7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mniru")
+value = 37.18
+show_percentage = false
+
+[node name="ExpLabelCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1630065537]
+layout_mode = 2
+theme_override_constants/separation = 199
+
+[node name="ExpLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/ExpLabelCont" unique_id=416279092]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 14
+text = "Health"
+
+[node name="ExpNumLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/ExpLabelCont" unique_id=1817979837]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 14
+text = "17/20"
+
+[node name="Exp" type="ProgressBar" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=537961245]
+custom_minimum_size = Vector2(0, 8.605)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_lnyvc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b2n0y")
+value = 37.18
+show_percentage = false
+
+[node name="EnergyLabelCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=545169135]
+layout_mode = 2
+theme_override_constants/separation = 191
+
+[node name="EnergyLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/EnergyLabelCont" unique_id=1971260394]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 14
+text = "Energy"
+
+[node name="EnergyNumLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/EnergyLabelCont" unique_id=1767228350]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 14
+text = "Sleepy"
+
+[node name="Energy" type="ProgressBar" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=938790908]
+custom_minimum_size = Vector2(0, 8.605)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_7tm0w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a36yf")
+value = 37.18
+show_percentage = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=990861350]
+layout_mode = 2
+theme_override_constants/margin_top = 11
+
+[node name="ATTRIBUTES" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/MarginContainer2" unique_id=1331564424]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 18
+text = "ATTRIBUTES"
+
+[node name="StrongCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=118667391]
+layout_mode = 2
+theme_override_constants/separation = 217
+
+[node name="strength" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/StrongCont" unique_id=1661131646]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "Strength"
+
+[node name="strengthNum" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/StrongCont" unique_id=1736608704]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "5"
+
+[node name="DextCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=671820288]
+layout_mode = 2
+theme_override_constants/separation = 212
+
+[node name="Dexterity" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/DextCont" unique_id=1499188803]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "Dexterity"
+
+[node name="DexterityNum" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/DextCont" unique_id=38067668]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "4"
+
+[node name="EnduranceCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1188460264]
+layout_mode = 2
+theme_override_constants/separation = 204
+
+[node name="Endurance" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/EnduranceCont" unique_id=1153027869]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "Endurance"
+
+[node name="EnduranceNum" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/EnduranceCont" unique_id=74127493]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "7"
+
+[node name="IntCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=151645631]
+layout_mode = 2
+theme_override_constants/separation = 199
+
+[node name="Int" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/IntCont" unique_id=1186667282]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "Intelligence"
+
+[node name="IntNum" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/IntCont" unique_id=196575963]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "2"
+
+[node name="AwarenessCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1440435712]
+layout_mode = 2
+theme_override_constants/separation = 204
+
+[node name="Awareness" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/AwarenessCont" unique_id=537879082]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "Awareness"
+
+[node name="AwarenessNum" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/AwarenessCont" unique_id=1928371979]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "4"
+
+[node name="CharismaCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=330505978]
+layout_mode = 2
+theme_override_constants/separation = 211
+
+[node name="Charisma" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/CharismaCont" unique_id=1223360726]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "Charisma"
+
+[node name="CharismaNum" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/CharismaCont" unique_id=1051978627]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "6"
+
+[node name="LuckCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1369692263]
+layout_mode = 2
+theme_override_constants/separation = 242
+
+[node name="Luck" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/LuckCont" unique_id=1442096307]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "Luck"
+
+[node name="LuckNum" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/LuckCont" unique_id=1901477553]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 14
+text = "8"
+
+[node name="equipVbox" type="VBoxContainer" parent="MarginContainer/CharacterVbox/botHbox" unique_id=1844661453]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=1695499955]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/MarginContainer" unique_id=1779241788]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 18
+text = "EQUIPMENT"
+
+[node name="weaponCont" type="VBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=1331383901]
+layout_mode = 2
+
+[node name="weaponLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/weaponCont" unique_id=997264858]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 12
+text = "WEAPON"
+
+[node name="WeaponName" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/weaponCont" unique_id=1703414079]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+text = "Squeaky Nail"
+
+[node name="WeaponDesc" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/weaponCont" unique_id=1057237431]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 10
+text = "Deals physical and psychological damage. "
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=1826872763]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_64o0o")
+
+[node name="ArmorCont" type="VBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=314524837]
+layout_mode = 2
+
+[node name="armorLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/ArmorCont" unique_id=768335520]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 12
+text = "ARMOR"
+
+[node name="armorName" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/ArmorCont" unique_id=1547508497]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+text = "Cozy Moth Cloak"
+
+[node name="armorDesc" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/ArmorCont" unique_id=1307315026]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 10
+text = "Very soft. Boosts Dexterity"
+autowrap_mode = 3
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=2104117976]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ejj7q")
+
+[node name="AccessoryCont" type="VBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=1408471402]
+layout_mode = 2
+
+[node name="accessoryLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont" unique_id=1869155535]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xy7w")
+theme_override_font_sizes/font_size = 12
+text = "ACCESSORY"
+
+[node name="accessoryName" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont" unique_id=599815053]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+text = "Clown Nose"
+
+[node name="accessoryDesc" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont" unique_id=2110617116]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_662i7")
+theme_override_font_sizes/font_size = 10
+text = "Honks when squeezed. +2 Charisma. "
+autowrap_mode = 3
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=2055432343]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxEmpty_7xy7w")
+
+[node name="VScrollBar" type="VScrollBar" parent="MarginContainer/CharacterVbox/botHbox/equipVbox" unique_id=605317463]
+custom_minimum_size = Vector2(234.785, 114.31)
+layout_mode = 2
+theme_override_styles/scroll = SubResource("StyleBoxFlat_7xy7w")
+theme_override_styles/grabber = SubResource("StyleBoxEmpty_662i7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/VScrollBar" unique_id=1283885821]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

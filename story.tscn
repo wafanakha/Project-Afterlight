@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://cqvglbj3hdbf5"]
+
+[ext_resource type="FontFile" uid="uid://dvp75b0xe8pta" path="res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf" id="1_76aiv"]
+[ext_resource type="FontFile" uid="uid://bxc4duq4phkpl" path="res://assets/font/MerriweatherSans-VariableFont_wght.ttf" id="2_27gb3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gst2a"]
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_27gb3"]
+base_font = ExtResource("1_76aiv")
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27gb3"]
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwkhw"]
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ukgh"]
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7v7q"]
+bg_color = Color(0.91714054, 0.8930267, 0.8448509, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6he7n"]
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+
+[node name="TextVbox" type="VBoxContainer" unique_id=982034321]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+
+[node name="StoryPanel" type="PanelContainer" parent="." unique_id=1466907699]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_gst2a")
+
+[node name="StoryMargin" type="MarginContainer" parent="StoryPanel" unique_id=1079153492]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Story" type="RichTextLabel" parent="StoryPanel/StoryMargin" unique_id=1346169497]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 1
+theme_override_fonts/normal_font = SubResource("FontVariation_27gb3")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_27gb3")
+bbcode_enabled = true
+text = "The story begins in the village of Solstice, which is in the midst of celebrating the lively Sun Festival. That peace is shattered in an instant when the blue sky suddenly cracks like breaking glass, spewing out dark energy. The shadows within the village come to life, transforming into Void-Stalker monsters that begin to slaughter the villagers.
+
+Amidst the chaos, your latent powers as Veilwalkers awaken to fight back against the monsters. However, your victory is cut short by the appearance of The Darkness Knight. He does not kill you; instead, he delivers a chilling warning of a coming apocalypse before vanishing back into a portal.
+
+Realizing that the world’s protector the Veil has been damaged, Grandma Sage urges you to depart immediately for the City of Luminara."
+
+[node name="InputPanel" type="PanelContainer" parent="." unique_id=512627836]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bwkhw")
+
+[node name="InputMargin" type="MarginContainer" parent="InputPanel" unique_id=1191214385]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 9
+
+[node name="InputVbox" type="VBoxContainer" parent="InputPanel/InputMargin" unique_id=1555721623]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Inputlabel" type="Label" parent="InputPanel/InputMargin/InputVbox" unique_id=697137828]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_27gb3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ukgh")
+text = "what do you do"
+
+[node name="Input" type="LineEdit" parent="InputPanel/InputMargin/InputVbox" unique_id=1607462369]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0.03529412, 0, 0.1882353)
+theme_override_fonts/font = ExtResource("1_76aiv")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_s7v7q")
+theme_override_styles/focus = SubResource("StyleBoxFlat_6he7n")
+placeholder_text = "i attack the monster"

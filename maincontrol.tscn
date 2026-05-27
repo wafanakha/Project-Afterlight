@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://ddyiqf0s08x18"]
 
 [ext_resource type="Script" uid="uid://csu52pcn3uls7" path="res://maincontrol.gd" id="1_yvtks"]
+[ext_resource type="PackedScene" uid="uid://4hqeo60hxtrh" path="res://settings.tscn" id="3_js0h8"]
+[ext_resource type="PackedScene" uid="uid://cqvglbj3hdbf5" path="res://story.tscn" id="3_l7ge6"]
+[ext_resource type="PackedScene" uid="uid://64fhm53wtqd5" path="res://charac.tscn" id="4_28y57"]
+[ext_resource type="FontFile" uid="uid://dvp75b0xe8pta" path="res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf" id="5_28y57"]
+[ext_resource type="FontFile" uid="uid://bxc4duq4phkpl" path="res://assets/font/MerriweatherSans-VariableFont_wght.ttf" id="5_l61mk"]
 [ext_resource type="Texture2D" uid="uid://de64fi1wpaxy3" path="res://assets/image(1).png" id="10_y4m8e"]
 [ext_resource type="PackedScene" uid="uid://c14c0u4vh41wv" path="res://dice_2d.tscn" id="11_yvtks"]
 
@@ -10,79 +15,145 @@ bg_color = Color(0.7287084, 0.6734658, 0.5626907, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh8u1"]
 bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w022d"]
-bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_5ru08"]
-font_names = PackedStringArray("Fantasy")
-subpixel_positioning = 0
-keep_rounding_remainders = false
-msdf_size = 58
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkhhs"]
-bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lav33"]
-bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_yvtks"]
-font_names = PackedStringArray("FreeMono")
-multichannel_signed_distance_field = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a51tb"]
-bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_qkhhs"]
-font_names = PackedStringArray("P052")
-multichannel_signed_distance_field = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvtks"]
-bg_color = Color(0.91714054, 0.8930267, 0.8448509, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqsu1"]
-bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sy77i"]
+bg_color = Color(0.69411767, 0.6392157, 0.53333336, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4m8e"]
 bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
 border_width_left = 2
 border_color = Color(0.7294118, 0.6745098, 0.56078434, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_y4m8e"]
+base_font = ExtResource("5_l61mk")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8duye"]
+color = Color(0.69411767, 0.6392157, 0.53333336, 1)
+thickness = 2
+
+[sub_resource type="FontVariation" id="FontVariation_maiv8"]
+base_font = ExtResource("5_l61mk")
+
+[sub_resource type="SystemFont" id="SystemFont_8duye"]
+font_names = PackedStringArray("P052")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_l7ge6"]
+color = Color(0.69411767, 0.6392157, 0.53333336, 1)
+thickness = 0
+
+[sub_resource type="FontVariation" id="FontVariation_5ru08"]
+base_font = ExtResource("5_l61mk")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sy77i"]
+color = Color(0.69411767, 0.6392157, 0.53333336, 1)
+thickness = 0
+
+[sub_resource type="FontVariation" id="FontVariation_0ctuq"]
+base_font = ExtResource("5_l61mk")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_l61mk"]
+content_margin_left = 1813.0
+color = Color(0.69411767, 0.6392157, 0.53333336, 1)
+grow_begin = 8.0
+grow_end = 8.0
+thickness = 2
+
+[sub_resource type="FontVariation" id="FontVariation_a51tb"]
+base_font = ExtResource("5_l61mk")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8duye"]
 bg_color = Color(0.8039216, 0.5372549, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7ge6"]
 bg_color = Color(0.69411767, 0.6392157, 0.53333336, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
-[sub_resource type="Shortcut" id="Shortcut_8duye"]
+[sub_resource type="InputEventKey" id="InputEventKey_8duye"]
+device = -1
+keycode = 49
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_l61mk"]
+events = [SubResource("InputEventKey_8duye")]
+
+[sub_resource type="FontVariation" id="FontVariation_lav33"]
+base_font = ExtResource("5_l61mk")
+
+[sub_resource type="InputEventKey" id="InputEventKey_sy77i"]
+device = -1
+keycode = 50
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_l7ge6"]
+events = [SubResource("InputEventKey_sy77i")]
+
+[sub_resource type="FontVariation" id="FontVariation_wqsu1"]
+base_font = ExtResource("5_l61mk")
+
+[sub_resource type="InputEventKey" id="InputEventKey_js0h8"]
+device = -1
+keycode = 51
+unicode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_28y57"]
+events = [SubResource("InputEventKey_js0h8")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ctuq"]
 bg_color = Color(0.874216, 0.8210894, 0.7678761, 1)
 
-[sub_resource type="SystemFont" id="SystemFont_y4m8e"]
-font_names = PackedStringArray("P052")
-multichannel_signed_distance_field = true
+[sub_resource type="FontVariation" id="FontVariation_l61mk"]
+base_font = ExtResource("5_28y57")
+spacing_glyph = 1
+spacing_space = 1
 
-[sub_resource type="SystemFont" id="SystemFont_maiv8"]
-font_names = PackedStringArray("Fantasy")
+[sub_resource type="FontVariation" id="FontVariation_js0h8"]
+base_font = ExtResource("5_28y57")
+spacing_glyph = 1
+
+[sub_resource type="FontVariation" id="FontVariation_xta71"]
+base_font = ExtResource("5_l61mk")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjfiv"]
 bg_color = Color(0.789939, 0.7094683, 0.63408387, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55tpr"]
 bg_color = Color(0.45490196, 0.02745098, 0.02745098, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="FontVariation" id="FontVariation_qkhhs"]
+base_font = ExtResource("5_l61mk")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdwi0"]
 bg_color = Color(0.09411765, 0.41960785, 0.54901963, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="FontVariation" id="FontVariation_yvtks"]
+base_font = ExtResource("5_l61mk")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h27dm"]
 bg_color = Color(0.27727404, 0.43803832, 0.1191512, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_maiv8"]
 bg_color = Color(0.8745098, 0.81960785, 0.76862746, 1)
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_8duye"]
-color = Color(0.69411767, 0.6392157, 0.53333336, 1)
-thickness = 2
+[sub_resource type="FontVariation" id="FontVariation_28y57"]
+base_font = ExtResource("5_l61mk")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ruigb"]
 bg_color = Color(0.8745098, 0.81960785, 0.76862746, 1)
@@ -130,80 +201,32 @@ layout_mode = 2
 texture = ExtResource("10_y4m8e")
 expand_mode = 1
 
-[node name="Textmargin" type="MarginContainer" parent="root/rootMargin/rootVbox/TopHbox" unique_id=190565303]
+[node name="MarginContainer" type="MarginContainer" parent="root/rootMargin/rootVbox/TopHbox" unique_id=190565303]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextHbox" type="VBoxContainer" parent="root/rootMargin/rootVbox/TopHbox/Textmargin" unique_id=530258928]
+[node name="TabContainer" type="TabContainer" parent="root/rootMargin/rootVbox/TopHbox/MarginContainer" unique_id=1291122658]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sy77i")
+current_tab = 2
+tabs_visible = false
 
-[node name="StoryPanel" type="PanelContainer" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox" unique_id=43496348]
+[node name="PanelContainer" parent="root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer" unique_id=1031311609 instance=ExtResource("3_js0h8")]
+visible = false
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_w022d")
+metadata/_tab_index = 0
 
-[node name="StoryMargin" type="MarginContainer" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/StoryPanel" unique_id=814908413]
+[node name="Story" parent="root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer" unique_id=933930773 instance=ExtResource("3_l7ge6")]
+visible = false
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
+metadata/_tab_index = 1
 
-[node name="Story" type="RichTextLabel" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/StoryPanel/StoryMargin" unique_id=1585089407]
+[node name="character" parent="root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer" unique_id=1158407153 instance=ExtResource("4_28y57")]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = SubResource("SystemFont_5ru08")
-theme_override_font_sizes/normal_font_size = 14
-theme_override_font_sizes/bold_font_size = 14
-theme_override_font_sizes/bold_italics_font_size = 14
-theme_override_font_sizes/italics_font_size = 14
-theme_override_font_sizes/mono_font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxFlat_qkhhs")
-bbcode_enabled = true
-text = "The story begins in the village of Solstice, which is in the midst of celebrating the lively Sun Festival. That peace is shattered in an instant when the blue sky suddenly cracks like breaking glass, spewing out dark energy. The shadows within the village come to life, transforming into Void-Stalker monsters that begin to slaughter the villagers.
-
-Amidst the chaos, your latent powers as Veilwalkers awaken to fight back against the monsters. However, your victory is cut short by the appearance of The Darkness Knight. He does not kill you; instead, he delivers a chilling warning of a coming apocalypse before vanishing back into a portal.
-
-Realizing that the world’s protector the Veil has been damaged, Grandma Sage urges you to depart immediately for the City of Luminara."
-
-[node name="InputPanel" type="PanelContainer" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox" unique_id=1947385490]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lav33")
-
-[node name="InputMargin" type="MarginContainer" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/InputPanel" unique_id=739910765]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 9
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 9
-
-[node name="InputVbox" type="VBoxContainer" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/InputPanel/InputMargin" unique_id=1915671559]
-layout_mode = 2
-theme_override_constants/separation = 7
-
-[node name="Inputlabel" type="Label" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/InputPanel/InputMargin/InputVbox" unique_id=1187991089]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = SubResource("SystemFont_yvtks")
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_a51tb")
-text = "what do you do"
-
-[node name="Input" type="LineEdit" parent="root/rootMargin/rootVbox/TopHbox/Textmargin/TextHbox/InputPanel/InputMargin/InputVbox" unique_id=2053234599]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 0.03529412, 0, 0.1882353)
-theme_override_fonts/font = SubResource("SystemFont_qkhhs")
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxFlat_yvtks")
-theme_override_styles/focus = SubResource("StyleBoxFlat_wqsu1")
-placeholder_text = "i attack the monster"
+metadata/_tab_index = 2
 
 [node name="MenuPanel" type="PanelContainer" parent="root/rootMargin/rootVbox/TopHbox" unique_id=492862246]
-custom_minimum_size = Vector2(167.77, 0)
+custom_minimum_size = Vector2(183.465, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_y4m8e")
 
@@ -221,37 +244,112 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 241.31)
 layout_mode = 2
 
+[node name="EqupmentLabel" type="Label" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1162104915]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.69411767, 0.6392157, 0.53333336, 1)
+theme_override_fonts/font = SubResource("FontVariation_y4m8e")
+text = "EQUIPMENT"
+
+[node name="HSeparator" type="HSeparator" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=973891889]
+layout_mode = 2
+theme_override_constants/separation = 14
+theme_override_styles/separator = SubResource("StyleBoxLine_8duye")
+
+[node name="WeaponLabel" type="Label" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1816541268]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82325155, 0.77930135, 0.6947947, 1)
+theme_override_fonts/font = SubResource("FontVariation_maiv8")
+theme_override_font_sizes/font_size = 14
+text = "WEAPON"
+
+[node name="weapon" type="Label" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1832523547]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.021434637, 0.021434635, 0.021434633, 1)
+theme_override_fonts/font = SubResource("SystemFont_8duye")
+text = "Sqeuaky Snail"
+
+[node name="HSeparator2" type="HSeparator" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1037011679]
+layout_mode = 2
+theme_override_constants/separation = 12
+theme_override_styles/separator = SubResource("StyleBoxLine_l7ge6")
+
+[node name="ArmorLabel" type="Label" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=595494204]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82325155, 0.77930135, 0.6947947, 1)
+theme_override_fonts/font = SubResource("FontVariation_5ru08")
+theme_override_font_sizes/font_size = 14
+text = "ARMOR"
+
+[node name="armor" type="Label" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=366331685]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.021434637, 0.021434635, 0.021434633, 1)
+theme_override_fonts/font = SubResource("SystemFont_8duye")
+text = "Sqeuaky Snail"
+
+[node name="HSeparator3" type="HSeparator" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1680541801]
+layout_mode = 2
+theme_override_constants/separation = 12
+theme_override_styles/separator = SubResource("StyleBoxLine_sy77i")
+
+[node name="AccessoryLabel" type="Label" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=790151825]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82325155, 0.77930135, 0.6947947, 1)
+theme_override_fonts/font = SubResource("FontVariation_0ctuq")
+theme_override_font_sizes/font_size = 14
+text = "ACCESSORY"
+
+[node name="accessory" type="Label" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=763236203]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.021434637, 0.021434635, 0.021434633, 1)
+theme_override_fonts/font = SubResource("SystemFont_8duye")
+text = "Sqeuaky Snail"
+
+[node name="HSeparator" type="HSeparator" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2" unique_id=1564145665]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_l61mk")
+
 [node name="MenuVbox" type="VBoxContainer" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2" unique_id=2132246397]
 layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Button4" type="Button" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/MenuVbox" unique_id=1724105321]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73891026, 0.6858791, 0.5837171, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_a51tb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8duye")
+theme_override_styles/hover = SubResource("StyleBoxFlat_l7ge6")
+action_mode = 0
+shortcut = SubResource("Shortcut_l61mk")
+text = "Story                                        1"
+alignment = 0
 
 [node name="Button" type="Button" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/MenuVbox" unique_id=1765529346]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.73891026, 0.6858791, 0.5837171, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_lav33")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8duye")
 theme_override_styles/hover = SubResource("StyleBoxFlat_l7ge6")
 action_mode = 0
-shortcut = SubResource("Shortcut_8duye")
-text = "Character                 C"
-alignment = 0
-
-[node name="Button2" type="Button" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/MenuVbox" unique_id=491659633]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.73891026, 0.6858791, 0.5837171, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_8duye")
-theme_override_styles/hover = SubResource("StyleBoxFlat_l7ge6")
-action_mode = 0
-shortcut = SubResource("Shortcut_8duye")
-text = "Menu                     Tab "
+shortcut = SubResource("Shortcut_l7ge6")
+text = "Character                           2"
 alignment = 0
 
 [node name="Button3" type="Button" parent="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/MenuVbox" unique_id=708978774]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.73891026, 0.6858791, 0.5837171, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_wqsu1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8duye")
 theme_override_styles/hover = SubResource("StyleBoxFlat_l7ge6")
 action_mode = 0
-shortcut = SubResource("Shortcut_8duye")
-text = "Setting                    Esc"
+shortcut = SubResource("Shortcut_28y57")
+text = "Setting                                  3"
 alignment = 0
 
 [node name="HboxBot" type="HBoxContainer" parent="root/rootMargin/rootVbox" unique_id=480439699]
@@ -284,14 +382,14 @@ alignment = 1
 [node name="name" type="Label" parent="root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/name+lvl" unique_id=807114062]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = SubResource("SystemFont_y4m8e")
+theme_override_fonts/font = SubResource("FontVariation_l61mk")
 theme_override_font_sizes/font_size = 17
 text = "Traveler"
 
 [node name="lvl" type="Label" parent="root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/name+lvl" unique_id=1792220859]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.3917485, 0.39174852, 0.3917485, 1)
-theme_override_fonts/font = SubResource("SystemFont_y4m8e")
+theme_override_fonts/font = SubResource("FontVariation_js0h8")
 theme_override_font_sizes/font_size = 17
 text = "Level 3"
 
@@ -303,7 +401,7 @@ alignment = 1
 [node name="Label" type="Label" parent="root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/HealthCont" unique_id=959310076]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.39435714, 0.32669264, 0.26219794, 1)
-theme_override_fonts/font = SubResource("SystemFont_maiv8")
+theme_override_fonts/font = SubResource("FontVariation_xta71")
 theme_override_font_sizes/font_size = 13
 text = "Health"
 
@@ -314,18 +412,18 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_fjfiv")
 theme_override_styles/fill = SubResource("StyleBoxFlat_55tpr")
-value = 37.18
+value = 7.48
 show_percentage = false
 
 [node name="ExpCont" type="HBoxContainer" parent="root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx" unique_id=290160738]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 15
 alignment = 1
 
 [node name="Label" type="Label" parent="root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/ExpCont" unique_id=112157456]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.39435714, 0.32669264, 0.26219794, 1)
-theme_override_fonts/font = SubResource("SystemFont_maiv8")
+theme_override_fonts/font = SubResource("FontVariation_qkhhs")
 theme_override_font_sizes/font_size = 13
 text = "Exp     "
 
@@ -347,7 +445,7 @@ alignment = 1
 [node name="Label" type="Label" parent="root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/ExpCont2" unique_id=1453523949]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.39435714, 0.32669264, 0.26219794, 1)
-theme_override_fonts/font = SubResource("SystemFont_maiv8")
+theme_override_fonts/font = SubResource("FontVariation_yvtks")
 theme_override_font_sizes/font_size = 13
 text = "Energy"
 
@@ -379,6 +477,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="root/rootMargin/rootVbox/HboxBot/ItemPanel/MarginContainer/VBoxContainer" unique_id=1131754811]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.69411767, 0.6392157, 0.53333336, 1)
+theme_override_fonts/font = SubResource("FontVariation_28y57")
 text = "INVENTORY"
 
 [node name="HSeparator" type="HSeparator" parent="root/rootMargin/rootVbox/HboxBot/ItemPanel/MarginContainer/VBoxContainer" unique_id=1007098702]
@@ -402,3 +501,7 @@ alignment = 1
 [node name="Dice2D" parent="root/rootMargin/rootVbox/HboxBot/PanelContainer3" unique_id=1834637620 instance=ExtResource("11_yvtks")]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[connection signal="pressed" from="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/MenuVbox/Button4" to="." method="_on_button_story_pressed"]
+[connection signal="pressed" from="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/MenuVbox/Button" to="." method="_on_button_character_pressed"]
+[connection signal="pressed" from="root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/MenuVbox/Button3" to="." method="_on_button_settings_pressed"]

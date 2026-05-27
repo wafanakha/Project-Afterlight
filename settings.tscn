@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://4hqeo60hxtrh"]
+
+[ext_resource type="FontFile" uid="uid://dvp75b0xe8pta" path="res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf" id="1_x2hje"]
+[ext_resource type="FontFile" uid="uid://bxc4duq4phkpl" path="res://assets/font/MerriweatherSans-VariableFont_wght.ttf" id="2_nkug2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkug2"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_3ykye"]
+base_font = ExtResource("1_x2hje")
+spacing_glyph = 1
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gc0em"]
+color = Color(0.8901961, 0.85882354, 0.79607844, 1)
+thickness = 2
+
+[sub_resource type="FontVariation" id="FontVariation_gc0em"]
+base_font = ExtResource("2_nkug2")
+
+[sub_resource type="FontVariation" id="FontVariation_nkug2"]
+base_font = ExtResource("2_nkug2")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ykye"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lj6o"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.87058824, 0.8509804, 0.8, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_cj1lu"]
+base_font = ExtResource("2_nkug2")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gc0em"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.87058824, 0.8509804, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.27450982, 0.25490198, 0.23529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3j6r5"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.27450982, 0.25490198, 0.23529412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.27450982, 0.25490198, 0.23529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cj1lu"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.87058824, 0.8509804, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6117647, 0.27058825, 0.2627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71mqq"]
+bg_color = Color(0.6117647, 0.27058825, 0.2627451, 1)
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1031311609]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nkug2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1827349819]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1976620572]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_fonts/font = SubResource("FontVariation_3ykye")
+theme_override_font_sizes/font_size = 18
+text = "SETTINGS"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1492253311]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxLine_gc0em")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=459604033]
+layout_mode = 2
+theme_override_constants/separation = 300
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=891095292]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.3372549, 0.3137255, 1)
+theme_override_fonts/font = SubResource("FontVariation_gc0em")
+text = "Master Volume "
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer" unique_id=2122100626]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=2099510355]
+layout_mode = 2
+theme_override_constants/separation = 312
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=1324517560]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.3372549, 0.3137255, 1)
+theme_override_fonts/font = SubResource("FontVariation_gc0em")
+text = "Music Volume"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer2" unique_id=738186089]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=1150360296]
+layout_mode = 2
+theme_override_constants/separation = 329
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=1182736329]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.3372549, 0.3137255, 1)
+theme_override_fonts/font = SubResource("FontVariation_gc0em")
+text = "SFX Volume"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer3" unique_id=1028747824]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=365444579]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxLine_gc0em")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=1407388413]
+layout_mode = 2
+theme_override_constants/separation = 394
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer4" unique_id=1981007928]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.3372549, 0.3137255, 1)
+theme_override_fonts/font = SubResource("FontVariation_gc0em")
+text = "Text Speed"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer4" unique_id=652264764]
+layout_mode = 2
+selected = 1
+item_count = 3
+popup/item_0/text = "Slow"
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Fast"
+popup/item_2/id = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=446983003]
+layout_mode = 2
+theme_override_constants/separation = 414
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer5" unique_id=322691838]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.3372549, 0.3137255, 1)
+theme_override_fonts/font = SubResource("FontVariation_gc0em")
+text = "Full Screen"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HBoxContainer5" unique_id=469440]
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer" unique_id=1990755686]
+layout_mode = 2
+theme_override_constants/separation = 394
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer6" unique_id=375022676]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.3372549, 0.3137255, 1)
+theme_override_fonts/font = SubResource("FontVariation_gc0em")
+text = "Dyslexia Font"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HBoxContainer6" unique_id=942835950]
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer" unique_id=1872675535]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxLine_gc0em")
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="VBoxContainer" unique_id=1152988319]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer7" unique_id=1136337731]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87058824, 0.8509804, 0.8, 1)
+theme_override_colors/font_hover_color = Color(0.27450982, 0.25490198, 0.23529412, 1)
+theme_override_fonts/font = SubResource("FontVariation_nkug2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3ykye")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3ykye")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3lj6o")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3ykye")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3ykye")
+text = "SAVE GAME"
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer7" unique_id=996954668]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2901961, 0.26666668, 0.24705882, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_fonts/font = SubResource("FontVariation_cj1lu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gc0em")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gc0em")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3j6r5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gc0em")
+theme_override_styles/focus = SubResource("StyleBoxFlat_gc0em")
+text = "LOAD GAME"
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer7" unique_id=1140110848]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6117647, 0.27058825, 0.2627451, 1)
+theme_override_fonts/font = SubResource("FontVariation_cj1lu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cj1lu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_71mqq")
+text = "QUIT TO MENU"
