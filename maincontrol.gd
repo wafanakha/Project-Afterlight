@@ -38,7 +38,7 @@ extends Node2D
 
 
 
-const SERVER_URL = "http://127.0.0.1:8080/generate"
+const SERVER_URL = "http://localhost:8080/generate"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -191,7 +191,11 @@ func _ready() -> void:
 	input_field.text_submitted.connect(_on_input_submitted)
 	http_request.request_completed.connect(_on_request_completed)
 	
-	story_log.text = "System Ready. You wake up from a 100-year nap, feeling incredibly hungry. What will you do?\n"
+	story_log.text = "[color=gray]System: Waking up Dungeon Master...\n[/color]"
+	input_field.editable = false
+	input_field.placeholder_text = "DM is Preparing the Story..."
+	
+	_request_intro_story()
 
 
 func _on_input_submitted(new_text: String):
@@ -228,14 +232,22 @@ Stats: %s
 Raw D20 Roll: %d
 
 Player Action: "%s"
-
 [System Directive]
-You are the AI DM. 
-1. Decide which Stat best fits the Player Action.
-2. Determine a logical Difficulty Class (DC) between 5 and 20.
+You are the AI DM for a lighthearted, comedic D&D-style RPG. Evaluate the Player Action strictly:
+1. Choose the MOST LOGICAL Stat for the action (e.g., CHA for talking, END for eating, STR for hitting, DEX for dodging).
+2. Set a DC (Difficulty Class) between 5 and 20.
 3. Calculate Total Score = Raw D20 Roll + Chosen Stat.
-4. If Total Score >= DC, the action is a SUCCESS. Otherwise, FAILURE.
-5. Write a comedic narrative based on this outcome, then output the JSON.""" % [current_objective, loc_desc, enemy_desc, enemy_type, health.value, player_level, player_stats, d20_roll, new_text]
+4. CRITICAL MATH RULE: You MUST evaluate the numbers! IF Total Score is GREATER THAN OR EQUAL to DC, "is_success" MUST be true. IF Total Score is LESS THAN DC, "is_success" MUST be false. Do not break this rule!
+5. Write a short, funny 2nd-person narrative based on the outcome.
+
+[JSON Strict Rules]
+- "total_score" MUST be a single integer (e.g., 15), NEVER an equation.
+- "target_hp_change" MUST be 0 unless the player specifically attacks the enemy.
+- "player_stat_change" should only be 1 or -1 for a single stat, the rest must be 0.
+- Include "new_plot_id" if the story should progress (choose from: "intro_tavern", "find_the_macguffin", "dungeon_delve", "final_boss"). If the scene isn't over yet, keep the current one.
+- Include "new_location_id" if the player moves to a new area (choose from: "oakhaven_village", "muttering_woods", "mount_inconvenience").
+- Include "enemy_defeated": true ONLY if the enemy's HP reaches 0 or they run away. Otherwise false.
+""" % [current_objective, loc_desc, enemy_desc, enemy_type, health.value, player_level, player_stats, d20_roll, new_text]
 
 	var payload = { "prompt": seed_text }
 	var json_string = JSON.stringify(payload)
@@ -259,16 +271,21 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 
 
 func _process_hybrid_response(raw_text: String):
-	var parts = raw_text.split("`CODE_BLOCK_START`")
+	var clean_text = raw_text.replace("`", "")
+	
+	var parts = clean_text.split("CODE_BLOCK_START")
 	var narrative = parts[0].strip_edges()
 	
 	story_log.text += "\n" + narrative + "\n"
 	
 	if parts.size() > 1:
-		var json_part = parts[1].split("`CODE_BLOCK_END`")[0].strip_edges()
-		json_part = json_part.replace("```json", "").replace("```", "").strip_edges()
+		var json_part = parts[1].split("CODE_BLOCK_END")[0].strip_edges()
+		
+		if json_part.begins_with("json"):
+			json_part = json_part.substr(4).strip_edges()
 		
 		var logic_data = JSON.parse_string(json_part)
+		
 		if logic_data != null:
 			_execute_game_logic(logic_data)
 		else:
@@ -337,6 +354,15 @@ func _execute_game_logic(data: Dictionary):
 			stat_text += "LCK %+d  " % stat_changes["luck"]
 		if stat_text != "":
 			story_log.text += "[color=cyan]>>> Status Update: " + stat_text + "<<<[/color]\n"
+			
+		show_Strength.text = str(stat_strength)
+		show_Dexterity.text = str(stat_dexterity)
+		show_Endurance.text = str(stat_endurance)
+		show_Intelligence.text = str(stat_intelligence)
+		show_Awareness.text = str(stat_awareness)
+		show_Charisma.text = str(stat_charisma)
+		show_Luck.text = str(stat_luck)
+
 
 	var target_hp_change = data.get("target_hp_change", 0)
 	var target_status = data.get("target_status_effect", "none")
@@ -349,17 +375,49 @@ func _execute_game_logic(data: Dictionary):
 	if data.has("items_given"):
 		var new_items = data["items_given"]
 		for item in new_items:
-			inventory_items.append(item)
-			story_log.text += "[color=aqua]>>> You got a consumable: " + str(item).replace("_", " ").capitalize() + " <<<[/color]\n"
+			var safe_id = str(item).to_lower().replace(" ", "_").replace("'", "")
+			
+			if not world_database["items"].has(safe_id):
+				world_database["items"][safe_id] = "Benda aneh pemberian DM. Kelihatannya tidak berguna."
+				
+			inventory_items.append(safe_id)
+			story_log.text += "[color=aqua]>>> You got a consumable: " + str(item).capitalize() + " <<<[/color]\n"
 			
 		update_items_inventory_ui()
 
 	if data.has("equipment_given"):
 		var new_equips = data["equipment_given"]
 		for equip in new_equips:
-			inventory_equipment.append(equip)
-			story_log.text += "[color=magenta]>>> `You got NEW EQUIPMENT: " + str(equip) + " <<<[/color]\n"
+			var safe_id = str(equip).to_lower().replace(" ", "_").replace("'", "")
+			
+			var is_known = world_database["equipment"]["weapons"].has(safe_id) or world_database["equipment"]["armor"].has(safe_id) or world_database["equipment"]["accessories"].has(safe_id)
+			
+			if not is_known:
+				world_database["equipment"]["accessories"][safe_id] = "Sebuah perlengkapan konyol yang dipaksa masuk oleh DM ke tasmu."
+				
+			inventory_equipment.append(safe_id)
+			story_log.text += "[color=magenta]>>> You got NEW EQUIPMENT: " + str(equip).capitalize() + " <<<[/color]\n"
+			
 		update_equipment_inventory_ui()
+		
+	# --- SISTEM PROGRESI CERITA ---
+	if data.get("enemy_defeated", false) == true:
+		story_log.text += "\n[color=yellow][b]>>> The " + str(current_enemy_id).replace("_", " ").capitalize() + " is defeated or gone! <<<[/b][/color]\n"
+		current_enemy_id = "" # Kosongkan musuh
+	
+	# 2. Cek apakah AI memindahkan plot cerita
+	if data.has("new_plot_id"):
+		var next_plot = data["new_plot_id"]
+		if next_plot != current_plot_id and world_database["plot_milestones"].has(next_plot):
+			current_plot_id = next_plot
+			story_log.text += "\n[color=cyan][b]>>> STORY ADVANCED: " + str(current_plot_id).replace("_", " ").capitalize() + " <<<[/b][/color]\n"
+	
+	# 3. Cek apakah AI memindahkan lokasi pemain
+	if data.has("new_location_id"):
+		var next_loc = data["new_location_id"]
+		if next_loc != current_location_id and world_database["locations"].has(next_loc):
+			current_location_id = next_loc
+			story_log.text += "\n[color=cyan][b]>>> MOVED TO: " + str(current_location_id).replace("_", " ").capitalize() + " <<<[/b][/color]\n"
 		
 	# GAME OVER CHECK
 	if health.value <= 0:
@@ -503,9 +561,9 @@ func _on_equipment_item_selected(equip_id: String):
 		equip_type = "accessory"
 		equip_desc = equipment_db["accessories"][equip_id]
 
-	if equip_type == "":
-		print("Sistem Error: Item ", equip_id, " tidak ditemukan di world_database!")
-		return
+	#if equip_type == "":
+		#print("Sistem Error: Item ", equip_id, " tidak ditemukan di world_database!")
+		#return
 
 	var old_equip = ""
 	
@@ -572,12 +630,8 @@ func update_items_inventory_ui():
 		item_button.pressed.connect(func(): _on_inventory_item_selected(item_id))
 		
 		item_hflow_ui.add_child(item_button)
-
 func _on_inventory_item_selected(item_id: String):
-	if not world_database["items"].has(item_id):
-		print("Sistem Error: Item tidak dikenali.")
-		return
-
+	# Hapus item dari tas
 	inventory_items.erase(item_id)
 	
 	var clean_name = item_id.replace("_", " ").capitalize()
@@ -587,25 +641,21 @@ func _on_inventory_item_selected(item_id: String):
 		health.value = health.max_value
 		Energy.value = Energy.max_value
 		story_log.text += "[color=green]>>> HP and Energy fully restored! You feel pure joy. <<<[/color]\n"
-		
 	elif item_id == "sugar_rush_potion":
 		stat_dexterity += 2
 		stat_endurance -= 1
 		story_log.text += "[color=green]>>> You feel incredibly fast! (DEX +2, END -1) <<<[/color]\n"
-		
 	elif item_id == "book_of_bad_puns":
 		stat_intelligence += 2
 		story_log.text += "[color=green]>>> You learned a terrible joke! (INT +2) <<<[/color]\n"
-		
 	elif item_id == "pocket_confetti":
 		stat_charisma += 1
 		story_log.text += "[color=green]>>> It's a party! (CHA +1) <<<[/color]\n"
 	else:
-		story_log.text += "[color=gray]>>> It doesn't seem to do anything right now. <<<[/color]\n"
+		story_log.text += "[color=gray]>>> You stare at it. It does absolutely nothing, but you feel slightly more absurd. <<<[/color]\n"
 		
 	char_health_bar.value = health.value
 	char_health_num.text = "%s/%s" % [health.value, health.max_value]
-	
 	char_energy_bar.value = Energy.value
 	char_energy_num.text = "%s/%s" % [Energy.value, Energy.max_value]
 	
@@ -642,6 +692,41 @@ func _unequip_slot(slot_type: String):
 		
 		# Gambar ulang daftarnya
 		update_equipment_inventory_ui()
+		
+func _request_intro_story():
+	var loc_desc = world_database["locations"].get(current_location_id, "Unknown.")
+	var current_objective = world_database["plot_milestones"].get(current_plot_id, "Have fun.")
+	
+	# Instruksi khusus agar AI membuat cerita pembuka yang ceria
+	var intro_prompt = """[System Directive]
+You are the AI DM for a lighthearted, comedic D&D-style RPG.
+The game is just starting. Introduce the player to the world!
+
+[Context]
+Location: %s
+Current Situation: %s
+
+[Task]
+Write a funny, engaging opening paragraph (2nd-person perspective) welcoming the player to the world, setting the scene, and explaining their bizarre current situation. End by asking them what they want to do.
+
+After the narrative, output a default JSON block wrapped in `CODE_BLOCK_START` and `CODE_BLOCK_END` with 0 changes, like this:
+`CODE_BLOCK_START`
+{
+  "player_hp_change": 0,
+  "player_energy_change": 0,
+  "exp_gained": 0,
+  "target_hp_change": 0,
+  "items_given": [],
+  "equipment_given": []
+}
+`CODE_BLOCK_END`""" % [loc_desc, current_objective]
+
+	var payload = { "prompt": intro_prompt }
+	var json_string = JSON.stringify(payload)
+	var headers = ["Content-Type: application/json"]
+	
+	# Kirim ke server C++
+	http_request.request(SERVER_URL, headers, HTTPClient.METHOD_POST, json_string)
 
 func _process(delta: float) -> void:
 	
