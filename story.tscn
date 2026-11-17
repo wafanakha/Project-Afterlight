@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cqvglbj3hdbf5"]
 
 [ext_resource type="FontFile" uid="uid://dvp75b0xe8pta" path="res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf" id="1_76aiv"]
-[ext_resource type="FontFile" uid="uid://bxc4duq4phkpl" path="res://assets/font/MerriweatherSans-VariableFont_wght.ttf" id="2_27gb3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gst2a"]
 bg_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
@@ -86,16 +85,17 @@ theme_override_constants/separation = 7
 [node name="Inputlabel" type="Label" parent="InputPanel/InputMargin/InputVbox" unique_id=697137828]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_27gb3")
+theme_override_fonts/font = ExtResource("1_76aiv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4ukgh")
-text = "what do you do"
+text = "what do you do?"
 
 [node name="Input" type="LineEdit" parent="InputPanel/InputMargin/InputVbox" unique_id=1607462369]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0, 0.03529412, 0, 0.1882353)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_76aiv")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_s7v7q")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6he7n")
-placeholder_text = "i attack the monster"
+placeholder_text = "i swing my dagger targeting monster leg"

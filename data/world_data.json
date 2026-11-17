@@ -1,0 +1,1927 @@
+{
+ "intents": [
+  "attack",
+  "social",
+  "stealth",
+  "search",
+  "physical",
+  "magic",
+  "travel",
+  "use_item",
+  "equip",
+  "talk",
+  "observe",
+  "flee",
+  "skill",
+  "decide",
+  "other"
+ ],
+ "stat_names": {
+  "STR": "strength",
+  "DEX": "dexterity",
+  "END": "endurance",
+  "INT": "intelligence",
+  "AWR": "awareness",
+  "CHA": "charisma",
+  "LCK": "luck"
+ },
+ "dc_values": [
+  8,
+  12,
+  15,
+  18,
+  20
+ ],
+ "locations": {
+  "oakhaven_village": {
+   "name": "Oakhaven Village",
+   "safe": true,
+   "unlock_chapter": 1,
+   "features": [
+    "the gate",
+    "the market square",
+    "the burned stalls",
+    "the smithy"
+   ]
+  },
+  "whispering_woods": {
+   "name": "Whispering Woods",
+   "safe": false,
+   "unlock_chapter": 2,
+   "features": [
+    "the ancient oaks",
+    "the mossy ruin",
+    "the glowing mushrooms",
+    "the overgrown path"
+   ]
+  },
+  "dragonskull_peaks": {
+   "name": "Dragonskull Peaks",
+   "safe": false,
+   "unlock_chapter": 3,
+   "features": [
+    "the rocky trail",
+    "the goblin camp",
+    "the broken statue",
+    "the crypt entrance"
+   ]
+  }
+ },
+ "crypt_features": [
+  "the crypt walls",
+  "the stone coffins",
+  "the glowing runes",
+  "the dripping ceiling"
+ ],
+ "npcs": {
+  "mayor_bartholomew": {
+   "name": "Mayor Bartholomew",
+   "location": "oakhaven_village"
+  },
+  "garret_the_blacksmith": {
+   "name": "Garret the Blacksmith",
+   "location": "oakhaven_village"
+  },
+  "archmage_elara": {
+   "name": "Archmage Elara",
+   "location": "whispering_woods"
+  },
+  "sir_kaelen": {
+   "name": "Sir Kaelen",
+   "location": "dragonskull_peaks"
+  },
+  "caravan_survivors": {
+   "name": "the caravan survivors",
+   "location": "dragonskull_peaks"
+  }
+ },
+ "chapters": {
+  "1": {
+   "title": "Smoke over Oakhaven",
+   "level_range": [
+    1,
+    2
+   ],
+   "main_location": "oakhaven_village",
+   "locations": {
+    "oakhaven_village": 1.0
+   },
+   "npcs": [
+    "mayor_bartholomew",
+    "garret_the_blacksmith"
+   ],
+   "crypt": false,
+   "flags": [
+    "tome_stolen"
+   ],
+   "brief": "Goblins have raided Oakhaven on festival eve. Hold the village against the raiders. During the attack the Unwritten Tome was stolen from the Mayor's vault, and its trail leads toward the Whispering Woods.",
+   "beat": "The last raider flees the gate. Mayor Bartholomew rushes over: the Unwritten Tome was stolen, and the trail leads into the Whispering Woods."
+  },
+  "2": {
+   "title": "The Whispering Woods",
+   "level_range": [
+    2,
+    4
+   ],
+   "main_location": "whispering_woods",
+   "locations": {
+    "whispering_woods": 0.85,
+    "oakhaven_village": 0.15
+   },
+   "npcs": [
+    "archmage_elara",
+    "mayor_bartholomew",
+    "garret_the_blacksmith"
+   ],
+   "crypt": false,
+   "flags": [
+    "tome_stolen",
+    "elara_met"
+   ],
+   "brief": "The goblins carried the Unwritten Tome into the Whispering Woods. Archmage Elara knows the ruins and the Tome's secret. A Mimic guards the ruin vault. Recover the Tome and learn who sent the raiders.",
+   "beat": "With the Mimic gone, the vault yields the Unwritten Tome. Elara explains that it needs the Inkwell of Dawn to rewrite events, and the Inkwell was on a caravan that vanished in the Dragonskull Peaks."
+  },
+  "3": {
+   "title": "Into the Dragonskull Peaks",
+   "level_range": [
+    3,
+    5
+   ],
+   "main_location": "dragonskull_peaks",
+   "locations": {
+    "dragonskull_peaks": 0.8,
+    "whispering_woods": 0.1,
+    "oakhaven_village": 0.1
+   },
+   "npcs": [
+    "sir_kaelen",
+    "archmage_elara",
+    "mayor_bartholomew",
+    "garret_the_blacksmith"
+   ],
+   "crypt": false,
+   "flags": [
+    "tome_recovered",
+    "scribe_known"
+   ],
+   "brief": "Elara revealed the Hollow Scribe, who needs both the Tome and the Inkwell of Dawn. The Inkwell vanished with a caravan in the Dragonskull Peaks. Sir Kaelen waits at the pass, and an Orc Marauder guards the way to the crypt.",
+   "beat": "The Orc Marauder falls and the way to the crypt opens. Sir Kaelen offers his blessing and a Longsword."
+  },
+  "4": {
+   "title": "The Sunken Crypt",
+   "level_range": [
+    5,
+    7
+   ],
+   "main_location": "dragonskull_peaks",
+   "locations": {
+    "dragonskull_peaks": 1.0
+   },
+   "npcs": [
+    "caravan_survivors"
+   ],
+   "crypt": true,
+   "flags": [
+    "tome_recovered",
+    "scribe_known"
+   ],
+   "brief": "Inside the Sunken Crypt, skeletons and a Gelatinous Cube stand between you and the missing caravan. Free the survivors and learn where the Hollow Scribe keeps the Inkwell.",
+   "beat": "The Gelatinous Cube collapses. The caravan survivors are freed and point toward the Scribe's lair."
+  },
+  "5": {
+   "title": "The Hollow Scribe",
+   "level_range": [
+    6,
+    8
+   ],
+   "main_location": "dragonskull_peaks",
+   "locations": {
+    "dragonskull_peaks": 1.0
+   },
+   "npcs": [],
+   "crypt": true,
+   "flags": [
+    "tome_recovered",
+    "scribe_known",
+    "caravan_freed"
+   ],
+   "brief": "The Hollow Scribe waits in his lair with the Inkwell of Dawn. Defeat him, then decide the fate of the Tome and the Inkwell.",
+   "beat": "The Hollow Scribe crumbles to dust and the Inkwell of Dawn drops to the floor. The fate of the Tome and the Inkwell is now yours to decide."
+  }
+ },
+ "drop_pool": {
+  "weapon": {
+   "Hunter's Shortbow": 2
+  },
+  "armor": {
+   "Scholar's Robes": 2
+  },
+  "accessory": {
+   "Lucky Coin": 2,
+   "Amulet of Vigor": 3
+  },
+  "consumable": {
+   "Minor Healing Potion": 1,
+   "Minor Mana Potion": 1,
+   "Smoke Bomb": 1,
+   "Scroll of Magic Missile": 1,
+   "Greater Healing Potion": 3,
+   "Greater Mana Potion": 3
+  }
+ },
+ "builds": {
+  "duelist": {
+   "stats": {},
+   "weapon_pref": "melee",
+   "grant": {}
+  },
+  "bruiser": {
+   "stats": {
+    "STR": 15,
+    "DEX": 11,
+    "END": 14,
+    "AWR": 11,
+    "CHA": 11,
+    "INT": 10,
+    "LCK": 10
+   },
+   "weapon_pref": "melee",
+   "grant": {}
+  },
+  "marksman": {
+   "stats": {
+    "AWR": 15,
+    "DEX": 14,
+    "STR": 10,
+    "END": 12,
+    "INT": 10,
+    "CHA": 11,
+    "LCK": 10
+   },
+   "weapon_pref": "ranged",
+   "grant": {
+    "2": {
+     "weapon": [
+      "Hunter's Shortbow"
+     ]
+    }
+   }
+  },
+  "mage": {
+   "stats": {
+    "INT": 14,
+    "DEX": 13,
+    "AWR": 12,
+    "END": 12,
+    "STR": 10,
+    "CHA": 10,
+    "LCK": 11
+   },
+   "weapon_pref": "arcane",
+   "grant": {}
+  },
+  "diplomat": {
+   "stats": {
+    "CHA": 14,
+    "DEX": 14,
+    "END": 12,
+    "AWR": 12,
+    "STR": 10,
+    "INT": 10,
+    "LCK": 10
+   },
+   "weapon_pref": "melee",
+   "grant": {}
+  }
+ },
+ "narrator_category_share": {
+  "attack": 0.3,
+  "skill": 0.04,
+  "use_item": 0.08,
+  "flee": 0.03,
+  "social": 0.1,
+  "stealth": 0.04,
+  "search": 0.08,
+  "magic": 0.05,
+  "physical": 0.08,
+  "talk": 0.06,
+  "observe": 0.04,
+  "travel": 0.05,
+  "equip": 0.03
+ },
+ "archetypes": [
+  {
+   "id": "melee_strength",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "strength": 1
+   },
+   "dc": null,
+   "weight": 10,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "weapon_types": [
+     "melee"
+    ]
+   },
+   "skills": {
+    "power_strike": 0.35,
+    "lucky_break": 0.12
+   },
+   "forced_skill": null,
+   "templates": [
+    "I swing my {weapon} at the {enemy} with all my strength.",
+    "I smash the {enemy} with a heavy overhead blow.",
+    "I charge the {enemy} and hit it as hard as I can.",
+    "I bring my {weapon} down on the {enemy}."
+   ],
+   "skill_templates": {
+    "power_strike": [
+     "I use Power Strike on the {enemy}.",
+     "I unleash Power Strike with my {weapon} against the {enemy}."
+    ],
+    "lucky_break": [
+     "I trust my luck, use Lucky Break, and hammer the {enemy}."
+    ]
+   },
+   "note": "The player hits {enemy} in melee with brute force.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "melee_dexterity",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": null,
+   "weight": 6,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "weapon_types": [
+     "melee"
+    ]
+   },
+   "skills": {
+    "lucky_break": 0.15
+   },
+   "forced_skill": null,
+   "templates": [
+    "I dart in and stab the {enemy} with my {weapon}.",
+    "I feint to one side and slash at the {enemy}'s flank.",
+    "I duck under the {enemy}'s guard and strike quickly."
+   ],
+   "skill_templates": {
+    "lucky_break": [
+     "I use Lucky Break and dart in to strike the {enemy}."
+    ]
+   },
+   "note": "The player makes a quick, agile melee strike against {enemy}.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "ranged_aim",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "awareness": 1
+   },
+   "dc": null,
+   "weight": 7,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "weapon_types": [
+     "ranged"
+    ]
+   },
+   "skills": {
+    "keen_eye": 0.35,
+    "lucky_break": 0.12
+   },
+   "forced_skill": null,
+   "templates": [
+    "I take careful aim and shoot the {enemy} from a distance.",
+    "I steady my breath and loose an arrow at the {enemy}'s weak spot.",
+    "I line up a precise shot at the {enemy}."
+   ],
+   "skill_templates": {
+    "keen_eye": [
+     "I use Keen Eye to line up a perfect shot at the {enemy}.",
+     "I focus with Keen Eye and fire at the {enemy}."
+    ],
+    "lucky_break": [
+     "I use Lucky Break and loose an arrow at the {enemy}."
+    ]
+   },
+   "note": "The player carefully aims a ranged shot at {enemy}.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "ranged_snap",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": null,
+   "weight": 3,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "weapon_types": [
+     "ranged"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I snap-shoot at the {enemy} before it closes in.",
+    "I fire quickly at the {enemy} while dodging."
+   ],
+   "skill_templates": {},
+   "note": "The player fires a quick, instinctive shot at {enemy}.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "arcane_cast",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "intelligence": 1
+   },
+   "dc": null,
+   "weight": 4,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "weapon_types": [
+     "arcane"
+    ]
+   },
+   "skills": {
+    "lucky_break": 0.12
+   },
+   "forced_skill": null,
+   "templates": [
+    "I point my {weapon} at the {enemy} and unleash a bolt of arcane energy.",
+    "I channel magic through my {weapon} and blast the {enemy}."
+   ],
+   "skill_templates": {
+    "lucky_break": [
+     "I use Lucky Break and blast the {enemy} with my {weapon}."
+    ]
+   },
+   "note": "The player attacks {enemy} with a spell cast through an arcane weapon.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "arcane_bolt_skill",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "intelligence": 1
+   },
+   "dc": null,
+   "weight": 5,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "min_level": 3
+   },
+   "skills": {},
+   "forced_skill": "arcane_bolt",
+   "templates": [],
+   "skill_templates": {
+    "arcane_bolt": [
+     "I cast Arcane Bolt at the {enemy}.",
+     "I hurl an Arcane Bolt at the {enemy}.",
+     "I use Arcane Bolt on the {enemy}."
+    ]
+   },
+   "note": "The player uses the Arcane Bolt skill on {enemy}.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "throw_improvised",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": null,
+   "weight": 2,
+   "requires": {
+    "enemy": true,
+    "engaged": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I throw a rock at the {enemy}.",
+    "I hurl my spare dagger at the {enemy}.",
+    "I grab a broken plank and fling it at the {enemy}."
+   ],
+   "skill_templates": {},
+   "note": "The player throws an improvised object at {enemy}.",
+   "target": "enemy",
+   "edge": "improvised",
+   "narrator": true
+  },
+  {
+   "id": "weapon_mismatch",
+   "intent": "attack",
+   "risky": true,
+   "stat": {
+    "awareness": 1
+   },
+   "dc": null,
+   "weight": 2,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "weapon_types": [
+     "melee"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I loose an arrow at the {enemy}.",
+    "I take aim with my bow and shoot the {enemy}."
+   ],
+   "skill_templates": {},
+   "note": "The player tries to shoot {enemy} although the equipped weapon is a melee weapon.",
+   "target": "enemy",
+   "edge": "weapon_mismatch",
+   "narrator": true
+  },
+  {
+   "id": "second_wind",
+   "intent": "skill",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 3,
+   "requires": {
+    "hp_states": [
+     "wounded",
+     "critical"
+    ]
+   },
+   "skills": {},
+   "forced_skill": "second_wind",
+   "templates": [],
+   "skill_templates": {
+    "second_wind": [
+     "I take a deep breath and use Second Wind.",
+     "I steady myself with Second Wind.",
+     "I use Second Wind to recover."
+    ]
+   },
+   "note": "The player uses the Second Wind skill to recover.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "evasive_step",
+   "intent": "skill",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 2.5,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "min_level": 2
+   },
+   "skills": {},
+   "forced_skill": "evasive_step",
+   "templates": [],
+   "skill_templates": {
+    "evasive_step": [
+     "I use Evasive Step to stay out of the {enemy}'s reach.",
+     "I slip aside with Evasive Step."
+    ]
+   },
+   "note": "The player uses the Evasive Step skill against {enemy}.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "flee_combat",
+   "intent": "flee",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": [
+    12
+   ],
+   "weight": 3,
+   "requires": {
+    "enemy": true,
+    "engaged": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I turn and run for safety.",
+    "I try to break away from the {enemy} and flee.",
+    "I bolt for the exit before the {enemy} can strike."
+   ],
+   "skill_templates": {},
+   "note": "The player tries to escape from {enemy}.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "persuade",
+   "intent": "social",
+   "risky": true,
+   "stat": {
+    "charisma": 1
+   },
+   "dc": [
+    12,
+    15,
+    18
+   ],
+   "weight": 4,
+   "requires": {
+    "npc": true,
+    "enemy": false
+   },
+   "skills": {
+    "silver_tongue": 0.3,
+    "lucky_break": 0.08
+   },
+   "forced_skill": null,
+   "templates": [
+    "I try to convince {npc} to trust me.",
+    "I calmly persuade {npc} to share what they know.",
+    "I appeal to {npc}'s sense of duty and ask for help."
+   ],
+   "skill_templates": {
+    "silver_tongue": [
+     "I use Silver Tongue to win {npc} over.",
+     "I speak smoothly with Silver Tongue and persuade {npc}."
+    ],
+    "lucky_break": [
+     "I trust my luck, use Lucky Break, and try to convince {npc}."
+    ]
+   },
+   "note": "The player tries to persuade {npc}, who is not easily convinced.",
+   "target": "npc",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "persuade_favor",
+   "intent": "social",
+   "risky": true,
+   "stat": {
+    "charisma": 1
+   },
+   "dc": [
+    8,
+    12
+   ],
+   "weight": 2,
+   "requires": {
+    "npc": [
+     "mayor_bartholomew",
+     "garret_the_blacksmith"
+    ],
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I ask {npc} for a favor.",
+    "I ask {npc} to lend me some supplies.",
+    "I politely ask {npc} to help repair my gear."
+   ],
+   "skill_templates": {},
+   "note": "The player asks {npc} for a small favor.",
+   "target": "npc",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "interrogate_npc",
+   "intent": "social",
+   "risky": true,
+   "stat": {
+    "charisma": 1
+   },
+   "dc": [
+    15,
+    18
+   ],
+   "weight": 2.5,
+   "requires": {
+    "npc": [
+     "caravan_survivors"
+    ],
+    "enemy": false
+   },
+   "skills": {
+    "silver_tongue": 0.25
+   },
+   "forced_skill": null,
+   "templates": [
+    "I press {npc} for details about what they saw.",
+    "I question {npc} about the Hollow Scribe.",
+    "I demand that {npc} tell me where the Inkwell is kept."
+   ],
+   "skill_templates": {
+    "silver_tongue": [
+     "I use Silver Tongue to draw the truth out of {npc}."
+    ]
+   },
+   "note": "The player interrogates {npc} for information.",
+   "target": "npc",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "interrogate_enemy",
+   "intent": "social",
+   "risky": true,
+   "stat": {
+    "charisma": 1
+   },
+   "dc": [
+    15,
+    18
+   ],
+   "weight": 2.5,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "enemy_conditions": [
+     "wounded",
+     "near death"
+    ],
+    "no_boss": true
+   },
+   "skills": {
+    "silver_tongue": 0.25
+   },
+   "forced_skill": null,
+   "templates": [
+    "I grab the wounded {enemy} and demand to know who sent it.",
+    "I pin the {enemy} down and force it to talk."
+   ],
+   "skill_templates": {
+    "silver_tongue": [
+     "I use Silver Tongue to make the wounded {enemy} talk."
+    ]
+   },
+   "note": "The player interrogates a wounded {enemy}.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "intimidate",
+   "intent": "social",
+   "risky": true,
+   "stat": {
+    "charisma": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 2,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "enemy_conditions": [
+     "wounded",
+     "near death"
+    ],
+    "no_boss": true
+   },
+   "skills": {
+    "silver_tongue": 0.25
+   },
+   "forced_skill": null,
+   "templates": [
+    "I glare at the {enemy} and growl that it should surrender.",
+    "I shout a threat that makes the {enemy} reconsider."
+   ],
+   "skill_templates": {
+    "silver_tongue": [
+     "I use Silver Tongue to talk the {enemy} into surrendering."
+    ]
+   },
+   "note": "The player tries to intimidate {enemy} into surrendering.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "deceive",
+   "intent": "social",
+   "risky": true,
+   "stat": {
+    "charisma": 1
+   },
+   "dc": [
+    15,
+    18
+   ],
+   "weight": 2,
+   "requires": {
+    "npc": true,
+    "enemy": false
+   },
+   "skills": {
+    "silver_tongue": 0.3
+   },
+   "forced_skill": null,
+   "templates": [
+    "I bluff {npc} into thinking I have official orders.",
+    "I lie smoothly to {npc} to get what I need."
+   ],
+   "skill_templates": {
+    "silver_tongue": [
+     "I use Silver Tongue to sell my lie to {npc}."
+    ]
+   },
+   "note": "The player lies to {npc}.",
+   "target": "npc",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "talk_friendly",
+   "intent": "talk",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 6,
+   "requires": {
+    "npc": true,
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I greet {npc} and ask how they are holding up.",
+    "I ask {npc} what happened here.",
+    "I listen as {npc} tells me what they know.",
+    "I thank {npc} for the help."
+   ],
+   "skill_templates": {},
+   "note": "The player has a friendly conversation with {npc}.",
+   "target": "npc",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "observe_area",
+   "intent": "observe",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 5,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I look around carefully.",
+    "I examine {feature}.",
+    "I take a moment to study my surroundings.",
+    "I read the inscription near {feature}."
+   ],
+   "skill_templates": {},
+   "note": "The player calmly looks around the area.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "check_status",
+   "intent": "observe",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 2,
+   "requires": {},
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I check how badly I'm hurt.",
+    "I check my pack to see what I have left.",
+    "I review my skills and gear."
+   ],
+   "skill_templates": {},
+   "note": "The player checks their own condition and belongings.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "sneak_past",
+   "intent": "stealth",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": [
+    12,
+    15,
+    18
+   ],
+   "weight": 3.5,
+   "requires": {
+    "enemy": true,
+    "engaged": false,
+    "no_boss": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I creep past the {enemy}, keeping to the shadows.",
+    "I sneak around the {enemy} without a sound.",
+    "I slip by the {enemy} while it looks away."
+   ],
+   "skill_templates": {},
+   "note": "The player tries to sneak past {enemy}, which has not noticed them.",
+   "target": "enemy",
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "sneak_into",
+   "intent": "stealth",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 1.5,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     3,
+     4
+    ],
+    "locations": [
+     "dragonskull_peaks"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I slip quietly through the camp, avoiding the guards.",
+    "I move silently along the wall, staying out of sight."
+   ],
+   "skill_templates": {},
+   "note": "The player moves quietly through a guarded area.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "search_traps",
+   "intent": "search",
+   "risky": true,
+   "stat": {
+    "awareness": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 3,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {
+    "keen_eye": 0.25
+   },
+   "forced_skill": null,
+   "templates": [
+    "I check the chest for traps before opening it.",
+    "I search the passage for hidden traps.",
+    "I run my fingers along the door looking for a trigger."
+   ],
+   "skill_templates": {
+    "keen_eye": [
+     "I use Keen Eye to check for traps."
+    ]
+   },
+   "note": "The player searches for traps.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "track_trail",
+   "intent": "search",
+   "risky": true,
+   "stat": {
+    "awareness": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 3,
+   "requires": {
+    "enemy": false,
+    "locations": [
+     "whispering_woods",
+     "dragonskull_peaks"
+    ]
+   },
+   "skills": {
+    "keen_eye": 0.3
+   },
+   "forced_skill": null,
+   "templates": [
+    "I study the ground for goblin tracks.",
+    "I look for signs of where the raiders went.",
+    "I search for a trail leading deeper in."
+   ],
+   "skill_templates": {
+    "keen_eye": [
+     "I use Keen Eye to find the tracks.",
+     "I use Keen Eye to read the trail."
+    ]
+   },
+   "note": "The player looks for tracks and trails.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "spot_ambush",
+   "intent": "search",
+   "risky": true,
+   "stat": {
+    "awareness": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 2,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {
+    "keen_eye": 0.25
+   },
+   "forced_skill": null,
+   "templates": [
+    "I scan the treeline for an ambush.",
+    "I listen carefully for anything lurking nearby.",
+    "I watch the ridge for movement."
+   ],
+   "skill_templates": {
+    "keen_eye": [
+     "I use Keen Eye to scan for danger."
+    ]
+   },
+   "note": "The player watches for hidden danger.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "open_unknown",
+   "intent": "search",
+   "risky": true,
+   "stat": {
+    "luck": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 3,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {
+    "lucky_break": 0.2
+   },
+   "forced_skill": null,
+   "templates": [
+    "I gamble and pop the strange chest open without checking.",
+    "I trust my luck and pull the lever to see what happens.",
+    "I throw the lid open and hope for the best."
+   ],
+   "skill_templates": {
+    "lucky_break": [
+     "I use Lucky Break and open the strange chest."
+    ]
+   },
+   "note": "The player recklessly opens something unknown and trusts to luck.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "search_vault",
+   "intent": "search",
+   "risky": true,
+   "stat": {
+    "awareness": 1
+   },
+   "dc": [
+    12
+   ],
+   "weight": 1.5,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     2
+    ],
+    "locations": [
+     "whispering_woods"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I search the vault for the Unwritten Tome.",
+    "I comb through the vault for anything important."
+   ],
+   "skill_templates": {},
+   "note": "The player searches the ruin vault.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "identify_magic",
+   "intent": "magic",
+   "risky": true,
+   "stat": {
+    "intelligence": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 2.5,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I study the glowing symbols to understand them.",
+    "I examine the strange artifact for magical properties.",
+    "I try to read the arcane inscription."
+   ],
+   "skill_templates": {},
+   "note": "The player studies something magical.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "solve_puzzle",
+   "intent": "magic",
+   "risky": true,
+   "stat": {
+    "intelligence": 1
+   },
+   "dc": [
+    15,
+    18
+   ],
+   "weight": 2.5,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     2,
+     4,
+     5
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I try to decipher the rune lock.",
+    "I study the pattern and work out the puzzle.",
+    "I rearrange the stones to match the ancient diagram."
+   ],
+   "skill_templates": {},
+   "note": "The player tries to solve an ancient puzzle.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "disarm_ward",
+   "intent": "magic",
+   "risky": true,
+   "stat": {
+    "intelligence": 1
+   },
+   "dc": [
+    15,
+    18
+   ],
+   "weight": 1.5,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     4,
+     5
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I try to unravel the arcane ward on the door.",
+    "I carefully dispel the glowing barrier."
+   ],
+   "skill_templates": {},
+   "note": "The player tries to dispel an arcane ward.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "force_door",
+   "intent": "physical",
+   "risky": true,
+   "stat": {
+    "strength": 1
+   },
+   "dc": [
+    12,
+    15,
+    18
+   ],
+   "weight": 3,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {
+    "lucky_break": 0.15
+   },
+   "forced_skill": null,
+   "templates": [
+    "I put my shoulder to the stuck door and heave.",
+    "I try to bash the rusted gate open.",
+    "I pry the stone slab aside with my bare hands."
+   ],
+   "skill_templates": {
+    "lucky_break": [
+     "I use Lucky Break and heave at the stuck door."
+    ]
+   },
+   "note": "The player uses brute force on an obstacle.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "hold_gate",
+   "intent": "physical",
+   "risky": true,
+   "stat": {
+    "strength": 1
+   },
+   "dc": [
+    15
+   ],
+   "weight": 1.5,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     1
+    ],
+    "locations": [
+     "oakhaven_village"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I brace against the gate to keep it from buckling.",
+    "I hold the barricade shut with my full weight."
+   ],
+   "skill_templates": {},
+   "note": "The player holds a gate shut.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "climb_long",
+   "intent": "physical",
+   "risky": true,
+   "stat": {
+    "endurance": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 3.5,
+   "requires": {
+    "enemy": false,
+    "locations": [
+     "whispering_woods",
+     "dragonskull_peaks"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I haul myself up the long cliff face.",
+    "I climb the steep slope, pushing through the exhaustion."
+   ],
+   "skill_templates": {},
+   "note": "The player makes a long, tiring climb.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "endure_hazard",
+   "intent": "physical",
+   "risky": true,
+   "stat": {
+    "endurance": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 3.5,
+   "requires": {
+    "enemy": false,
+    "locations": [
+     "whispering_woods",
+     "dragonskull_peaks"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I push on through the freezing wind.",
+    "I hold my breath and wade through the toxic spores.",
+    "I force myself to march on despite the cold."
+   ],
+   "skill_templates": {},
+   "note": "The player endures a harsh environment.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "jump_gap",
+   "intent": "physical",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 2,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I leap across the gap between the ledges.",
+    "I balance along the narrow beam.",
+    "I vault over the fallen log."
+   ],
+   "skill_templates": {},
+   "note": "The player makes an agile jump or balance move.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "dodge_hazard",
+   "intent": "physical",
+   "risky": true,
+   "stat": {
+    "dexterity": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 2,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I dive away from the falling rubble.",
+    "I roll aside as the trap fires.",
+    "I twist out of the way of the swinging blade."
+   ],
+   "skill_templates": {},
+   "note": "The player dodges a sudden hazard.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  },
+  {
+   "id": "travel_safe",
+   "intent": "travel",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 2.5,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "not_locations": [
+     "oakhaven_village"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I head back to {dest}.",
+    "I return to {dest} to rest and regroup."
+   ],
+   "skill_templates": {},
+   "note": "The player travels back to a safe, familiar place.",
+   "target": "dest",
+   "edge": null,
+   "narrator": true,
+   "dest_kind": "safe"
+  },
+  {
+   "id": "travel_wild",
+   "intent": "travel",
+   "risky": true,
+   "stat": {
+    "endurance": 1,
+    "awareness": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 4,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I set out for {dest}.",
+    "I travel on to {dest}.",
+    "I make my way to {dest}."
+   ],
+   "skill_templates": {},
+   "note": "The player travels to a dangerous, unlocked region.",
+   "target": "dest",
+   "edge": null,
+   "narrator": true,
+   "dest_kind": "unsafe_unlocked"
+  },
+  {
+   "id": "travel_locked",
+   "intent": "travel",
+   "risky": true,
+   "stat": {
+    "endurance": 1,
+    "awareness": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 2,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     1,
+     2
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I set out for {dest}.",
+    "I travel on to {dest}.",
+    "I make my way to {dest}."
+   ],
+   "skill_templates": {},
+   "note": "The player tries to travel to a region that is not yet accessible.",
+   "target": "dest",
+   "edge": "locked_destination",
+   "narrator": true,
+   "dest_kind": "locked"
+  },
+  {
+   "id": "drink_healing",
+   "intent": "use_item",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 3,
+   "requires": {
+    "hp_states": [
+     "wounded",
+     "critical"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I drink the {item}.",
+    "I quaff a {item} to recover.",
+    "I take a swig of the {item}."
+   ],
+   "skill_templates": {},
+   "note": "The player drinks a healing potion.",
+   "target": "item",
+   "edge": null,
+   "narrator": true,
+   "items": [
+    "Minor Healing Potion",
+    "Greater Healing Potion"
+   ]
+  },
+  {
+   "id": "drink_mana",
+   "intent": "use_item",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.5,
+   "requires": {
+    "mana_states": [
+     "low",
+     "ok"
+    ]
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I drink the {item}.",
+    "I down the {item} to restore my focus."
+   ],
+   "skill_templates": {},
+   "note": "The player drinks a mana potion.",
+   "target": "item",
+   "edge": null,
+   "narrator": true,
+   "items": [
+    "Minor Mana Potion",
+    "Greater Mana Potion"
+   ]
+  },
+  {
+   "id": "throw_smoke",
+   "intent": "use_item",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.5,
+   "requires": {
+    "enemy": true,
+    "engaged": true,
+    "no_boss": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I throw down a Smoke Bomb and slip away.",
+    "I hurl the Smoke Bomb at my feet to escape."
+   ],
+   "skill_templates": {},
+   "note": "The player throws a smoke bomb to escape.",
+   "target": "item",
+   "edge": null,
+   "narrator": true,
+   "items": [
+    "Smoke Bomb"
+   ]
+  },
+  {
+   "id": "read_scroll",
+   "intent": "use_item",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.5,
+   "requires": {
+    "enemy": true,
+    "engaged": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I read the Scroll of Magic Missile at the {enemy}.",
+    "I unfurl the Scroll of Magic Missile and fire it at the {enemy}."
+   ],
+   "skill_templates": {},
+   "note": "The player reads a Scroll of Magic Missile at {enemy}.",
+   "target": "item",
+   "edge": null,
+   "narrator": true,
+   "items": [
+    "Scroll of Magic Missile"
+   ]
+  },
+  {
+   "id": "equip_weapon",
+   "intent": "equip",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.2,
+   "requires": {},
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I equip the {item}.",
+    "I switch to my {item}.",
+    "I draw the {item} and ready it."
+   ],
+   "skill_templates": {},
+   "note": "The player changes weapon.",
+   "target": "item",
+   "edge": null,
+   "narrator": true,
+   "slot": "weapon"
+  },
+  {
+   "id": "equip_armor",
+   "intent": "equip",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.0,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I put on the {item}.",
+    "I change into the {item}."
+   ],
+   "skill_templates": {},
+   "note": "The player changes armor.",
+   "target": "item",
+   "edge": null,
+   "narrator": true,
+   "slot": "armor"
+  },
+  {
+   "id": "equip_accessory",
+   "intent": "equip",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 0.8,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I wear the {item}.",
+    "I slip on the {item}."
+   ],
+   "skill_templates": {},
+   "note": "The player changes accessory.",
+   "target": "item",
+   "edge": null,
+   "narrator": true,
+   "slot": "accessory"
+  },
+  {
+   "id": "decide_burn",
+   "intent": "decide",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.0,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     5
+    ],
+    "final_stage": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I throw the Tome and the Inkwell into the fire.",
+    "I burn both relics so no one can ever use them."
+   ],
+   "skill_templates": {},
+   "note": "The player decides to destroy both relics.",
+   "target": null,
+   "edge": null,
+   "narrator": false,
+   "ending": "burn"
+  },
+  {
+   "id": "decide_entrust",
+   "intent": "decide",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.0,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     5
+    ],
+    "final_stage": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I hand both relics to Archmage Elara for safekeeping.",
+    "I give the Tome and the Inkwell to Elara to guard."
+   ],
+   "skill_templates": {},
+   "note": "The player decides to entrust both relics to Archmage Elara.",
+   "target": null,
+   "edge": null,
+   "narrator": false,
+   "ending": "entrust"
+  },
+  {
+   "id": "decide_keep",
+   "intent": "decide",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.0,
+   "requires": {
+    "enemy": false,
+    "chapters": [
+     5
+    ],
+    "final_stage": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I keep the Tome and take up the pen myself.",
+    "I decide to keep both relics and write my own tale."
+   ],
+   "skill_templates": {},
+   "note": "The player decides to keep both relics.",
+   "target": null,
+   "edge": null,
+   "narrator": false,
+   "ending": "keep"
+  },
+  {
+   "id": "impossible_action",
+   "intent": "other",
+   "risky": true,
+   "stat": {
+    "luck": 1
+   },
+   "dc": [
+    20
+   ],
+   "weight": 2,
+   "requires": {},
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I fly up to the ceiling and hover there.",
+    "I snap my fingers and teleport out of here.",
+    "I wish all the enemies away.",
+    "I swallow {feature} in one bite."
+   ],
+   "skill_templates": {},
+   "note": "The player attempts something impossible in this world.",
+   "target": null,
+   "edge": "impossible",
+   "narrator": false
+  },
+  {
+   "id": "off_topic",
+   "intent": "other",
+   "risky": false,
+   "stat": null,
+   "dc": null,
+   "weight": 1.5,
+   "requires": {},
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "What is the weather like in real life?",
+    "Tell me a joke.",
+    "Write me a poem about cats.",
+    "Can you help me with my homework?"
+   ],
+   "skill_templates": {},
+   "note": "The player writes something unrelated to the game.",
+   "target": null,
+   "edge": "off_topic",
+   "narrator": false
+  },
+  {
+   "id": "reckless_improvise",
+   "intent": "other",
+   "risky": true,
+   "stat": {
+    "luck": 1
+   },
+   "dc": [
+    15,
+    18
+   ],
+   "weight": 3,
+   "requires": {
+    "enemy": true,
+    "engaged": true
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I leap onto the {enemy}'s back and hang on.",
+    "I kick over the nearest barrel and hope it hits the {enemy}.",
+    "I yank the loose beam above the {enemy} and pray it falls."
+   ],
+   "skill_templates": {},
+   "note": "The player tries a wild improvised stunt against {enemy}.",
+   "target": "enemy",
+   "edge": "improvised",
+   "narrator": true
+  },
+  {
+   "id": "lucky_gamble",
+   "intent": "other",
+   "risky": true,
+   "stat": {
+    "luck": 1
+   },
+   "dc": [
+    12,
+    15
+   ],
+   "weight": 2,
+   "requires": {
+    "enemy": false
+   },
+   "skills": {},
+   "forced_skill": null,
+   "templates": [
+    "I flip a coin and let fate decide which way to go.",
+    "I pick a stone at random and trust that it is the right one.",
+    "I close my eyes and take the first path my feet choose."
+   ],
+   "skill_templates": {},
+   "note": "The player leaves a decision to pure chance.",
+   "target": null,
+   "edge": null,
+   "narrator": true
+  }
+ ]
+}

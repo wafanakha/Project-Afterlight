@@ -1,0 +1,86 @@
+{
+  "prologue": [
+    "It is the eve of the harvest festival, and Oakhaven Village has been laughing since dawn. Paper lanterns sway from every eave. Cider flows in the market square. Somewhere a fiddler is losing a quiet war against a very drunk choir.",
+    "You came here as a stranger, with a worn pack and no plans beyond a warm meal. You do not know that, in a vault beneath the Mayor's hall, a page has just turned by itself. You do not know that something blank and patient has begun to write your name.",
+    "Then the bell at the gate rings once, wrong and far too hard, and the laughter stops as if it were cut with a knife.",
+    "Smoke rolls over the palisade, black and greasy, stinking of burning thatch. Torches bob beyond the gate. Shrill, delighted voices call to one another in a tongue made of spit and teeth. Goblins. A whole raiding band of them, and they are already through.",
+    "Stalls burn. Mothers drag children beneath tables. The festival banners curl into ash, and the square, so loud a moment ago, fills with screams and the hungry crackle of fire.",
+    "Mayor Bartholomew shoulders his way through the panic, soot smeared across his chain of office and terror held back by sheer stubbornness. His eyes find you, and no one else, because no one else is still standing near him."
+  ],
+  "prologue_hook": "\"Stranger,\" he says, gripping your arm hard enough to hurt. \"Whatever brought you to Oakhaven, I need it tonight. Stand with me.\"",
+  "prologue_calm": "The first raider has not reached the square yet. You have a breath, perhaps two. Speak, look, prepare. The Tome is waiting to write what comes next.",
+  "ch1_goblin_waves": [
+    "A shriek tears across the square. A goblin vaults the smouldering barricade and lands in a crouch, rusted blade in hand, yellow eyes sliding over the crowd until they find you. The first raider has arrived.",
+    "Another cry, answered by another. A second goblin scrambles over the wreckage of a market stall, hissing curses, determined to finish what its fallen kin began.",
+    "The last of the raiders does not run. Scarred and grinning, a goblin steps out of the smoke with a stolen festival ribbon knotted around its arm like a trophy, and raises its knife toward you."
+  ],
+  "enemy_spawn": {
+    "goblin_ambusher": {
+      "engaged": [
+        "A goblin drops from a burning rooftop in a shower of sparks, landing in a crouch with a rusted blade already swinging toward your ribs.",
+        "Something shrieks behind you. You spin as a goblin bursts from the smoke, yellow eyes wide, teeth bared in a grin that has never known mercy.",
+        "A cart overturns with a crash. Behind it a goblin rises, a torch in one fist and a knife in the other, and it has clearly decided that you are the next thing to burn."
+      ],
+      "lurking": [
+        "Between two smouldering shapes in the dark, a goblin crouches over a stolen sack, ears twitching. It has not noticed you. Yet.",
+        "A thin shadow slips along the nearest wall. A goblin, sniffing for loot, its back half turned toward you."
+      ]
+    },
+    "skeleton_warrior": {
+      "engaged": [
+        "Bones clatter beneath the leaves. A skeleton in rotted mail wrenches itself upright, empty sockets burning with cold blue light, and raises a notched sword.",
+        "The silence breaks with a dry rattle. A skeleton warrior marches out of the shadows in perfect, unhurried step, its blade already lifted to strike."
+      ],
+      "lurking": [
+        "A skeleton stands motionless nearby, so still you almost mistake it for a dead trunk. Then its skull turns slowly, scanning. Not yet toward you."
+      ]
+    },
+    "mimic": {
+      "engaged": [
+        "The chest looks abandoned, its lid ajar, its brass fittings catching a stray gleam. Then the lid snaps open on rows of splintered teeth and a long wet tongue lashes out. It was never a chest."
+      ]
+    },
+    "orc_marauder": {
+      "engaged": [
+        "The ground trembles. An orc marauder steps onto the trail, scarred arms wrapped in chain, a notched axe dragging a furrow through the stone. It smiles, and it is not a friendly smile."
+      ]
+    },
+    "gelatinous_cube": {
+      "engaged": [
+        "The air in the passage shimmers like heat over a road. Too late you see the wet gleam: a gelatinous cube slides forward, bones and coins and a rusted helmet suspended in its glassy body, filling the corridor from wall to wall."
+      ]
+    },
+    "the_hollow_scribe": {
+      "engaged": [
+        "The crypt falls silent. At the far end, a figure in ink-stained robes looks up from a lectern, the quill in its skeletal hand never pausing. 'You are not in my story,' it rasps, and begins to write you out."
+      ]
+    }
+  },
+  "enemy_defeat": {
+    "goblin_ambusher": [
+      "The goblin collapses in a heap and does not rise. For a heartbeat there is only the crackle of distant flames and the sound of your own ragged breathing.",
+      "With one last wheezing hiss the goblin goes limp, its crude blade skittering away across the ground.",
+      "The goblin's shriek cuts off mid-breath. Its torch tumbles from its fingers and gutters out beside it."
+    ],
+    "skeleton_warrior": [
+      "The skeleton's frame shudders and comes apart, bones rattling to the ground like dropped kindling. The cold light in its skull gutters and dies.",
+      "Whatever bound the bones together lets go. The skeleton collapses into a harmless pile, its sword ringing once against the stones."
+    ],
+    "mimic": [
+      "The mimic gives a last gurgling groan, its tongue flopping loose. The lid slams shut for the final time, and it is only a chest again, splintered and still.",
+      "Its teeth snap uselessly once, twice, then the creature sags into a heap of splintered wood and cooling brass."
+    ],
+    "orc_marauder": [
+      "The orc sways, stares at you with something like grudging respect, and topples like a felled tree. The ground shakes beneath it, then lies still.",
+      "The marauder's axe slips from its grip and bites into the earth. The orc follows it down with a heavy, final sigh."
+    ],
+    "gelatinous_cube": [
+      "The cube shudders and loses its shape, collapsing into a slick puddle. The bones and coins it swallowed spill across the floor, glistening.",
+      "With a wet, sagging sound the cube slumps and runs apart, leaving a trail of slime, old coins and the memory of its hunger."
+    ],
+    "the_hollow_scribe": [
+      "The Hollow Scribe's quill snaps. Ink pours from its robes like black blood, and its hollow voice thins to a whisper: 'Unfinished... the tale was never finished...' Then the robes fall empty.",
+      "The Scribe unravels line by line, its body coming apart into drifting letters that fade before they touch the ground. The crypt is silent at last."
+    ]
+  }
+}

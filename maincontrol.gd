@@ -1,24 +1,28 @@
 extends Node2D
+
 @onready var menu_tabs = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer
 @onready var input_field = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/Story/InputPanel/InputMargin/InputVbox/Input
 @onready var story_log = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/Story/StoryPanel/StoryMargin/Story
-@onready var http_request = $HTTPRequest
-@onready var health = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/HealthCont/health
-@onready var Exp = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/ExpCont/Exp
-@onready var Energy = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/ExpCont2/Exp
+@onready var health = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/health
+@onready var Exp = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/Exp
+@onready var Energy = $root/rootMargin/rootVbox/HboxBot/StatusPanel/Statusmargin/statusVobx/Exp2
 @onready var item_hflow_ui = $root/rootMargin/rootVbox/HboxBot/ItemPanel/MarginContainer/VBoxContainer/ItemHflow
-@onready var armor = $root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer/armor
-@onready var weapon = $root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer/weapon
-@onready var accessorys = $root/rootMargin/rootVbox/TopHbox/MenuPanel/MarginContainer/VBoxContainer2/VBoxContainer/accessory
-
+@onready var armor = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/armor
+@onready var weapon = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/weapon
+@onready var accessorys = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/accessory
+@onready var dice_2d = $root/rootMargin/rootVbox/HboxBot/PanelContainer3/Dice2D
+@onready var objective_label = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/objective
+@onready var location_label = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/location
+@onready var enemy_label = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/enemy
+@onready var button_story = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/PanelContainer/HBoxContainer/Button
+@onready var button_character = $root/rootMargin/rootVbox/TopHbox/MapPanel/MapMargin/VBoxContainer/PanelContainer/HBoxContainer/Button2
 # ON CHARACTER
-
 @onready var char_health_num = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/HealtLabelCont/HealthNumLabel
 @onready var char_health_bar = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/health
 @onready var char_exp_num = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/ExpLabelCont/ExpNumLabel
 @onready var char_exp_bar = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/Exp
-@onready var char_energy_num = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/EnergyLabelCont/EnergyNumLabel
-@onready var char_energy_bar = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/Energy
+@onready var char_energy_num = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/EnergyLabelCont/EnergyNumLabel   # angka MANA
+@onready var char_energy_bar = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/Energy   # bar MANA
 
 @onready var show_Strength = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/StrongCont/strengthNum
 @onready var show_Dexterity = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/DextCont/DexterityNum
@@ -35,711 +39,964 @@ extends Node2D
 @onready var char_accessory_name = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont/accessoryName
 @onready var char_accessory_desc = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont/accessoryDesc
 @onready var equipment_list = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/equipVbox/VScrollBar/VBoxContainer
+@onready var level_label = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/statVbox/LevelCont/level
+@onready var skill_cont = $root/rootMargin/rootVbox/TopHbox/MarginContainer/TabContainer/character/MarginContainer/CharacterVbox/botHbox/skillVbox
 
+const FONT_PATH := "res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf"
+const BAL_PATH := "res://data/balance_data.json"
+const WORLD_PATH := "res://data/world_data.json"
+const FLAVOR_PATH := "res://data/flavor_data.json"   # prolog, narasi musuh muncul dan mati
+const SHOW_ENEMY_DICE := true                         # tampilkan juga dadu damage serangan balik musuh
+const DICE_TONES := ["damage", "fumble", "enemy"]
+const DICE_LABELS := {"damage": "Damage dice", "fumble": "Fumble dice", "enemy": "Enemy damage dice"}
+const DICE_COLORS := {"damage": "#8A4B08", "fumble": "#B3261E", "enemy": "#C2571A"}
+const PROLOGUE_PAUSE := 1.6                           # detik antar paragraf prolog
+const SERVER_HOST := "127.0.0.1"
+const SERVER_PORT := 8080
+const SERVER_WAIT_TRIES := 90
+const MAX_INPUT_CHARS := 200
 
+const C_PLAYER := "#8A4B08"
+const C_SYSTEM := "#7A7167"
+const C_RULE := "#CBBFAE"
+const C_CRIT_WIN := "#9A6B00"
+const C_WIN := "#2E7D32"
+const C_FAIL := "#C2571A"
+const C_CRIT_FAIL := "#B3261E"
+const C_MANA := "#1565C0"
+const C_EXP := "#7B1FA2"
+const C_ITEM := "#00796B"
+const C_EQUIP := "#AD1457"
+const C_ENEMY := "#A1401A"
+const C_NPC := "#4F5BB5"
+const C_LOCATION := "#3D5A80"
+const C_PANEL := "#E3D9C8"          # latar kartu (sedikit lebih gelap dari kertas)
+const C_PANEL_EDGE := "#CBBFAE"
+const C_INK := "#4A443F"
+const C_MUTED := "#8C8378"
+const C_TAN := "#B8AA8A"            # warna tombol aktif (sama dengan tombol Story Log)
+const C_HEAD := "#B5AB9B"           # warna judul bagian (WEAPON, BAG, SKILLS)
 
-const SERVER_URL = "http://localhost:8080/generate"
-
-
-# Called when the node enters the scene tree for the first time.
-var world_database = {
-	"locations": {
-		"oakhaven_village": "A classic starter village where the local tavern is rebuilt weekly due to 'adventurer incidents'. The locals are friendly but heavily insured.",
-		"muttering_woods": "An ancient magical forest. The trees don't whisper dark secrets; they just passively-aggressively judge your fashion choices as you walk by.",
-		"mount_inconvenience": "A jagged peak filled with goblin camps. It's not particularly deadly, but the stairs are incredibly steep and there are no handrails."
-	},
-	"bestiary": {
-		"unionized_goblin": {
-			"desc": "A standard green goblin wearing a tiny hardhat. He fights fiercely but will absolutely stop mid-swing if it's his mandated 15-minute union break.",
-			"type": "humanoid"
-		},
-		"insecure_mimic": {
-			"desc": "A terrifying monster that takes the shape of treasure chests. This one, however, disguised itself as a very unconvincing, slightly wobbly bar stool.",
-			"type": "monstrosity"
-		},
-		"overencumbered_skeleton": {
-			"desc": "An undead warrior carrying way too much useless loot. It rattles loudly and moves slowly because it refuses to drop its collection of rusty spoons.",
-			"type": "undead"
-		},
-		"orc_life_coach": {
-			"desc": "A massive, hulking Orc who hits you with a club while shouting motivational quotes like, 'PAIN IS JUST WEAKNESS LEAVING THE BODY!'",
-			"type": "humanoid"
-		},
-		"dramatic_slime": {
-			"desc": "A basic low-level slime that reacts to every attack like an actor in a tragic soap opera.",
-			"type": "ooze"
-		}
-	},
-	"npcs": {
-		"mayor_bartholomew": {
-			"desc": "The village mayor who is clearly corrupt but terrible at hiding it. He wears a monocle that keeps falling into his soup.",
-			"personality": "Nervous, overly polite, and constantly sweating."
-		},
-		"archmage_fizzlebang": {
-			"desc": "An incredibly powerful wizard who has retired from saving the world and now uses his cosmic magic strictly to ensure his tea is the perfect temperature.",
-			"personality": "Wise, easily distracted, and obsessed with baked goods."
-		},
-		"iron_thumb_olga": {
-			"desc": "A muscular, intimidating dwarven blacksmith with a booming voice. Secretly, she hates forging swords and just wants to open a knitting shop.",
-			"personality": "Gruff on the outside, surprisingly gentle and motherly on the inside."
-		},
-		"sir_lancelittle": {
-			"desc": "A paladin in shining armor who is incredibly brave but suffers from a terrible sense of direction. He's been looking for the dragon's lair for three years.",
-			"personality": "Heroic, loud, and confidently incorrect."
-		}
-	},
-	"equipment": {
-		"weapons": {
-			"slightly_used_broadsword": "A standard iron sword with a 'Return to Olga' tag tied to the hilt. It's reliable, if a bit blunt. (Boosts Strength)",
-			"staff_of_splinters": "A magical wooden staff that crackles with arcane energy. Requires thick gloves to hold properly. (Boosts Intelligence)",
-			"tactical_frying_pan": "Heavy, cast-iron, and surprisingly aerodynamic. Perfect for cooking breakfast or causing concussions. (Boosts Strength)"
-		},
-		"armor": {
-			"chafing_chainmail": "Provides excellent defense against goblin arrows, but terrible for your inner thighs. (Boosts Endurance, lowers Dexterity)",
-			"vegan_leather_tunic": "Tough armor made entirely from enchanted avocados. Surprisingly durable, but smells faintly of guacamole. (Boosts Dexterity)",
-			"hand_me_down_robes": "Mage robes that belong to someone taller than you. You have to pull them up when you run. (Boosts Intelligence)"
-		},
-		"accessories": {
-			"ring_of_mild_convenience": "A glowing magic ring. It doesn't grant power, but it perfectly regulates your body temperature so you're never too hot or cold. (Boosts Endurance)",
-			"amulet_of_pointless_advice": "A talking necklace that whispers things like 'Don't forget to chew your food' during intense combat. (Boosts Awareness)",
-			"lucky_d20_pendant": "A twenty-sided die worn on a string. Sometimes it lands on 20, sometimes on 1. (Boosts Luck)"
-		}
-	},
-	"items": {
-		"questionable_red_potion": "A standard healing potion. It restores your HP but tastes exactly like cherry cough syrup. (Restores HP)",
-		"caffeinated_blue_elixir": "A mana potion packed with so much caffeine it makes your teeth vibrate. (Restores Energy, boosts Dexterity temporarily)",
-		"tactical_pocket_sand": "A handful of coarse sand. Throw it in the enemy's eyes for a quick getaway! (Boosts Dexterity)",
-		"scroll_of_fireball": "A highly destructive magic scroll. The warning label says 'Do not read indoors'. (Deals heavy damage)"
-	},
-	"plot_milestones": {
-		"intro_tavern": "You are sitting in the Oakhaven Tavern, minding your own business, when a goblin crashes through the window. Typical Tuesday.",
-		"find_the_macguffin": "The Mayor has hired you for 10 gold pieces to find a glowing orb. He doesn't know what it does, but it looks expensive.",
-		"dungeon_delve": "You must navigate the traps of Mount Inconvenience to confront the Bandit King.",
-		"final_boss": "You face the source of all evil in the region, only to discover it's just a misunderstood necromancer who wanted friends."
-	}
+const ENEMY_ALIASES := {
+	"Goblin Ambusher": ["goblin", "goblins"], "Skeleton Warrior": ["skeleton", "skeletons"], "Orc Marauder": ["orc"],
+	"Gelatinous Cube": ["cube"], "The Hollow Scribe": ["Scribe", "Hollow Scribe"]
 }
+const STAT_ORDER := ["STR", "DEX", "END", "INT", "AWR", "CHA", "LCK"]
 
-# Current Game State Variables
-var current_location_id = "oakhaven_village"
-var current_enemy_id = "unionized_goblin" 
-var current_enemy_type = "humanoid" 
-var current_time = "Morning"
+var bal: Dictionary
+var world: Dictionary
+var flavor: Dictionary = {}
+var _last_flavor: Dictionary = {}
+var enemy_stats_label: Label
+var engine: GameEngine
+var ai: AIClient
+var _font: Font = null
+var highlight_terms: Dictionary = {}
+var highlight_regex: RegEx
 
-# Story Tracking Variables
-var current_plot_id = "intro_tavern"
-
-# Character Stats & Leveling
-var player_level: int = 1
-var player_exp: int = 0
-var exp_to_next_level: int = 100
-
-# Full Character Attributes
-var stat_strength: int = 5      # Raw physical power and melee damage
-var stat_dexterity: int = 5     # Accuracy, speed, agility, and dodging
-var stat_endurance: int = 5     # Physical defense, stamina, and health points
-var stat_intelligence: int = 5  # Magic, puzzle-solving, and witty remarks
-var stat_awareness: int = 5     # Perception, noticing hidden items, secrets, or traps
-var stat_charisma: int = 5      # Persuasion, bartering, and making friends with NPCs
-var stat_luck: int = 9         # Critical hit chances and rare loot drops
-
-# Inventory & Equipment
-var inventory_items: Array = []
-var inventory_equipment: Array = []
-var equipped_weapon: String = ""
-var equipped_armor: String = ""
-var equipped_accessory: String = ""
+var awaiting_response := false
+var _roll_pending := false
+var _awaiting_dice_click := false
+signal dice_clicked
 
 
 func _ready() -> void:
-	health.max_value = 100
-	health.value = 100
-	
-	Energy.max_value = 100
-	Energy.value = 50
-		
-	Exp.max_value = exp_to_next_level
-	Exp.value = player_exp
-	
-	update_equipment_inventory_ui()
-	
-	
-	# SET UP UI 
-		
-	char_health_bar.value = health.value
-	char_exp_bar.value = Exp.value
-	char_energy_bar.value = Energy.value
-	
-	char_health_num.text = "%s/%s" % [health.value, health.max_value]
-	char_energy_num.text = "%s/%s" % [Energy.value, Energy.max_value]
-	char_exp_num.text = "%s/%s" % [Exp.value, Exp.max_value]
-	
-	weapon.text = equipped_weapon
-	armor.text = equipped_armor
-	accessorys.text = equipped_accessory
-	char_armor_name.text = equipped_armor
-	char_weapon_name.text = equipped_weapon
-	char_accessory_name.text = equipped_accessory
-	
-	show_Strength.text = str(stat_strength) 
-	show_Dexterity.text = str(stat_dexterity)
-	show_Endurance.text = str(stat_endurance)
-	show_Intelligence.text = str(stat_intelligence)
-	show_Awareness.text = str(stat_awareness)
-	show_Charisma.text = str(stat_charisma)
-	show_Luck.text = str(stat_luck)
+	bal = JSON.parse_string(FileAccess.get_file_as_string(BAL_PATH))
+	world = JSON.parse_string(FileAccess.get_file_as_string(WORLD_PATH))
+	var fl = JSON.parse_string(FileAccess.get_file_as_string(FLAVOR_PATH))
+	flavor = fl if fl is Dictionary else {}
+	engine = GameEngine.new(bal, world)
+	_font = load(FONT_PATH) if ResourceLoader.exists(FONT_PATH) else null
+	ai = AIClient.new()
+	ai.host = SERVER_HOST
+	ai.port = SERVER_PORT
+	add_child(ai)
+	_build_highlight_terms()
+
+	# stat musuh ditulis di bawah nama musuh
+	enemy_stats_label = Label.new()
+	enemy_stats_label.add_theme_color_override("font_color", Color(C_MUTED))
+	enemy_stats_label.add_theme_font_size_override("font_size", 14)
+	if _font != null:
+		enemy_stats_label.add_theme_font_override("font", _font)
+	enemy_stats_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	enemy_stats_label.visible = false
+	var enemy_box := enemy_label.get_parent()
+	enemy_box.add_child(enemy_stats_label)
+	enemy_box.move_child(enemy_stats_label, enemy_label.get_index() + 1)
 
 	input_field.text_submitted.connect(_on_input_submitted)
-	http_request.request_completed.connect(_on_request_completed)
-	
-	story_log.text = "[color=gray]System: Waking up Dungeon Master...\n[/color]"
+	_setup_fonts()
+	story_log.bbcode_enabled = true
+	story_log.scroll_following = true
+	story_log.text = _bb("System: Waking up the Dungeon Master...", C_SYSTEM, false, true) + "\n"
 	input_field.editable = false
-	input_field.placeholder_text = "DM is Preparing the Story..."
-	
-	_request_intro_story()
+	input_field.placeholder_text = "DM is preparing the story..."
+
+	dice_2d.mouse_filter = Control.MOUSE_FILTER_STOP
+	dice_2d.gui_input.connect(_on_dice_gui_input)
+
+	_refresh_all_ui()
+	_wait_for_server()
 
 
-func _on_input_submitted(new_text: String):
-	if new_text.strip_edges() == "":
+func _setup_fonts() -> void:
+	var base_font: Font = _font
+	if base_font == null:
 		return
-		
-	story_log.text += "\n[color=yellow]> " + new_text + "[/color]\n"
-	input_field.clear()
+	var ts := TextServerManager.get_primary_interface()
+	var bold_font := FontVariation.new()
+	bold_font.base_font = base_font
+	bold_font.variation_opentype = {ts.name_to_tag("weight"): 700}
+	var italic_font := FontVariation.new()
+	italic_font.base_font = base_font
+	italic_font.variation_transform = Transform2D(Vector2(1, 0), Vector2(0.2, 1), Vector2.ZERO)
+	var bold_italic_font := FontVariation.new()
+	bold_italic_font.base_font = base_font
+	bold_italic_font.variation_opentype = {ts.name_to_tag("weight"): 700}
+	bold_italic_font.variation_transform = Transform2D(Vector2(1, 0), Vector2(0.2, 1), Vector2.ZERO)
+	story_log.add_theme_font_override("normal_font", base_font)
+	story_log.add_theme_font_override("bold_font", bold_font)
+	story_log.add_theme_font_override("italics_font", italic_font)
+	story_log.add_theme_font_override("bold_italics_font", bold_italic_font)
+
+
+func _wait_for_server() -> void:
+	for attempt in range(SERVER_WAIT_TRIES):
+		if await ai.is_server_ready():
+			_on_server_ready()
+			return
+		await get_tree().create_timer(2.0).timeout
+	_log(_bb("System: The AI server did not respond. Start server_app and restart the game.", C_CRIT_FAIL, true))
+
+
+func _on_server_ready() -> void:
+	story_log.text = ""
+	await _show_intro()   # _show_intro membuka kembali kolom input di akhir
+
+
+# ===================================================================== teks dan format
+func _bb(text: String, color: String, bold := false, italic := false) -> String:
+	var s := "[color=%s]%s[/color]" % [color, text]
+	if bold:
+		s = "[b]" + s + "[/b]"
+	if italic:
+		s = "[i]" + s + "[/i]"
+	return s
+
+
+func _log(bbcode: String) -> void:
+	story_log.text += bbcode + "\n"
+
+
+func _esc(text: String) -> String:
+	return text.replace("[", "[lb]")
+
+
+func _remove_line(bbcode: String) -> void:
+	var t: String = story_log.text
+	var idx := t.rfind(bbcode + "\n")
+	if idx != -1:
+		story_log.text = t.substr(0, idx) + t.substr(idx + bbcode.length() + 1)
+
+
+func _build_highlight_terms() -> void:
+	var t := {}
+	for n in bal["enemies"]:
+		t[str(n).to_lower()] = C_ENEMY
+		for a in ENEMY_ALIASES.get(n, []):
+			t[str(a).to_lower()] = C_ENEMY
+	for id in world["npcs"]:
+		var nm: String = world["npcs"][id]["name"]
+		t[nm.to_lower()] = C_NPC
+		var words := nm.split(" ")
+		var low := nm.to_lower()
+		if low.begins_with("sir ") or low.begins_with("mayor ") or low.begins_with("archmage "):
+			t[words[words.size() - 1].to_lower()] = C_NPC
+		elif words.size() >= 2 and not low.begins_with("the "):
+			t[words[0].to_lower()] = C_NPC
+	for id in world["locations"]:
+		t[str(world["locations"][id]["name"]).to_lower()] = C_LOCATION
+	for n in bal["consumables"]:
+		t[str(n).to_lower()] = C_ITEM
+	for cat in ["weapons", "armor", "accessories"]:
+		for n in bal[cat]:
+			t[str(n).to_lower()] = C_EQUIP
+	for n in bal["skills"]:
+		t[str(n).to_lower()] = C_EXP
+	highlight_terms = t
+	var keys: Array = t.keys()
+	keys.sort_custom(func(a, b): return a.length() > b.length())
+	highlight_regex = RegEx.create_from_string("(?i)\\b(" + "|".join(PackedStringArray(keys)) + ")\\b")
+
+
+func _format_narrative(text: String) -> String:
+	var s := _esc(text)
+	var out := ""
+	var last := 0
+	for m in highlight_regex.search_all(s):
+		out += s.substr(last, m.get_start() - last)
+		var color: String = highlight_terms.get(m.get_string().to_lower(), "")
+		out += _bb(m.get_string(), color, true) if color != "" else m.get_string()
+		last = m.get_end()
+	out += s.substr(last)
+	return out
+
+
+func _name_c(name: String, color: String) -> String:
+	return _bb(_esc(name), color, true)
+
+
+func _tier_color(tier: String) -> String:
+	match tier:
+		"critical_success": return C_CRIT_WIN
+		"success": return C_WIN
+		"failure": return C_FAIL
+		_: return C_CRIT_FAIL
+
+
+func _signed(n: int) -> String:
+	return ("+%d" % n) if n >= 0 else ("%d" % n)
+
+
+# ===================================================================== pembukaan dan bab
+func _pick_flavor(key: String, arr: Array) -> String:
+	## Pilih satu baris acak dari daftar, tanpa mengulang baris yang sama dua kali berturut-turut.
+	if arr.is_empty():
+		return ""
+	var i := randi() % arr.size()
+	if arr.size() > 1 and i == int(_last_flavor.get(key, -1)):
+		i = (i + 1) % arr.size()
+	_last_flavor[key] = i
+	return str(arr[i])
+
+
+func _show_intro() -> void:
+	awaiting_response = true
 	input_field.editable = false
-	input_field.placeholder_text = "The AI DM is rolling the dice..."
-	
-	var d20_roll = randi_range(1, 20) 
-	story_log.text += "[color=gray][System: Rolled a raw D20: %d][/color]\n" % d20_roll
-	$root/rootMargin/rootVbox/HboxBot/PanelContainer3/Dice2D.roll_dice(d20_roll)
-	
-	var player_stats = "STR: %d | DEX: %d | END: %d | INT: %d | AWR: %d | CHA: %d | LCK: %d" % [stat_strength, stat_dexterity, stat_endurance, stat_intelligence, stat_awareness, stat_charisma, stat_luck]
-	var loc_desc = world_database["locations"].get(current_location_id, "Unknown.")
-	
-	var enemy_data = world_database["bestiary"].get(current_enemy_id, {})
-	var enemy_desc = enemy_data.get("desc", "None")
-	var enemy_type = enemy_data.get("type", "none")
-	var current_objective = world_database["plot_milestones"].get(current_plot_id, "Have fun.")
-	
-	var seed_text = """[Story Context]
-Main Objective: %s
-
-[Environmental Context]
-Location: %s
-Enemy: %s (Type: %s)
-
-[Player Context]
-HP: %d | Level: %d
-Stats: %s
-Raw D20 Roll: %d
-
-Player Action: "%s"
-[System Directive]
-You are the AI DM for a lighthearted, comedic D&D-style RPG. Evaluate the Player Action strictly:
-1. Choose the MOST LOGICAL Stat for the action (e.g., CHA for talking, END for eating, STR for hitting, DEX for dodging).
-2. Set a DC (Difficulty Class) between 5 and 20.
-3. Calculate Total Score = Raw D20 Roll + Chosen Stat.
-4. CRITICAL MATH RULE: You MUST evaluate the numbers! IF Total Score is GREATER THAN OR EQUAL to DC, "is_success" MUST be true. IF Total Score is LESS THAN DC, "is_success" MUST be false. Do not break this rule!
-5. Write a short, funny 2nd-person narrative based on the outcome.
-
-[JSON Strict Rules]
-- "total_score" MUST be a single integer (e.g., 15), NEVER an equation.
-- "target_hp_change" MUST be 0 unless the player specifically attacks the enemy.
-- "player_stat_change" should only be 1 or -1 for a single stat, the rest must be 0.
-- Include "new_plot_id" if the story should progress (choose from: "intro_tavern", "find_the_macguffin", "dungeon_delve", "final_boss"). If the scene isn't over yet, keep the current one.
-- Include "new_location_id" if the player moves to a new area (choose from: "oakhaven_village", "muttering_woods", "mount_inconvenience").
-- Include "enemy_defeated": true ONLY if the enemy's HP reaches 0 or they run away. Otherwise false.
-""" % [current_objective, loc_desc, enemy_desc, enemy_type, health.value, player_level, player_stats, d20_roll, new_text]
-
-	var payload = { "prompt": seed_text }
-	var json_string = JSON.stringify(payload)
-	var headers = ["Content-Type: application/json"]
-	http_request.request(SERVER_URL, headers, HTTPClient.METHOD_POST, json_string)
+	input_field.placeholder_text = "The Tome is writing..."
+	_log("[center]" + _bb("~ THE UNWRITTEN TALE ~", C_CRIT_WIN, true) + "[/center]")
+	_log("")
+	_chapter_banner(false)
+	for p in flavor.get("prologue", []):
+		await get_tree().create_timer(PROLOGUE_PAUSE).timeout
+		_log("")
+		_log(_format_narrative(str(p)))
+	var hook := str(flavor.get("prologue_hook", ""))
+	if hook != "":
+		await get_tree().create_timer(PROLOGUE_PAUSE).timeout
+		_log("")
+		_log(_bb(_esc(hook), C_CRIT_WIN, true, true))
+	var calm := str(flavor.get("prologue_calm", ""))
+	if calm != "":
+		await get_tree().create_timer(PROLOGUE_PAUSE).timeout
+		_log("")
+		_log(_bb(_esc(calm), C_SYSTEM, false, true))
+	if not engine.enemy.is_empty():
+		_log("")
+		_log_enemy_appears(str(engine.enemy["name"]), bool(engine.enemy["engaged"]), engine.queue.size())
+	_log("")
+	_log(_bb("Tip: describe what you do, e.g. \"I ask the Mayor what happened\", \"I look around the square\" or \"I swing my mace at the goblin\". "
+			+ "Click a consumable or a skill to use it. Type /help for commands.", C_SYSTEM, false, true))
+	_end_turn_ui()
 
 
-func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
-	if response_code == 200:
-		var response_string = body.get_string_from_utf8()
-		var json_data = JSON.parse_string(response_string)
-		
-		if json_data != null and json_data.has("response"):
-			var raw_ai_text = json_data["response"]
-			_process_hybrid_response(raw_ai_text)
-		else:
-			story_log.text += "\n[color=red]System: Invalid JSON format received from server.[/color]\n"
-	else:
-		story_log.text += "\n[color=red]System: Server Error Code %d[/color]\n" % response_code
+func _chapter_banner(show_brief := true) -> void:
+	var wch := engine.chapter_world()
+	_log(_bb("Chapter %d: %s" % [engine.chapter, wch["title"]], C_LOCATION, true))
+	if show_brief:
+		_log(_bb(_esc(str(wch["brief"])), C_SYSTEM, false, true))
+	if engine.location != engine.main_location():
+		_log(_bb("Objective: head to %s." % world["locations"][engine.main_location()]["name"], C_CRIT_WIN, true))
+
+
+func _spawn_line(name: String, engaged: bool, remaining: int) -> String:
+	## Narasi kemunculan musuh. Bab 1: goblin pertama, kedua, dan ketiga punya kalimat sendiri.
+	var id := GameEngine.slug(name)
+	if engaged and engine.chapter == 1 and name == "Goblin Ambusher" and remaining >= 0:
+		var waves: Array = flavor.get("ch1_goblin_waves", [])
+		var idx: int = (bal["chapters"][0]["scripted"] as Array).size() - 1 - remaining
+		if idx >= 0 and idx < waves.size():
+			return str(waves[idx])
+	var sp: Dictionary = flavor.get("enemy_spawn", {}).get(id, {})
+	var kind := "engaged" if engaged else "lurking"
+	var line := _pick_flavor("spawn_%s_%s" % [id, kind], sp.get(kind, []))
+	if line != "":
+		return line
+	return ("%s lunges out of nowhere and attacks you!" if engaged else "%s lurks nearby, unaware of you.") % name
+
+
+func _log_enemy_appears(name: String, engaged: bool, remaining := -1) -> void:
+	_log(_format_narrative(_spawn_line(name, engaged, remaining)))
+	_log(_bb(">>> %s attacks! <<<" % name if engaged else ">>> %s lurks nearby and has not noticed you. <<<" % name, C_ENEMY, true))
+
+
+func _defeat_line(name: String) -> String:
+	var id := GameEngine.slug(name)
+	var line := _pick_flavor("defeat_" + id, flavor.get("enemy_defeat", {}).get(id, []))
+	if line != "":
+		return line
+	return "The %s falls and does not rise again." % name
+
+
+func _show_help() -> void:
+	_log("")
+	_log(_bb("How to play", C_CRIT_WIN, true))
+	_log(_bb("Every risky action is a d20 roll: d20 + stat modifier + level bonus (+ item/skill) against a DC, or against the enemy's AC when you attack. "
+			+ "A natural 1 always fails and a natural 20 always succeeds. Attacks that hit deal your weapon's dice plus your modifier.", C_SYSTEM, false, true))
+	_log(_bb("Commands: /new (start over), /help.", C_SYSTEM, false, true))
+
+
+# ===================================================================== input dan giliran
+func _sanitize_input(raw: String) -> String:
+	var t := raw.replace("\n", " ").replace("\r", " ").replace("\t", " ").replace("[", "").replace("]", "").replace("\"", "'")
+	while t.contains("  "):
+		t = t.replace("  ", " ")
+	t = t.strip_edges()
+	if t.length() > MAX_INPUT_CHARS:
+		t = t.substr(0, MAX_INPUT_CHARS)
+	return t
+
+
+func _on_input_submitted(new_text: String) -> void:
+	var text := new_text.strip_edges()
+	if text == "" or awaiting_response or _roll_pending:
+		return
+	input_field.clear()
+	if text.begins_with("/"):
+		match text.to_lower():
+			"/new": _restart()
+			"/help": _show_help()
+			_: _log(_bb("System: unknown command. Try /help.", C_SYSTEM, false, true))
+		return
+	_run_turn(text, {})
+
+
+func _end_turn_ui() -> void:
+	awaiting_response = false
+	if engine.down:
+		input_field.placeholder_text = "Game over. Type /new to start again."
 		input_field.editable = true
+	elif engine.ending != "":
+		input_field.placeholder_text = "The end. Type /new to start again."
+		input_field.editable = true
+	else:
+		input_field.editable = true
+		input_field.placeholder_text = "What will you do?"
+		input_field.grab_focus()
 
 
-func _process_hybrid_response(raw_text: String):
-	var clean_text = raw_text.replace("`", "")
-	
-	var parts = clean_text.split("CODE_BLOCK_START")
-	var narrative = parts[0].strip_edges()
-	
-	story_log.text += "\n" + narrative + "\n"
-	
-	if parts.size() > 1:
-		var json_part = parts[1].split("CODE_BLOCK_END")[0].strip_edges()
-		
-		if json_part.begins_with("json"):
-			json_part = json_part.substr(4).strip_edges()
-		
-		var logic_data = JSON.parse_string(json_part)
-		
-		if logic_data != null:
-			_execute_game_logic(logic_data)
+func _fail_turn(message: String) -> void:
+	_log(_bb("System: " + message + " This turn was not applied.", C_CRIT_FAIL, true))
+	_end_turn_ui()
+
+
+func _run_turn(raw_text: String, forced_label: Dictionary) -> void:
+	if awaiting_response or _roll_pending:
+		return
+	var action := _sanitize_input(raw_text)
+	if action == "":
+		return
+	if engine.down or engine.ending != "":
+		_log(_bb("System: the story is over. Type /new to start again.", C_SYSTEM, false, true))
+		return
+
+	awaiting_response = true
+	input_field.editable = false
+	_log("")
+	_log(_bb("──────────  Turn %d  ──────────" % (engine.turn + 1), C_RULE))
+	_log(_bb("> " + _esc(action), C_PLAYER, true))
+
+	# 1. Adjudicator: ubah aksi menjadi label (tombol memakai label langsung)
+	var label: Dictionary = forced_label
+	if label.is_empty():
+		var thinking := _bb("The DM is weighing your action...", C_SYSTEM, false, true)
+		input_field.placeholder_text = "The DM is weighing your action..."
+		_log(thinking)
+		var r: Dictionary = await ai.adjudicate(AIClient.render_adjudicator_input(engine.adjudicator_context(), action))
+		_remove_line(thinking)
+		if not r["ok"]:
+			_fail_turn("AI server: %s." % r["error"])
+			return
+		var san: Dictionary = {"ok": false, "issues": ["JSON tidak valid"]}
+		if r["valid"]:
+			san = AIClient.sanitize_label(r["label"], engine.known_ids())
+		if san["ok"]:
+			label = san["label"]
+			if san["issues"].size() > 0:
+				print("[AI] label disesuaikan: ", san["issues"], " mentah: ", r["raw"])
 		else:
-			print("System Warning: AI failed to generate valid logic JSON.")
-			print("Raw faulty JSON: ", json_part)
-			
-	input_field.editable = true
-	input_field.placeholder_text = "What will you do next?"
+			label = engine.fallback_label(action)
+			print("[AI] label tidak sah, memakai tebakan kata kunci: ", san["issues"], " mentah: ", r["raw"])
+
+	# 2. Engine: aturan permainan
+	var out: Dictionary = engine.resolve(label, action)
+	if not out["ok"]:
+		_log(_bb("System: " + str(out["message"]) + " (no turn used)", C_SYSTEM, false, true))
+		_end_turn_ui()
+		return
+	var row: Dictionary = out["row"]
+
+	# 3. Dadu
+	if row["verdict"]["roll"] != null:
+		await _show_roll(row["verdict"]["roll"], str(row["verdict"]["tier"]), row["action"]["stat"])
+	await _show_extra_dice(out.get("dice", []))
+	_refresh_all_ui()
+
+	# 4. Narasi (streaming)
+	await _narrate(row)
+
+	# 5. Rincian mekanik dan peristiwa
+	_log_results(row["results"])
+	for ev in out["events"]:
+		_log_event(ev)
+	_refresh_all_ui()
+
+	if engine.down:
+		_log("")
+		_log("[center]" + _bb("=== YOU HAVE FALLEN. THE TALE ENDS HERE. ===", C_CRIT_FAIL, true) + "[/center]")
+	elif engine.ending != "":
+		_log("")
+		_log("[center]" + _bb("~ THE END ~", C_CRIT_WIN, true) + "[/center]")
+		_log(_bb(_esc(engine.epilogue(engine.ending)), C_LOCATION, false, true))
+	_end_turn_ui()
 
 
-func _execute_game_logic(data: Dictionary):
-	print("--- MENGAPLIKASIKAN EFEK DARI AI ---")
-	print(data)
-	
-	var hp_change = data.get("player_hp_change", 0)
-	var energy_change = data.get("player_energy_change", 0) 
-	
-	if hp_change != 0:
-		var health_bar = health
-		health_bar.value += hp_change
-		health_bar.value = clamp(health_bar.value, 0, health_bar.max_value)
-		char_health_bar.value = health_bar.value
-		char_health_num.text = str(health_bar.value) + "/" + str(health_bar.max_value)
-		
-		if hp_change < 0:
-			story_log.text += "\n[color=red]>>> Ouch! You lost " + str(abs(hp_change)) + " HP! <<<[/color]\n"
+func _narrate(row: Dictionary) -> void:
+	_log("")
+	var base_text: String = story_log.text
+	input_field.placeholder_text = "The DM is writing..."
+	var cb := func(txt: String) -> void:
+		story_log.text = base_text + _format_narrative(txt)
+	var r: Dictionary = await ai.narrate_stream(AIClient.render_narrator_input(row), cb)
+	var narrative: String
+	if r["ok"]:
+		narrative = str(r["text"])
+	else:
+		print("[AI] narasi gagal (", r["error"], "), memakai narasi cadangan.")
+		narrative = engine.fallback_narration(row)
+	story_log.text = base_text + _format_narrative(narrative) + "\n"
+
+
+func _show_extra_dice(dice: Array) -> void:
+	## Dadu damage (senjata/skill), luka gagal kritis, dan serangan balik musuh: otomatis dilempar tanpa klik.
+	if dice.is_empty():
+		return
+	_roll_pending = true
+	for tone in DICE_TONES:
+		if tone == "enemy" and not SHOW_ENEMY_DICE:
+			continue
+		var parts := PackedStringArray()
+		for e in dice:
+			if str(e["tag"]) != tone:
+				continue
+			await dice_2d.roll_many(int(e["sides"]), e["results"], tone)
+			for r in e["results"]:
+				parts.append("%d (d%d)" % [int(r), int(e["sides"])])
+		if parts.size() > 0:
+			_log(_bb("%s: " % DICE_LABELS[tone], C_SYSTEM, false, true) + _bb(" + ".join(parts), DICE_COLORS[tone], true))
+			await get_tree().create_timer(0.2).timeout
+	_roll_pending = false
+
+
+func _on_dice_gui_input(event: InputEvent) -> void:
+	if _awaiting_dice_click and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		dice_clicked.emit()
+
+
+func _roll_prompt_bb(roll: Dictionary) -> String:
+	var need := "AC" if roll["target_kind"] == "AC" else "DC"
+	return _bb("Click the dice to roll! (%s %d)" % [need, int(roll["target"])], C_SYSTEM, false, true)
+
+
+func _show_roll(roll: Dictionary, tier: String, stat) -> void:
+	_roll_pending = true
+	var prompt := _roll_prompt_bb(roll)
+	_log(prompt)
+	_awaiting_dice_click = true
+	dice_2d.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	var pulse := create_tween().set_loops()
+	pulse.tween_property(dice_2d, "scale", Vector2.ONE * 1.08, 0.5).set_trans(Tween.TRANS_SINE)
+	pulse.tween_property(dice_2d, "scale", Vector2.ONE, 0.5).set_trans(Tween.TRANS_SINE)
+	await dice_clicked
+	_awaiting_dice_click = false
+	pulse.kill()
+	dice_2d.scale = Vector2.ONE
+	dice_2d.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	_remove_line(prompt)
+
+	dice_2d.roll_dice(int(roll["d20"]))
+	await dice_2d.roll_finished
+
+	var col := _tier_color(tier)
+	var parts := PackedStringArray()
+	var d20_txt := "d20 %d" % int(roll["d20"])
+	if roll["advantage"]:
+		d20_txt = "d20 %d (advantage: %s)" % [int(roll["d20"]), " & ".join(PackedStringArray((roll["dice"] as Array).map(func(x): return str(int(x)))))]
+	parts.append(d20_txt)
+	parts.append("%s%s" % [_signed(int(roll["modifier"])), (" " + str(engine.abbr_of.get(str(stat), str(stat).substr(0, 3).to_upper()))) if stat != null else ""])
+	parts.append("%s level" % _signed(int(roll["level_bonus"])))
+	if int(roll["item_bonus"]) != 0:
+		parts.append("%s item" % _signed(int(roll["item_bonus"])))
+	if int(roll["skill_bonus"]) != 0:
+		parts.append("%s skill" % _signed(int(roll["skill_bonus"])))
+	_log(_bb("Roll: ", C_SYSTEM, false, true) + _bb(" ".join(parts), C_SYSTEM) + _bb("  =  %d vs %s %d" % [int(roll["total"]), roll["target_kind"], int(roll["target"])], col, true)
+			+ "   " + _bb(tier.replace("_", " ").to_upper(), col, true))
+	_roll_pending = false
+
+
+# ===================================================================== rincian hasil dan peristiwa (di story log)
+func _log_results(res: Dictionary) -> void:
+	var chips := PackedStringArray()
+	if int(res["damage_dealt"]) > 0:
+		chips.append(_bb("Enemy takes %d damage" % int(res["damage_dealt"]), C_ENEMY, true))
+	if int(res["player_damage_taken"]) > 0:
+		chips.append(_bb("HP -%d" % int(res["player_damage_taken"]), C_CRIT_FAIL, true))
+	if int(res["healing"]) > 0:
+		chips.append(_bb("HP +%d" % int(res["healing"]), C_WIN, true))
+	if int(res["mana_spent"]) > 0:
+		chips.append(_bb("Mana -%d" % int(res["mana_spent"]), C_MANA, true))
+	if int(res["mana_restored"]) > 0:
+		chips.append(_bb("Mana +%d" % int(res["mana_restored"]), C_MANA, true))
+	if int(res["exp_gained"]) > 0:
+		chips.append(_bb("EXP +%d" % int(res["exp_gained"]), C_EXP, true))
+	if chips.size() > 0:
+		_log("   " + "   ".join(chips))
+	if res["enemy_counter"] != null:
+		var ec: Dictionary = res["enemy_counter"]
+		if ec["hit"]:
+			_log("   " + _bb("The enemy strikes back%s." % (" with a critical hit" if ec["crit"] else ""), C_FAIL, false, true))
 		else:
-			story_log.text += "\n[color=green]>>> Yay! You recovered " + str(hp_change) + " HP! <<<[/color]\n"
-			
-	if energy_change != 0 :
-		var energy_bar = Energy
-		energy_bar.value += energy_change
-		energy_bar.value = clamp(energy_bar.value, 0, energy_bar.max_value)
-		char_energy_bar.value = energy_bar.value
-		char_energy_num.text = str(energy_bar.value) + "/" + str(energy_bar.max_value)
-	
-	var exp_gained = data.get("exp_gained", 0)
-	if exp_gained > 0:
-		_add_exp(exp_gained)
-
-	# CHARACTER STATS 
-	if data.has("player_stat_change"):
-		var stat_changes = data["player_stat_change"]
-		var stat_text = ""
-		
-		if stat_changes.get("strength", 0) != 0:
-			stat_strength += stat_changes["strength"]
-			stat_text += "STR %+d  " % stat_changes["strength"]
-		if stat_changes.get("dexterity", 0) != 0:
-			stat_dexterity += stat_changes["dexterity"]
-			stat_text += "DEX %+d  " % stat_changes["dexterity"]
-		if stat_changes.get("endurance", 0) != 0:
-			stat_endurance += stat_changes["endurance"]
-			stat_text += "END %+d  " % stat_changes["endurance"]
-		if stat_changes.get("intelligence", 0) != 0:
-			stat_intelligence += stat_changes["intelligence"]
-			stat_text += "INT %+d  " % stat_changes["intelligence"]
-		if stat_changes.get("awareness", 0) != 0:
-			stat_awareness += stat_changes["awareness"]
-			stat_text += "AWR %+d  " % stat_changes["awareness"]
-		if stat_changes.get("charisma", 0) != 0:
-			stat_charisma += stat_changes["charisma"]
-			stat_text += "CHA %+d  " % stat_changes["charisma"]
-		if stat_changes.get("luck", 0) != 0:
-			stat_luck += stat_changes["luck"]
-			stat_text += "LCK %+d  " % stat_changes["luck"]
-		if stat_text != "":
-			story_log.text += "[color=cyan]>>> Status Update: " + stat_text + "<<<[/color]\n"
-			
-		show_Strength.text = str(stat_strength)
-		show_Dexterity.text = str(stat_dexterity)
-		show_Endurance.text = str(stat_endurance)
-		show_Intelligence.text = str(stat_intelligence)
-		show_Awareness.text = str(stat_awareness)
-		show_Charisma.text = str(stat_charisma)
-		show_Luck.text = str(stat_luck)
+			_log("   " + _bb("The enemy's counterattack misses.", C_SYSTEM, false, true))
+	if res["item_used"] != null:
+		_log("   " + _bb("You used: ", C_SYSTEM, false, true) + _name_c(str(res["item_used"]), C_ITEM))
+	for it in res["items_found"]:
+		_log(_bb(">>> You found: %s <<<" % _esc(str(it)), C_ITEM, true))
+	if res["equipped"] != null:
+		_log(_bb(">>> You equipped: %s <<<" % _esc(str(res["equipped"]["item"])), C_EQUIP, true))
+	if res["fled"]:
+		_log("   " + _bb("You got away.", C_WIN, false, true))
+	if res["enemy_avoided"]:
+		_log("   " + _bb("You slipped past the enemy unseen.", C_WIN, false, true))
+	if res["encounter_triggered"] != null:
+		_log("")
+		_log_enemy_appears(str(res["encounter_triggered"]), true)
+	if res["location_change"] != null:
+		_log(_bb(">>> MOVED TO: %s <<<" % res["location_change"], C_LOCATION, true))
+	if res["enemy_defeated"]:
+		var dn := engine.last_defeated
+		_log("")
+		_log("[i]" + _format_narrative(_defeat_line(dn)) + "[/i]")
+		_log("[center]" + _bb(">>> %s defeated! <<<" % _esc(dn) if dn != "" else ">>> The enemy is defeated! <<<", C_CRIT_WIN, true) + "[/center]")
+	for lu in res["level_up"]:
+		_log("")
+		_log("[center]" + _bb("*** LEVEL UP! You are now Level %d! ***" % int(lu["to"]), C_CRIT_WIN, true) + "[/center]")
+		_log(_bb("HP and Mana fully restored.", C_WIN, false, true))
+		if (lu["new_skills"] as Array).size() > 0:
+			_log(_bb("New skill: %s" % ", ".join(PackedStringArray(lu["new_skills"])), C_EXP, true))
+		if (lu["stat_up"] as Array).size() > 0:
+			_log(_bb("%s +1" % ", ".join(PackedStringArray(lu["stat_up"])), C_EXP, true))
+	if res["story_beat"] != null:
+		_log("")
+		_log(_bb(_esc(str(res["story_beat"])), C_LOCATION, false, true))
+	if res["chapter_complete"] != null:
+		var cc: Dictionary = res["chapter_complete"]
+		_log("")
+		_log("[center]" + _bb("*** CHAPTER COMPLETE: %s ***" % cc["title"], C_CRIT_WIN, true) + "[/center]")
+		_log(_bb("HP and Mana fully restored.", C_WIN, false, true))
+		if (cc["rewards"] as Array).size() > 0:
+			_log(_bb("Rewards: %s" % ", ".join(PackedStringArray(cc["rewards"])), C_ITEM, true))
 
 
-	var target_hp_change = data.get("target_hp_change", 0)
-	var target_status = data.get("target_status_effect", "none")
-	
-	if target_hp_change < 0:
-		story_log.text += "[color=orange]>>> Enemy took " + str(abs(target_hp_change)) + " damage! <<<[/color]\n"
-	if target_status != "none" and target_status != "" and target_status != null:
-		story_log.text += "[color=orange]>>> Enemy is now: " + str(target_status) + " <<<[/color]\n"
-
-	if data.has("items_given"):
-		var new_items = data["items_given"]
-		for item in new_items:
-			var safe_id = str(item).to_lower().replace(" ", "_").replace("'", "")
-			
-			if not world_database["items"].has(safe_id):
-				world_database["items"][safe_id] = "Benda aneh pemberian DM. Kelihatannya tidak berguna."
-				
-			inventory_items.append(safe_id)
-			story_log.text += "[color=aqua]>>> You got a consumable: " + str(item).capitalize() + " <<<[/color]\n"
-			
-		update_items_inventory_ui()
-
-	if data.has("equipment_given"):
-		var new_equips = data["equipment_given"]
-		for equip in new_equips:
-			var safe_id = str(equip).to_lower().replace(" ", "_").replace("'", "")
-			
-			var is_known = world_database["equipment"]["weapons"].has(safe_id) or world_database["equipment"]["armor"].has(safe_id) or world_database["equipment"]["accessories"].has(safe_id)
-			
-			if not is_known:
-				world_database["equipment"]["accessories"][safe_id] = "Sebuah perlengkapan konyol yang dipaksa masuk oleh DM ke tasmu."
-				
-			inventory_equipment.append(safe_id)
-			story_log.text += "[color=magenta]>>> You got NEW EQUIPMENT: " + str(equip).capitalize() + " <<<[/color]\n"
-			
-		update_equipment_inventory_ui()
-		
-	# --- SISTEM PROGRESI CERITA ---
-	if data.get("enemy_defeated", false) == true:
-		story_log.text += "\n[color=yellow][b]>>> The " + str(current_enemy_id).replace("_", " ").capitalize() + " is defeated or gone! <<<[/b][/color]\n"
-		current_enemy_id = "" # Kosongkan musuh
-	
-	# 2. Cek apakah AI memindahkan plot cerita
-	if data.has("new_plot_id"):
-		var next_plot = data["new_plot_id"]
-		if next_plot != current_plot_id and world_database["plot_milestones"].has(next_plot):
-			current_plot_id = next_plot
-			story_log.text += "\n[color=cyan][b]>>> STORY ADVANCED: " + str(current_plot_id).replace("_", " ").capitalize() + " <<<[/b][/color]\n"
-	
-	# 3. Cek apakah AI memindahkan lokasi pemain
-	if data.has("new_location_id"):
-		var next_loc = data["new_location_id"]
-		if next_loc != current_location_id and world_database["locations"].has(next_loc):
-			current_location_id = next_loc
-			story_log.text += "\n[color=cyan][b]>>> MOVED TO: " + str(current_location_id).replace("_", " ").capitalize() + " <<<[/b][/color]\n"
-		
-	# GAME OVER CHECK
-	if health.value <= 0:
-		story_log.text += "\n[color=red][b]=== YOU FAINTED D. THE FESTIVAL IS CANCELLED ===[/b][/color]\n"
-		input_field.editable = false 
+func _log_event(ev: Dictionary) -> void:
+	match ev["type"]:
+		"enemy_appears":
+			_log("")
+			_log_enemy_appears(str(ev["name"]), bool(ev["engaged"]), int(ev.get("remaining", -1)))
+		"chapter_begin":
+			_log("")
+			_chapter_banner()
+		"final_stage":
+			_log("")
+			_log(_bb("The Hollow Scribe is defeated. The Unwritten Tome and the Inkwell of Dawn lie before you.", C_CRIT_WIN, true))
+			_log(_bb("Decide their fate: keep the Tome, burn both relics, or entrust them to Elara. Type your choice.", C_CRIT_WIN, false, true))
 
 
-func _add_exp(amount: int):
-	player_exp += amount
-	story_log.text += "[color=gold]>>> Gained " + str(amount) + " EXP! <<<[/color]\n"
-	print_debug(player_exp)
-	Exp.value = player_exp
-	char_exp_bar.value = player_exp
-	char_exp_num.text = str(player_exp) + "/" + str(exp_to_next_level)
-	while player_exp >= exp_to_next_level:
-		_level_up()
-		
+func _restart() -> void:
+	engine.new_game()
+	story_log.text = ""
+	_refresh_all_ui()
+	await _show_intro()   # _show_intro membuka kembali kolom input di akhir
 
 
-func _level_up():
-	player_level += 1
-	player_exp -= exp_to_next_level
-	exp_to_next_level = int(exp_to_next_level * 1.5)
-	
-	health.value = health.max_value
-	Exp.value = player_exp
-	char_exp_bar.value = player_exp
-	char_exp_num.text = str(player_exp) + "/" + str(exp_to_next_level)
+# ===================================================================== UI: bar, label, daftar
+func _refresh_all_ui() -> void:
+	var mh := engine.max_hp()
+	health.max_value = mh
+	health.value = clampf(engine.hp, 0, mh)
+	char_health_bar.max_value = mh
+	char_health_bar.value = health.value
+	char_health_num.text = "%d/%d" % [maxi(engine.hp, 0), mh]
 
-		
-	story_log.text += "\n[color=yellow][b]*** LEVEL UP! You are now Level " + str(player_level) + "! ***[/b][/color]\n"
-func update_equipment_inventory_ui():
+	var mm := engine.max_mana()
+	Energy.max_value = maxi(mm, 1)
+	Energy.value = clampf(engine.mana, 0, mm)
+	char_energy_bar.max_value = Energy.max_value
+	char_energy_bar.value = Energy.value
+	char_energy_num.text = "%d/%d" % [maxi(engine.mana, 0), mm]
+
+	var need := engine.exp_needed()
+	Exp.max_value = maxi(need, 1)
+	Exp.value = engine.exp_pts if need > 0 else 1
+	char_exp_bar.max_value = Exp.max_value
+	char_exp_bar.value = Exp.value
+	char_exp_num.text = ("%d/%d" % [engine.exp_pts, need]) if need > 0 else "MAX"
+	level_label.text = "Level %d" % engine.level
+
+	_refresh_stats_ui()
+	_refresh_equipment_labels()
+	_update_status_panel()
+	update_equipment_inventory_ui()
+	update_items_inventory_ui()
+	update_skills_ui()
+
+
+func _update_status_panel() -> void:
+	var wch := engine.chapter_world()
+	objective_label.text = "Ch. %d: %s" % [engine.chapter, wch["title"]]
+	location_label.text = str(world["locations"][engine.location]["name"])
+	if engine.enemy.is_empty():
+		enemy_label.text = "None"
+		enemy_stats_label.visible = false
+	else:
+		var e := engine.enemy
+		var ac: int = int(bal["enemies"][e["name"]]["ac"])
+		enemy_label.text = str(e["name"])
+		enemy_stats_label.text = "HP %d/%d  ·  AC %d\n%s%s" % [maxi(e["hp"], 0), e["max_hp"], ac, str(engine.enemy_condition()).capitalize(),
+				"" if e["engaged"] else "  ·  unaware of you"]
+		enemy_stats_label.visible = true
+
+
+func _refresh_stats_ui() -> void:
+	var labels := {"STR": show_Strength, "DEX": show_Dexterity, "END": show_Endurance, "INT": show_Intelligence,
+			"AWR": show_Awareness, "CHA": show_Charisma, "LCK": show_Luck}
+	for k in labels:
+		labels[k].text = "%d (%s)" % [int(engine.stats[k]), _signed(engine.mod(k))]
+
+
+func _weapon_desc(name: String) -> String:
+	var w: Dictionary = bal["weapons"][name]
+	var stat_txt: String = {"melee": "STR or DEX", "ranged": "AWR or DEX", "arcane": "INT"}[w["type"]]
+	return "Damage %s, %s weapon (uses %s). Attack bonus %s." % [w["dice"], w["type"], stat_txt,
+			_signed(engine.weapon_option(name)["hit"])]
+
+
+func _armor_desc(name: String) -> String:
+	var a: Dictionary = bal["armor"][name]
+	var cap := "no DEX limit" if a["dex_cap"] == null else "DEX bonus up to %s" % _signed(int(a["dex_cap"]))
+	return "AC %d with your DEX (base %d, %s). Total AC %d." % [engine.armor_ac(name), int(a["ac"]), cap, engine.ac()]
+
+
+func _accessory_desc(name: String) -> String:
+	var a: Dictionary = bal["accessories"][name]
+	var bits := PackedStringArray()
+	if int(a.get("ac", 0)) != 0:
+		bits.append("%s AC" % _signed(int(a["ac"])))
+	if a.has("hp"):
+		bits.append("%s max HP" % _signed(int(a["hp"])))
+	for k in ["cha", "lck"]:
+		if a.has(k):
+			bits.append("%s to %s checks" % [_signed(int(a[k])), k.to_upper()])
+	return ", ".join(bits) if bits.size() > 0 else "No effect."
+
+
+func _refresh_equipment_labels() -> void:
+	var w: String = engine.equipped["weapon"]
+	var a: String = engine.equipped["armor"]
+	var c: String = engine.equipped["accessory"]
+	weapon.text = w
+	armor.text = a
+	accessorys.text = c
+	char_weapon_name.text = w
+	char_armor_name.text = a
+	char_accessory_name.text = c
+	char_weapon_desc.text = _weapon_desc(w)
+	char_armor_desc.text = _armor_desc(a)
+	char_accessory_desc.text = _accessory_desc(c)
+
+
+func _flat(bg: Color, edge := "") -> StyleBoxFlat:
+	var st := StyleBoxFlat.new()
+	st.bg_color = bg
+	st.set_corner_radius_all(0)
+	st.content_margin_left = 12
+	st.content_margin_right = 12
+	st.content_margin_top = 3
+	st.content_margin_bottom = 3
+	if edge != "":
+		st.border_color = Color(edge)
+		st.set_border_width_all(1)
+	return st
+
+
+func _styled_button(text: String, bg := C_TAN) -> Button:
+	## Tombol datar bersudut tegas, selaras dengan tombol Story Log / Character Sheet.
+	var b := Button.new()
+	b.text = text
+	if _font != null:
+		b.add_theme_font_override("font", _font)
+	b.add_theme_font_size_override("font_size", 15)
+	var base := Color(bg)
+	b.add_theme_stylebox_override("normal", _flat(base))
+	b.add_theme_stylebox_override("hover", _flat(base.darkened(0.1)))
+	b.add_theme_stylebox_override("pressed", _flat(base.darkened(0.22)))
+	b.add_theme_stylebox_override("disabled", _flat(Color(0, 0, 0, 0), C_PANEL_EDGE))
+	b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	b.add_theme_color_override("font_color", Color("#F6F0E4"))
+	b.add_theme_color_override("font_hover_color", Color("#FFFFFF"))
+	b.add_theme_color_override("font_pressed_color", Color("#FFFFFF"))
+	b.add_theme_color_override("font_disabled_color", Color(C_HEAD))
+	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	return b
+
+
+func _hairline() -> HSeparator:
+	var s := HSeparator.new()
+	var line := StyleBoxLine.new()
+	line.color = Color(C_PANEL_EDGE)
+	line.thickness = 1
+	s.add_theme_stylebox_override("separator", line)
+	s.add_theme_constant_override("separation", 6)
+	return s
+
+
+func _list_row(content: Control, trailing: Control = null) -> VBoxContainer:
+	## Baris daftar tanpa kotak: isi di kiri, tombol di kanan, garis tipis di bawah (gaya yang sama dengan blok Weapon/Armor).
+	var box := VBoxContainer.new()
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	box.add_theme_constant_override("separation", 0)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(content)
+	if trailing != null:
+		trailing.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(trailing)
+	box.add_child(row)
+	box.add_child(_hairline())
+	return box
+
+
+func _text(text: String, color: String, size := 0, wrap := false) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.add_theme_color_override("font_color", Color(color))
+	if _font != null:
+		l.add_theme_font_override("font", _font)
+	if size > 0:
+		l.add_theme_font_size_override("font_size", size)
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if wrap:
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	return l
+
+
+func _label(text: String, color: String) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.add_theme_color_override("font_color", Color(color))
+	if _font != null:
+		l.add_theme_font_override("font", _font)
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	return l
+
+
+func _item_short_desc(slot: String, item: String) -> String:
+	match slot:
+		"weapon":
+			var w: Dictionary = bal["weapons"][item]
+			return "Weapon  ·  %s %s" % [w["dice"], w["type"]]
+		"armor":
+			return "Armor  ·  AC %d" % engine.armor_ac(item)
+	return "Accessory  ·  " + _accessory_desc(item)
+
+
+func _equip_card(slot: String, item: String) -> VBoxContainer:
+	## Baris item di tas (item yang dipakai sudah tampil di bagian atas halaman).
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 0)
+	col.add_child(_text(item, C_EQUIP))
+	col.add_child(_text(_item_short_desc(slot, item), C_MUTED, 12, true))
+	var btn := _styled_button("Equip")
+	btn.pressed.connect(func(): _on_equip_pressed(item))
+	return _list_row(col, btn)
+
+
+func update_equipment_inventory_ui() -> void:
 	if not equipment_list:
 		return
-		
-	# 1. Bersihkan daftar lama
 	for child in equipment_list.get_children():
 		child.queue_free()
-		
-	var custom_font = load("res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf") 
+	var sc := equipment_list.get_parent()
+	if sc is ScrollContainer:
+		sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	equipment_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	equipment_list.add_theme_constant_override("separation", 2)
+	equipment_list.add_child(_text("BAG", C_HEAD, 14))
+	var any := false
+	for slot in ["weapon", "armor", "accessory"]:
+		for item in engine.owned[slot]:
+			if item == engine.equipped[slot]:
+				continue
+			any = true
+			equipment_list.add_child(_equip_card(slot, str(item)))
+	if not any:
+		var empty := _text("- Bag is empty -", C_MUTED, 12)
+		empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		equipment_list.add_child(empty)
 
 
-	# --- FITUR BARU: TOMBOL UNEQUIP KHUSUS ---
-	# Memunculkan tombol untuk melepas barang di bagian atas daftar
-	var has_equipped_something = false
-	var equipped_slots = [
-		{"type": "weapon", "id": equipped_weapon},
-		{"type": "armor", "id": equipped_armor},
-		{"type": "accessory", "id": equipped_accessory}
-	]
-	
-	for slot in equipped_slots:
-		if slot["id"] != "":
-			has_equipped_something = true
-			var row_hbox = HBoxContainer.new()
-			row_hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			
-			var item_label = Label.new()
-			item_label.text = "[Wearing] " + str(slot["id"]).replace("_", " ").capitalize()
-			item_label.add_theme_color_override("font_color", Color("#9C4543")) # Warna merah pudar
-			if custom_font != null: item_label.add_theme_font_override("font", custom_font)
-			item_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL 
-			
-			var unequip_btn = Button.new()
-			unequip_btn.text = "Unequip"
-			if custom_font != null: unequip_btn.add_theme_font_override("font", custom_font)
-			
-			var btn_style = StyleBoxFlat.new()
-			btn_style.bg_color = Color("#9C4543") # Tombol merah
-			btn_style.content_margin_left = 10
-			btn_style.content_margin_right = 10
-			unequip_btn.add_theme_stylebox_override("normal", btn_style)
-			unequip_btn.add_theme_color_override("font_color", Color("#F2EBE1"))
-			
-			# Sambungkan ke fungsi lepas barang
-			unequip_btn.pressed.connect(func(): _unequip_slot(slot["type"]))
-			
-			row_hbox.add_child(item_label)
-			row_hbox.add_child(unequip_btn)
-			equipment_list.add_child(row_hbox)
-
-	# Tambahkan garis pembatas jika ada tombol unequip di atas
-	if has_equipped_something:
-		var separator = HSeparator.new()
-		equipment_list.add_child(separator)
-	# -----------------------------------------
-
-	# 2. Cek apakah tas perlengkapan kosong
-	if inventory_equipment.size() == 0:
-		var empty_label = Label.new()
-		empty_label.text = "- Bag is empty -"
-		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		empty_label.add_theme_color_override("font_color", Color("#B0A89D")) 
-		equipment_list.add_child(empty_label)
+func _on_equip_pressed(item: String) -> void:
+	if awaiting_response or _roll_pending:
+		_log(_bb("System: Wait for the DM to finish the current turn.", C_SYSTEM, false, true))
 		return
+	var in_combat: bool = (not engine.enemy.is_empty()) and bool(engine.enemy["engaged"])
+	if in_combat:
+		_run_turn("I equip the %s." % item, {"intent": "equip", "target": GameEngine.slug(item), "risky": false, "stat": null, "dc": null, "skill": null, "ending": null})
+		return
+	var err := engine.equip_free(item)
+	if err != "":
+		_log(_bb("System: " + err, C_SYSTEM, false, true))
+		return
+	_log(_bb(">>> You equipped: %s <<<" % _esc(item), C_EQUIP, true))
+	_refresh_all_ui()
 
-	# 3. Masukkan item dari tas (Sama seperti sebelumnya)
-	for equip_id in inventory_equipment:
-		var row_hbox = HBoxContainer.new()
-		row_hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL 
-		
-		var item_label = Label.new()
-		var clean_name = str(equip_id).replace("_", " ").capitalize()
-		item_label.text = clean_name
-		item_label.add_theme_color_override("font_color", Color("#4A443F"))
-		if custom_font != null:
-			item_label.add_theme_font_override("font", custom_font)
-		item_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL 
-		
-		var equip_button = Button.new()
-		equip_button.text = "Equip"
-		if custom_font != null:
-			equip_button.add_theme_font_override("font", custom_font)
-		
-		var btn_style = StyleBoxFlat.new()
-		btn_style.bg_color = Color("#4A443F") 
-		btn_style.content_margin_left = 10
-		btn_style.content_margin_right = 10
-		equip_button.add_theme_stylebox_override("normal", btn_style)
-		equip_button.add_theme_color_override("font_color", Color("#F2EBE1")) 
-		
-		equip_button.pressed.connect(func(): _on_equipment_item_selected(equip_id))
-		
-		row_hbox.add_child(item_label)
-		row_hbox.add_child(equip_button)
-		
-		equipment_list.add_child(row_hbox)
 
-func _on_equipment_item_selected(equip_id: String):
-	var equipment_db = world_database["equipment"]
-	var equip_type = ""
-	var equip_desc = ""
+func _consumable_desc(name: String) -> String:
+	var c: Dictionary = bal["consumables"][name]
+	if c.has("heal"):
+		return "Restores %d HP." % int(c["heal"])
+	if c.has("mana"):
+		return "Restores %d mana." % int(c["mana"])
+	if c.has("damage"):
+		return "Hurls force at an enemy for %d damage." % int(c["damage"])
+	return "Lets you escape a random fight."
 
-	if equipment_db["weapons"].has(equip_id):
-		equip_type = "weapon"
-		equip_desc = equipment_db["weapons"][equip_id]
-	elif equipment_db["armor"].has(equip_id):
-		equip_type = "armor"
-		equip_desc = equipment_db["armor"][equip_id]
-	elif equipment_db["accessories"].has(equip_id):
-		equip_type = "accessory"
-		equip_desc = equipment_db["accessories"][equip_id]
 
-	#if equip_type == "":
-		#print("Sistem Error: Item ", equip_id, " tidak ditemukan di world_database!")
-		#return
-
-	var old_equip = ""
-	
-	if equip_type == "weapon":
-		old_equip = equipped_weapon
-		equipped_weapon = equip_id
-	elif equip_type == "armor":
-		old_equip = equipped_armor
-		equipped_armor = equip_id
-	elif equip_type == "accessory":
-		old_equip = equipped_accessory
-		equipped_accessory = equip_id
-
-	inventory_equipment.erase(equip_id)
-	
-	if old_equip != "" and old_equip != "None":
-		inventory_equipment.append(old_equip)
-
-	var clean_name = equip_id.replace("_", " ").capitalize()
-
-	if equip_type == "weapon":
-		weapon.text = clean_name
-		char_weapon_name.text = clean_name
-		char_weapon_desc.text = equip_desc
-	elif equip_type == "armor":
-		armor.text = clean_name
-		char_armor_name.text = clean_name
-		char_armor_desc.text = equip_desc
-	elif equip_type == "accessory":
-		accessorys.text = clean_name
-		char_accessory_name.text = clean_name
-		char_accessory_desc.text = equip_desc
-
-	story_log.text += "\n[color=yellow]>>> You equipped: " + clean_name + " <<<[/color]\n"
-	
-	update_equipment_inventory_ui()
-	
-func update_items_inventory_ui():
+func update_items_inventory_ui() -> void:
 	if not item_hflow_ui:
 		return
-		
 	for child in item_hflow_ui.get_children():
 		child.queue_free()
-		
-	var custom_font = load("res://assets/font/Merriweather-VariableFont_opsz,wdth,wght.ttf")
-		
-	for item_id in inventory_items:
-		var item_button = Button.new()
-		
-		item_button.text = str(item_id).replace("_", " ").capitalize()
-		
-		if custom_font != null:
-			item_button.add_theme_font_override("font", custom_font)
-			
-		item_button.add_theme_color_override("font_color", Color("#4A443F"))
-		item_button.add_theme_color_override("font_hover_color", Color("#9C4543"))
-		item_button.add_theme_color_override("font_pressed_color", Color("#9C4543"))
-		
-		item_button.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
-		item_button.add_theme_stylebox_override("hover", StyleBoxEmpty.new())
-		item_button.add_theme_stylebox_override("pressed", StyleBoxEmpty.new())
-		item_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-		
-		item_button.pressed.connect(func(): _on_inventory_item_selected(item_id))
-		
-		item_hflow_ui.add_child(item_button)
-func _on_inventory_item_selected(item_id: String):
-	# Hapus item dari tas
-	inventory_items.erase(item_id)
-	
-	var clean_name = item_id.replace("_", " ").capitalize()
-	story_log.text += "\n[color=yellow]>>> You used: " + clean_name + " <<<[/color]\n"
-	
-	if item_id == "golden_cupcake":
-		health.value = health.max_value
-		Energy.value = Energy.max_value
-		story_log.text += "[color=green]>>> HP and Energy fully restored! You feel pure joy. <<<[/color]\n"
-	elif item_id == "sugar_rush_potion":
-		stat_dexterity += 2
-		stat_endurance -= 1
-		story_log.text += "[color=green]>>> You feel incredibly fast! (DEX +2, END -1) <<<[/color]\n"
-	elif item_id == "book_of_bad_puns":
-		stat_intelligence += 2
-		story_log.text += "[color=green]>>> You learned a terrible joke! (INT +2) <<<[/color]\n"
-	elif item_id == "pocket_confetti":
-		stat_charisma += 1
-		story_log.text += "[color=green]>>> It's a party! (CHA +1) <<<[/color]\n"
-	else:
-		story_log.text += "[color=gray]>>> You stare at it. It does absolutely nothing, but you feel slightly more absurd. <<<[/color]\n"
-		
-	char_health_bar.value = health.value
-	char_health_num.text = "%s/%s" % [health.value, health.max_value]
-	char_energy_bar.value = Energy.value
-	char_energy_num.text = "%s/%s" % [Energy.value, Energy.max_value]
-	
-	update_items_inventory_ui()
+	var f = _font
+	for name in engine.inv:
+		var n := int(engine.inv[name])
+		if n <= 0:
+			continue
+		var b := Button.new()
+		b.text = "%s x%d" % [name, n] if n > 1 else str(name)
+		if f != null:
+			b.add_theme_font_override("font", f)
+		b.tooltip_text = _consumable_desc(name)
+		b.add_theme_color_override("font_color", Color(C_ITEM))
+		b.add_theme_color_override("font_hover_color", Color(C_CRIT_FAIL))
+		b.add_theme_color_override("font_pressed_color", Color(C_CRIT_FAIL))
+		for sname in ["normal", "hover", "pressed", "focus"]:
+			b.add_theme_stylebox_override(sname, StyleBoxEmpty.new())
+		b.pressed.connect(func(): _on_inventory_item_selected(str(name)))
+		item_hflow_ui.add_child(b)
 
-func _unequip_slot(slot_type: String):
-	var item_to_remove = ""
-	
-	# 1. Tentukan apa yang mau dilepas, lalu kosongkan slotnya
-	if slot_type == "weapon" and equipped_weapon != "":
-		item_to_remove = equipped_weapon
-		equipped_weapon = ""
-		weapon.text = "-"
-		char_weapon_name.text = "Bare Hands"
-		char_weapon_desc.text = ""
-	elif slot_type == "armor" and equipped_armor != "":
-		item_to_remove = equipped_armor
-		equipped_armor = ""
-		armor.text = "-"
-		char_armor_name.text = "No Armor"
-		char_armor_desc.text = ""
-	elif slot_type == "accessory" and equipped_accessory != "":
-		item_to_remove = equipped_accessory
-		equipped_accessory = ""
-		accessorys.text = "-"
-		char_accessory_name.text = "No Accessory"
-		char_accessory_desc.text = ""
-		
-	# 2. Jika ada barang yang dilepas, masukkan ke tas dan perbarui UI
-	if item_to_remove != "":
-		inventory_equipment.append(item_to_remove)
-		var clean_name = item_to_remove.replace("_", " ").capitalize()
-		story_log.text += "\n[color=orange]>>> You took off: " + clean_name + " <<<[/color]\n"
-		
-		# Gambar ulang daftarnya
-		update_equipment_inventory_ui()
-		
-func _request_intro_story():
-	var loc_desc = world_database["locations"].get(current_location_id, "Unknown.")
-	var current_objective = world_database["plot_milestones"].get(current_plot_id, "Have fun.")
-	
-	# Instruksi khusus agar AI membuat cerita pembuka yang ceria
-	var intro_prompt = """[System Directive]
-You are the AI DM for a lighthearted, comedic D&D-style RPG.
-The game is just starting. Introduce the player to the world!
 
-[Context]
-Location: %s
-Current Situation: %s
+func _on_inventory_item_selected(item: String) -> void:
+	if awaiting_response or _roll_pending:
+		_log(_bb("System: Wait for the DM to finish the current turn.", C_SYSTEM, false, true))
+		return
+	_run_turn("I use the %s." % item, engine.item_label(item))
 
-[Task]
-Write a funny, engaging opening paragraph (2nd-person perspective) welcoming the player to the world, setting the scene, and explaining their bizarre current situation. End by asking them what they want to do.
 
-After the narrative, output a default JSON block wrapped in `CODE_BLOCK_START` and `CODE_BLOCK_END` with 0 changes, like this:
-`CODE_BLOCK_START`
-{
-  "player_hp_change": 0,
-  "player_energy_change": 0,
-  "exp_gained": 0,
-  "target_hp_change": 0,
-  "items_given": [],
-  "equipment_given": []
-}
-`CODE_BLOCK_END`""" % [loc_desc, current_objective]
+func _skill_desc(name: String) -> String:
+	var lv: int = engine.level
+	match name:
+		"Power Strike":
+			return "Melee only. +3 to hit and an extra %dd6 damage." % (1 if lv < 5 else 2)
+		"Second Wind":
+			return "Catch your breath and heal %d HP." % (5 + 3 * lv)
+		"Evasive Step":
+			return "Slip away: the enemy's counterattack misses this turn."
+		"Arcane Bolt":
+			return "A bolt of magic: %dd4 + INT damage, no weapon needed." % (2 if lv < 5 else 3)
+		"Keen Eye":
+			return "Ranged weapons only. +5 to hit."
+		"Silver Tongue":
+			return "+5 to a Charisma check when you talk to someone."
+		"Lucky Break":
+			return "Attack with advantage: roll twice, keep the higher."
+	return ""
 
-	var payload = { "prompt": intro_prompt }
-	var json_string = JSON.stringify(payload)
-	var headers = ["Content-Type: application/json"]
-	
-	# Kirim ke server C++
-	http_request.request(SERVER_URL, headers, HTTPClient.METHOD_POST, json_string)
 
-func _process(delta: float) -> void:
-	
-	pass
+func update_skills_ui() -> void:
+	if not skill_cont:
+		return
+	for child in skill_cont.get_children():
+		if child.has_meta("dyn"):
+			child.queue_free()
+	skill_cont.add_theme_constant_override("separation", 2)
+	var head := _text("SKILLS", C_HEAD, 22)
+	head.set_meta("dyn", true)
+	skill_cont.add_child(head)
+	for sname in bal["skills"]:
+		var info: Dictionary = bal["skills"][sname]
+		var st := engine.skill_button(sname)
+		var unlocked: bool = int(info["unlock"]) <= engine.level
+		var col := VBoxContainer.new()
+		col.add_theme_constant_override("separation", 0)
+		var title := HBoxContainer.new()
+		title.add_theme_constant_override("separation", 8)
+		title.add_child(_text(sname, C_INK if unlocked else C_MUTED))
+		var meta := _text(("%d mana" % int(info["cost"])) if unlocked else ("Lv %d" % int(info["unlock"])), C_MANA if unlocked else C_MUTED, 12)
+		meta.size_flags_horizontal = Control.SIZE_SHRINK_END
+		meta.size_flags_vertical = Control.SIZE_SHRINK_END
+		title.add_child(meta)
+		col.add_child(title)
+		col.add_child(_text(_skill_desc(sname) if unlocked else "Unlocks at level %d." % int(info["unlock"]), C_MUTED, 12, true))
+		var btn: Button = null
+		if unlocked:
+			btn = _styled_button("Use")
+			btn.disabled = not st["enabled"]
+			btn.tooltip_text = st["text"] if st["enabled"] else str(st["reason"])
+			var skill_name: String = sname
+			btn.pressed.connect(func(): _on_skill_pressed(skill_name))
+		var row := _list_row(col, btn)
+		row.set_meta("dyn", true)
+		if not unlocked:
+			row.modulate = Color(1, 1, 1, 0.6)
+		skill_cont.add_child(row)
+
+
+func _on_skill_pressed(skill_name: String) -> void:
+	if awaiting_response or _roll_pending:
+		_log(_bb("System: Wait for the DM to finish the current turn.", C_SYSTEM, false, true))
+		return
+	var st := engine.skill_button(skill_name)
+	if not st["enabled"]:
+		_log(_bb("System: %s." % st["reason"], C_SYSTEM, false, true))
+		return
+	_run_turn(str(st["text"]), st["label"])
+
+
+func _set_tab(index: int) -> void:
+	menu_tabs.current_tab = index
+	match index:
+		1: button_story.button_pressed = true
+		2: button_character.button_pressed = true
 
 
 func _on_button_story_pressed() -> void:
 	menu_tabs.current_tab = 1
+	_set_tab(1)
 
 
 func _on_button_character_pressed() -> void:
 	menu_tabs.current_tab = 2
-
-
-func _on_button_settings_pressed() -> void:
-	menu_tabs.current_tab = 0
+	_set_tab(2)

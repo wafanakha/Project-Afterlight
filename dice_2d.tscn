@@ -4,6 +4,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_p1q1e"]
 font_names = PackedStringArray("Fira Code")
+subpixel_positioning = 0
 
 [node name="Dice2D" type="Label" unique_id=1834637620]
 offset_right = 40.0

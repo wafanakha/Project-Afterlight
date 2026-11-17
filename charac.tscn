@@ -18,32 +18,34 @@ thickness = 2
 base_font = ExtResource("1_5vwbf")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_662i7"]
-bg_color = Color(0.789939, 0.7094683, 0.63408387, 1)
+bg_color = Color(0.8039216, 0.7490196, 0.68235296, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mniru"]
-bg_color = Color(0.6117647, 0.27058825, 0.2627451, 1)
+bg_color = Color(0.627451, 0.2509804, 0.2509804, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnyvc"]
-bg_color = Color(0.789939, 0.7094683, 0.63408387, 1)
+bg_color = Color(0.8039216, 0.7490196, 0.68235296, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2n0y"]
-bg_color = Color(0.40392157, 0.5254902, 0.6313726, 1)
+bg_color = Color(0.7529412, 0.6039216, 0.24313726, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tm0w"]
-bg_color = Color(0.789939, 0.7094683, 0.63408387, 1)
+bg_color = Color(0.8039216, 0.7490196, 0.68235296, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a36yf"]
-bg_color = Color(0.6, 0.4509804, 0.3019608, 1)
+bg_color = Color(0.37254903, 0.49803922, 0.6392157, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_662i7"]
 base_font = ExtResource("2_7xy7w")
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_64o0o"]
 color = Color(0.8901961, 0.85882354, 0.79607844, 1)
+grow_end = -34.0
 thickness = 2
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ejj7q"]
 color = Color(0.8901961, 0.85882354, 0.79607844, 1)
+grow_end = -38.0
 thickness = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7xy7w"]
@@ -54,7 +56,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.7490196, 0.6745098, 0.6039216, 1)
+border_color = Color(0.91764706, 0.89411765, 0.84313726, 1)
 expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
@@ -94,21 +96,20 @@ theme_override_constants/separation = 31
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1856342519]
+[node name="LevelCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=512307078]
 layout_mode = 2
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_bottom = 4
 
-[node name="VITALS" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/MarginContainer" unique_id=504114376]
+[node name="level" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/LevelCont" unique_id=948160744]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
-theme_override_fonts/font = SubResource("FontVariation_7xy7w")
-theme_override_font_sizes/font_size = 18
-text = "VITALS"
+theme_override_fonts/font = ExtResource("1_5vwbf")
+theme_override_font_sizes/font_size = 20
+text = "level"
 
 [node name="HealtLabelCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=560059036]
 layout_mode = 2
-theme_override_constants/separation = 180
+size_flags_horizontal = 0
+theme_override_constants/separation = 88
 alignment = 1
 
 [node name="healthLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/HealtLabelCont" unique_id=1739126329]
@@ -126,7 +127,7 @@ theme_override_font_sizes/font_size = 14
 text = "150/250"
 
 [node name="health" type="ProgressBar" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=15097825]
-custom_minimum_size = Vector2(0, 8.605)
+custom_minimum_size = Vector2(0, 9.905)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -137,14 +138,14 @@ show_percentage = false
 
 [node name="ExpLabelCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1630065537]
 layout_mode = 2
-theme_override_constants/separation = 199
+theme_override_constants/separation = 73
 
 [node name="ExpLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/ExpLabelCont" unique_id=416279092]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
 theme_override_fonts/font = SubResource("FontVariation_7xy7w")
 theme_override_font_sizes/font_size = 14
-text = "Health"
+text = "Experience"
 
 [node name="ExpNumLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/ExpLabelCont" unique_id=1817979837]
 layout_mode = 2
@@ -154,7 +155,7 @@ theme_override_font_sizes/font_size = 14
 text = "17/20"
 
 [node name="Exp" type="ProgressBar" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=537961245]
-custom_minimum_size = Vector2(0, 8.605)
+custom_minimum_size = Vector2(0, 9.905)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -165,14 +166,14 @@ show_percentage = false
 
 [node name="EnergyLabelCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=545169135]
 layout_mode = 2
-theme_override_constants/separation = 191
+theme_override_constants/separation = 103
 
 [node name="EnergyLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/EnergyLabelCont" unique_id=1971260394]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
 theme_override_fonts/font = SubResource("FontVariation_7xy7w")
 theme_override_font_sizes/font_size = 14
-text = "Energy"
+text = "Mana"
 
 [node name="EnergyNumLabel" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/EnergyLabelCont" unique_id=1767228350]
 layout_mode = 2
@@ -182,7 +183,7 @@ theme_override_font_sizes/font_size = 14
 text = "Sleepy"
 
 [node name="Energy" type="ProgressBar" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=938790908]
-custom_minimum_size = Vector2(0, 8.605)
+custom_minimum_size = Vector2(0, 9.905)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -204,11 +205,11 @@ text = "ATTRIBUTES"
 
 [node name="StrongCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=118667391]
 layout_mode = 2
-theme_override_constants/separation = 217
+theme_override_constants/separation = 119
 
 [node name="strength" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/StrongCont" unique_id=1661131646]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
 theme_override_font_sizes/font_size = 14
 text = "Strength"
@@ -222,11 +223,11 @@ text = "5"
 
 [node name="DextCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=671820288]
 layout_mode = 2
-theme_override_constants/separation = 212
+theme_override_constants/separation = 116
 
 [node name="Dexterity" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/DextCont" unique_id=1499188803]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
 theme_override_font_sizes/font_size = 14
 text = "Dexterity"
@@ -240,11 +241,11 @@ text = "4"
 
 [node name="EnduranceCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1188460264]
 layout_mode = 2
-theme_override_constants/separation = 204
+theme_override_constants/separation = 107
 
 [node name="Endurance" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/EnduranceCont" unique_id=1153027869]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
 theme_override_font_sizes/font_size = 14
 text = "Endurance"
@@ -258,11 +259,11 @@ text = "7"
 
 [node name="IntCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=151645631]
 layout_mode = 2
-theme_override_constants/separation = 199
+theme_override_constants/separation = 103
 
 [node name="Int" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/IntCont" unique_id=1186667282]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
 theme_override_font_sizes/font_size = 14
 text = "Intelligence"
@@ -276,11 +277,11 @@ text = "2"
 
 [node name="AwarenessCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1440435712]
 layout_mode = 2
-theme_override_constants/separation = 204
+theme_override_constants/separation = 108
 
 [node name="Awareness" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/AwarenessCont" unique_id=537879082]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
 theme_override_font_sizes/font_size = 14
 text = "Awareness"
@@ -294,11 +295,11 @@ text = "4"
 
 [node name="CharismaCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=330505978]
 layout_mode = 2
-theme_override_constants/separation = 211
+theme_override_constants/separation = 114
 
 [node name="Charisma" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/CharismaCont" unique_id=1223360726]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
 theme_override_font_sizes/font_size = 14
 text = "Charisma"
@@ -312,11 +313,11 @@ text = "6"
 
 [node name="LuckCont" type="HBoxContainer" parent="MarginContainer/CharacterVbox/botHbox/statVbox" unique_id=1369692263]
 layout_mode = 2
-theme_override_constants/separation = 242
+theme_override_constants/separation = 147
 
 [node name="Luck" type="Label" parent="MarginContainer/CharacterVbox/botHbox/statVbox/LuckCont" unique_id=1442096307]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
 theme_override_font_sizes/font_size = 14
 text = "Luck"
@@ -363,9 +364,9 @@ text = "Squeaky Nail"
 [node name="WeaponDesc" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/weaponCont" unique_id=1057237431]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "Deals physical and psychological damage. "
 autowrap_mode = 3
 
@@ -392,9 +393,9 @@ text = "Cozy Moth Cloak"
 [node name="armorDesc" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/ArmorCont" unique_id=1307315026]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "Very soft. Boosts Dexterity"
 autowrap_mode = 3
 
@@ -421,9 +422,9 @@ text = "Clown Nose"
 [node name="accessoryDesc" type="Label" parent="MarginContainer/CharacterVbox/botHbox/equipVbox/AccessoryCont" unique_id=2110617116]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6901961, 0.65882355, 0.6156863, 1)
+theme_override_colors/font_color = Color(0.44705883, 0.42352942, 0.39607844, 1)
 theme_override_fonts/font = SubResource("FontVariation_662i7")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "Honks when squeezed. +2 Charisma. "
 autowrap_mode = 3
 
@@ -442,3 +443,6 @@ theme_override_styles/grabber = SubResource("StyleBoxEmpty_662i7")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="skillVbox" type="VBoxContainer" parent="MarginContainer/CharacterVbox/botHbox" unique_id=1071872830]
+layout_mode = 2
